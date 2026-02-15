@@ -1,0 +1,63 @@
+# Determining the split
+
+IF frequency is 3 days THEN
+    IF user preference is Full body THEN
+        Workout split is Full body OR
+    ELSE
+        Workout split is Push-pull-leg
+ELSE IF frequency is 4 days OR 5 days THEN
+    Workout split is Upper-Lower
+ELSE IF frequency is 6 days THEN
+    Workout split is Push-pull-leg
+
+IF exercise slot is 1 THEN
+    IF day is Upper THEN
+        IF User muscle group focus is chest THEN
+            The target muscle group of the exercise slot is chest
+        ELSE IF User muscle group focus is back THEN
+            The target muscle group of the exercise slot is back
+        ELSE
+            IF day is Upper1 THEN
+                The target muscle group of the exercise slot is chest
+            ELSE 
+                The target muscle group of the exercise slot is back
+    ELSE IF day is Lower THEN
+        IF User muscle group focus is quads THEN
+            The target muscle group of the exercise slot is quads
+        ELSE IF User muscle group focus is hamstring THEN
+            The target muscle group of the exercise slot is hamstring
+        ELSE IF User muscle group focus is glutes THEN
+            The target muscle group of the exercise slot is glutes
+        ELSE
+            IF day is Lower1 THEN
+                The target muscle group of the exercise slot is quads
+            THEN
+                The target muscle group of the exercise slot is hamstring
+
+FOR ALL day
+    FOR ALL exercise slot starting from slot 2
+        FOR ALL remaining required muscle groups
+            IF the muscle group is not the same as the previous slot AND
+                the muscle group has the highest priority among the remaining required muscle groups THEN
+                The muscle group is assigned to the slot
+    
+# Exercise matching
+
+FOR EACH day
+    FOR EACH exercise slot of the day
+        FOR ALL exercises in fact-base
+            IF exercise matches the slot muscle group AND
+                exercise is unassigned AND
+                the muscle sub-group exercise in fact base has the highest priority among the unassigned exercise of the same primary muscle group AND
+                exercise matches the user preferences (free weight or machine)
+            THEN 
+                exercise in fact base is assigned to the day
+
+# Goal map to reps: https://pmc.ncbi.nlm.nih.gov/articles/PMC7927075/
+
+IF goal is Strength
+    Repetition range is 1-5
+ELSE IF goal is Hypertrophy
+    Repetition range is 8-12
+ELSE IF goal is Endurance
+    Repetition range is 15+

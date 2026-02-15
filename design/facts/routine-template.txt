@@ -1,0 +1,18 @@
+# Workout split template
+
+A workout split has a name
+A workout split days
+
+# Day template
+
+A day has a name
+A day has a focus
+A day has a list of exercise slots
+
+An exercise slot has a targeted primary muscle group.
+An exercise slot has an order (from 1 to n).
+
+# Exercise slot template
+
+A day exercise slot has a target muscle group
+A day exercise slot has an order
