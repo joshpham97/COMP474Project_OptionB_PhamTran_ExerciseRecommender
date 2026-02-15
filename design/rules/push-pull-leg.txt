@@ -1,0 +1,33 @@
+# https://www.researchgate.net/publication/363586827_Using_Push-Pull-Legs_Training_A_Weight_Training_Method_for_Muscle_Hypertrophy_in_Upper_Body_on_Amateur_Athletes_in_Arena_-_Journal_of_Physical_Activities_2285-830X
+# https://www.menshealth.com/uk/building-muscle/a38199992/push-pull-legs/
+
+IF Workout split is Push-Pull-Leg THEN
+    Workout split has a day named Push1
+    Push1 focus is push
+    Workout split has a day named Pull1
+    Pull1 focus is pull
+    Workout split has a day named Leg1
+    Leg1 focus is pull
+    IF frequency is 6 days
+        Workout split has a day named Push2
+        Push2 focus is push
+        Workout split has a day named Pull2
+        Pull2 focus is pull
+        Workout split has a day named Leg2
+        Leg2 focus is pull
+
+# Initialize template for each day 
+
+IF Day focus is Push THEN
+    Day requires 2 chest exercises
+    Day requires 2 shoulder exercise
+    Day requires 1 triceps exercise
+ELSE IF Day focus is Pull THEN
+    Day requires 3 back exercises
+    Day requires 1 trap exercise
+    Day requires 1 triceps exercise
+ELSE IF focus is Leg THEN
+    Day requires 2 quads exercises
+    Day requires 2 hamstring exercises
+    Day requires 1 glutes exercises
+    Day requires 1 calves exercises

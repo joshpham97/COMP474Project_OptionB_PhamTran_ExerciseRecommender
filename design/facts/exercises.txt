@@ -23,7 +23,8 @@ Lower chest has low priority.
 
 Frontal-plane lats has high priority.
 Upper back has high priority.
-Sagittal-plane lats has low priority.
+Sagittal-plane lats has medium priority.
+Traps has low priority.
 
 Front delt has high priority.
 Side delt has medium priority.
@@ -120,6 +121,11 @@ V-Bar Row primarily targets back.
 V-Bar Row primarily sub-muscle group is sagittal plane lats.
 V-Bar Row is a compound exercise.
 V-Bar Row is a machine exercise.
+
+Dumbell shrugs primarily targets back.
+Dumbell shrugs primarily sub-muscle group is traps.
+Dumbell shrugs is a isolation exercise.
+Dumbell shrugs is a free weight exercise.
 
 ## Shoulder Exercises
 

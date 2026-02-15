@@ -1,0 +1,17 @@
+IF Workout split is Full body THEN
+    Workout split has a day named Day1
+    Workout split has a day named Day2
+    Workout split has a day named Day3
+
+# Initialize template for each day 
+
+FOR ALL days in the workout split
+    Day requires 1 chest exercises
+    Day requires 1 shoulder exercise
+    Day requires 1 back exercises
+    Day requires 1 triceps exercise
+    Day requires 1 triceps exercise
+    Day requires 1 quads exercises
+    Day requires 1 hamstring exercises
+
+# When picking exercises need to prioritize compound movements

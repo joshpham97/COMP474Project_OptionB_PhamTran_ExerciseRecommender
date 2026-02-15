@@ -14,14 +14,7 @@ IF workout split is upper-lower AND frequency is 5 days THEN
     Routine has a day named Shoulder
     Shoulder focus is shoulder
 
-# Initialize template for each day 
-
-IF frequency is 4 days THEN
-    Upper days has 7 exercises (e.g Initialize 7 empty exercise slots with order 1...7)
-    Lower days has 4 exercises
-ELSE 
-    Upper day has 6 exercises
-    Lower days has 4 exercises
+# Initialize template for each day
 
 IF Day focus is Upper THEN
     Day requires 2 chest exercises
@@ -30,3 +23,8 @@ IF Day focus is Upper THEN
     Day requires 1 tricep exercise
     IF frequency is 4 days THEN
         Day requires 1 shoulder exercise
+ELSE IF focus is Lower THEN
+    Day requires 2 quads exercises
+    Day requires 2 hamstring exercises
+    Day requires 1 glutes exercises
+    Day requires 1 calves exercises
