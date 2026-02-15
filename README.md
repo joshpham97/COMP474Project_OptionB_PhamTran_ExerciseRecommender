@@ -13,8 +13,8 @@ Members:
 
 ### User inputs
 
-- Goal: Strength or Hypertrophy
+- Goal: Strength or Hypertrophy or Endurance
 - Frequency: 3,4,5,6
-- Primary muscle group: Chest, Back, Shoulder, Legs
+- Primary muscle group: Chest, Back, Shoulder, Legs, None
 - Exercise type preference: Free weight, Machine
 

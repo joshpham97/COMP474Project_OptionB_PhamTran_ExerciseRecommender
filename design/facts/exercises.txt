@@ -1,228 +1,259 @@
-# Chest Exercises
+# Muscle group 
 
-Dumbell bench press is a chest exercise.
-Dumbell bench press is a middle chest exercise.
-Dumbell bench press is a compound exercise.
-Dumbell bench press is a free weight exercise.
-Dumbell bench press is a high priority exercise.
+A muscle group has a priority.
 
-Pecdec is a chest exercise.
-Pecdec is a middle chest exercise.
-Pecdec is an isolation exercise.
-Pecdec is a machine exercise.
-Pecdec is a high priority exercise.
+Chest has priority high.
+Back has priority high.
+Shoulder has priority high.
+Quads has priority high.
+Hamstring has priority high.
+Glutes has priority high.
+Biceps has priority low.
+Triceps has priority low.
+Calves has priority low.
+Abs has priority low.
 
-Inclined dumbell is a chest exercise.
-Inclined dumbell bench press is a upper chest exercise.
-Inclined dumbell bench press is a compound exercise.
-Inclined dumbell bench press is a free weight exercise.
-Inclined dumbell bench press is a medium priority exercise.
+# Sub-muscle group (A muscle group can be divided into smaller groups)
 
-Low to high cable chest fly is a chest exercise.
-Low to high cable chest fly is a upper chest exercise.
-Low to high cable chest fly is an isolation exercise.
-Low to high cable chest fly is a machine exercise.
-Low to high cable chest fly is a medium priority exercise.
+A sub-muscle group has a priority within the main muscle group.
 
-Chest dip is a chest exercise.
-Chest dip is a lower chest exercise.
-Chest dip is a compound exercise.
-Chest dip is a free weight exercise.
-Chest dip is a low priority exercise.
+Middle chest has high priority.
+Upper chest has medium priority.
+Lower chest has low priority.
 
-High to low cable chest fly is a chest exercise.
-High to low cable chest fly is a upper chest exercise.
-High to low cable chest fly is an isolation exercise.
-High to low cable chest fly is a machine exercise.
-High to low cable chest fly is a low priority exercise.
+Frontal-plane lats has high priority.
+Upper back has high priority.
+Sagittal-plane lats has low priority.
 
-# Back Exercises
+Front delt has high priority.
+Side delt has medium priority.
+Rear delt has low priority.
 
-Lat pull down is a lbackat exercise.
-Lat pull down is a front plane lat exercise.
-Lat pull down is a compound exercise.
-Lat pull down is a machine exercise.
-Lat pull down is a high priority exercise.
+Biceps long and short head has high priority.
+Biceps branchialis has low priority.
 
-Pullup is a back exercise.
-Pullup is a frontal plane lat exercise.
-Pullup is an compound exercise.
-Pullup is a free-weight exercise.
-Pullup is a high priority exercise.
+Triceps lateral and medial head has high priority.
+Triceps long head has low priority.
 
-One arm dumbell row is a back exercise.
-One arm dumbell row is a sagittal plane lat exercise.
-One arm dumbell row is a compound exercise.
-One arm dumbell row is a free weight exercise.
-One arm dumbell row is a medidum priority exercise.
+Quadriceps exercise has high priority.
+Rectus femoris has low priority.
 
-V-bar row is a back exercise.
-V-bar row is a sagittal plane lat exercise.
-V-bar row is an compound exercise.
-V-bar row is a machine exercise.
-V-bar row is a medium priority exercise.
+Hamstring (lengthened) exercises has high priority.
+Hamstring (shortened) exercises has low priority.
 
+Gluteus maximus exercises have high priority.
+Gluteus medius exercises have low priority.
+Gluteus minimus exercises have low priority.
 
-Wide grip rows is a back exercise.
-Wide grip rows is a upper back exercise.
-Wide grip rows is an compound exercise.
-Wide grip rows is a machine exercise.
-Wide grip rows is a high priority exercise.
+Gastrocnemius has high priority.
 
-Chest supported row is a back exercise.
-Chest supported row is a upper back exercise.
-Chest supported row is an compound exercise.
-Chest supported row is a machine exercise.
-Chest supported row  is a high priority exercise.
+Rectus abdominis has high priority.
 
-# Shoulder
+# Exercise
 
-Machine should press is a shoulder exercise.
-Machine should press is a front delt exercise.
-Machine should press is a compound exercise.
-Machine should press is a machine exercise.
-Machine should press is a high priority exercise.
+An exercise has a name.
+An exercise has a targeted muscle group.
+An exercise has a targeted sub-muscle group.
+An exercise is either a compound or isolation movement.
+An exercise is either a freeweight or a machine exercise.
 
-Dumbell shoulder press is a shoulder exercise.
-Dumbell should press is a front delt exercise.
-Dumbell should press is a compound exercise.
-Dumbell should press is a free weight exercise.
-Dumbell should press is a high priority exercise.
+## Chest Exercises
 
-Cable lateral raise is a shoulder exercise.
-Cable lateral raise is a side delt exercise.
-Cable lateral raise is a isolation exercise.
-Cable lateral raise is a machine exercise.
-Cable lateral raise is a high priority exercise.
+Dumbbell Bench Press primarily targets chest.
+Dumbbell Bench Press primarily sub-muscle group is middle chest.
+Dumbbell Bench Press is a compound exercise.
+Dumbbell Bench Press is a free weight exercise.
 
-Dumbell lateral raise is a shoulder exercise.
-Dumbell lateral raise is a side delt exercise.
-Dumbell lateral raise is a isolation exercise.
-Dumbell lateral raise is a free weight exercise.
-Dumbell lateral raise is a high priority exercise.
+Pec Deck primarily targets chest.
+Pec Deck primarily sub-muscle group is middle chest.
+Pec Deck is an isolation exercise.
+Pec Deck is a machine exercise.
 
-Rear delt fly is a shoulder exercise.
-Rear delt fly is a rear delt exercise.
-Rear delt fly is a isolation exercise.
-Rear delt fly is a machine exercise.
-Rear delt fly is a medium priority exercise.
+Incline Dumbbell Bench Press primarily targets chest.
+Incline Dumbbell Bench Press primarily sub-muscle group is upper chest.
+Incline Dumbbell Bench Press is a compound exercise.
+Incline Dumbbell Bench Press is a free weight exercise.
 
-Reverse pec dec is a shoulder exercise.
-Reverse pec dec is a rear delt exercise.
-Reverse pec dec is a isolation exercise.
-Reverse pec dec is a machine exercise.
-Reverse pec dec is a medium priority exercise.
+Low-to-High Cable Chest Fly primarily targets chest.
+Low-to-High Cable Chest Fly primarily sub-muscle group is upper chest.
+Low-to-High Cable Chest Fly is an isolation exercise.
+Low-to-High Cable Chest Fly is a machine exercise.
 
-# Biceps
+Chest Dip primarily targets chest.
+Chest Dip primarily sub-muscle group is lower chest.
+Chest Dip is a compound exercise.
+Chest Dip is a free weight exercise.
 
-Preacher curls is a biceps exercise.
-Preacher curls is a long head exercise.
-Preacher curls is a short head exercise.
-Preacher curls is a isolation exercise.
-Preacher curls is a free weight exercise.
-Preacher curls is a high priority exercise.
+High-to-Low Cable Chest Fly primarily targets chest.
+High-to-Low Cable Chest Fly primarily sub-muscle group is lower chest.
+High-to-Low Cable Chest Fly is an isolation exercise.
+High-to-Low Cable Chest Fly is a machine exercise.
 
-Cable curls is a biceps exercise.
-Cable curls is a long head exercise.
-Cable curls is a short head exercise.
-Cable curls is a isolation exercise.
-Cable curls is a machine exercise.
-Cable curls is a high priority exercise.
+## Back Exercises
 
-Hammer dumbell curls is a biceps exercise.
-Hammer dumbell curls is a branchialis exercise.
-Hammer dumbell curls is a isolation exercise.
-Hammer dumbell curls is a free weight exercise.
-Hammer dumbell curls is a low priority exercise.
+Lat Pulldown primarily targets back.
+Lat Pulldown primarily sub-muscle group is frontal plane lats.
+Lat Pulldown is a compound exercise.
+Lat Pulldown is a machine exercise.
 
-Machine hammer curls is a biceps exercise.
-Machine hammer curls is a branchialis exercise.
-Machine hammer curls is a isolation exercise.
-Machine hammer curls is a machine exercise.
-Machine hammer curls is a low priority exercise.
+Pull-Up primarily targets back.
+Pull-Up primarily sub-muscle group is frontal plane lats.
+Pull-Up is a compound exercise.
+Pull-Up is a free weight exercise.
 
-# Triceps
+Wide-Grip Row primarily targets back.
+Wide-Grip Row primarily sub-muscle group is upper back.
+Wide-Grip Row is a compound exercise.
+Wide-Grip Row is a machine exercise.
 
-Triceps pushdown with bar is a triceps exercise.
-Triceps pushdown with bar is a lateral head exercise.
-Triceps pushdown with bar is a medial head exercise.
-Triceps pushdown with bar is a isolation exercise.
-Triceps pushdown with bar is a machine exercise.
-Triceps pushdown with bar is a high priority exercise.
+Chest-Supported Row primarily targets back.
+Chest-Supported Row primarily sub-muscle group is upper back.
+Chest-Supported Row is a compound exercise.
+Chest-Supported Row is a machine exercise.
 
-Single arm triceps extension is a triceps exercise.
-Single arm triceps extension is a lateral head exercise.
-Single arm triceps extension is a medial head exercise.
-Single arm triceps extension is a isolation exercise.
-Single arm triceps extension is a machine exercise.
-Single arm triceps extension is a high priority exercise.
+One-Arm Dumbbell Row primarily targets back.
+One-Arm Dumbbell Row primarily sub-muscle group is sagittal plane lats.
+One-Arm Dumbbell Row is a compound exercise.
+One-Arm Dumbbell Row is a free weight exercise.
 
-Overhead triceps extensions is a triceps exercise.
-Overhead triceps extensions is a long head exercise.
-Overhead triceps extensions is a isolation exercise.
-Overhead triceps extensions is a free weight exercise.
-Overhead triceps extensions is a low priority exercise.
+V-Bar Row primarily targets back.
+V-Bar Row primarily sub-muscle group is sagittal plane lats.
+V-Bar Row is a compound exercise.
+V-Bar Row is a machine exercise.
 
-JM press is a triceps exercise.
-JM press is a long head exercise.
-JM press is a compound exercise.
-JM press is a free weight exercise.
-JM press is a low priority exercise.
+## Shoulder Exercises
 
-# Quads
+Machine Shoulder Press primarily targets shoulders.
+Machine Shoulder Press primarily sub-muscle group is front delts.
+Machine Shoulder Press is a compound exercise.
+Machine Shoulder Press is a machine exercise.
 
-Barbell squats is a leg exercise.
-Barbell squats is a quadriceps exercise.
-Barbell squats is a compound exercise.
-Barbell squats is a free weight exercise.
-Barbell squats is a high priority exercise.
+Dumbbell Shoulder Press primarily targets shoulders.
+Dumbbell Shoulder Press primarily sub-muscle group is front delts.
+Dumbbell Shoulder Press is a compound exercise.
+Dumbbell Shoulder Press is a free weight exercise.
 
-Leg press is a leg exercise.
-Leg press is a quadriceps exercise.
-Leg press is a compound exercise.
-Leg press is a machine exercise.
-Leg press is a high priority exercise.
+Cable Lateral Raise primarily targets shoulders.
+Cable Lateral Raise primarily sub-muscle group is side delts.
+Cable Lateral Raise is an isolation exercise.
+Cable Lateral Raise is a machine exercise.
 
-Leg extensions is a leg exercise.
-Leg extensions is a quadriceps exercise.
-Leg extensions is a isolation exercise.
-Leg extensions is a machine exercise.
-Leg extensions is a medium priority exercise.
+Dumbbell Lateral Raise primarily targets shoulders.
+Dumbbell Lateral Raise primarily sub-muscle group is side delts.
+Dumbbell Lateral Raise is an isolation exercise.
+Dumbbell Lateral Raise is a free weight exercise.
 
-# Hamstring and glutes
+Rear Delt Fly primarily targets shoulders.
+Rear Delt Fly primarily sub-muscle group is rear delts.
+Rear Delt Fly is an isolation exercise.
+Rear Delt Fly is a machine exercise.
 
-Romanian dead lift is a hamstrings exercise.
-Romanian dead lift is a glutes exercise.
-Romanian dead lift is a compound exercise.
-Romanian dead lift is a free weight exercise.
-Romanian dead lift is a high priority exercise.
+Reverse Pec Deck primarily targets shoulders.
+Reverse Pec Deck primarily sub-muscle group is rear delts.
+Reverse Pec Deck is an isolation exercise.
+Reverse Pec Deck is a machine exercise.
 
-Seated hamstring curls is a hamstrings exercise.
-Seated hamstring curls is a isolation exercise.
-Seated hamstring curls is a machine exercise.
-Seated hamstring curls is a medium priority exercise.
+## Biceps Exercises
 
-Hip thrust is a glutes exercise.
-Hip thrust is a compound exercise.
-Hip thrust is a free weight exercise.
-Hip thrust is a medium priority exercise.
+Preacher Curl primarily targets biceps.
+Preacher Curl primarily sub-muscle group is long and short head.
+Preacher Curl is an isolation exercise.
+Preacher Curl is a free weight exercise.
 
-# calves
+Cable Curl primarily targets biceps.
+Cable Curl primarily sub-muscle group is long and short head.
+Cable Curl is an isolation exercise.
+Cable Curl is a machine exercise.
 
-Standing calf raises is a calves exercise.
-Standing calf raises is a isolation exercise.
-Standing calf raises is a bodyweight exercise. 
-Hip thrust is a high priority exercise.
+Hammer Dumbbell Curl primarily targets biceps.
+Hammer Dumbbell Curl primarily sub-muscle group is brachialis.
+Hammer Dumbbell Curl is an isolation exercise.
+Hammer Dumbbell Curl is a free weight exercise.
 
+Machine Hammer Curl primarily targets biceps.
+Machine Hammer Curl primarily sub-muscle group is brachialis.
+Machine Hammer Curl is an isolation exercise.
+Machine Hammer Curl is a machine exercise.
 
-#Abs 
+## Triceps Exercises
 
-Cable crunch is a abs exercise.
-Cable crunch is a isolation exercise.
-Cable crunch is a cable exercise.
-Cable crunch is a medium priority exercise.
+Triceps Pushdown (Bar) primarily targets triceps.
+Triceps Pushdown (Bar) primarily sub-muscle group is lateral and medial head.
+Triceps Pushdown (Bar) is an isolation exercise.
+Triceps Pushdown (Bar) is a machine exercise.
 
-Ab crunch machine is a abs exercise.
-Ab crunch machine is a isolation exercise.
-Ab crunch machine is a machine exercise.
-Ab crunch machine is a medium priority exercise.
+Single-Arm Triceps Extension primarily targets triceps.
+Single-Arm Triceps Extension primarily sub-muscle group is lateral and medial head.
+Single-Arm Triceps Extension is an isolation exercise.
+Single-Arm Triceps Extension is a machine exercise.
+
+Overhead Triceps Extension primarily targets triceps.
+Overhead Triceps Extension primarily sub-muscle group is long head.
+Overhead Triceps Extension is an isolation exercise.
+Overhead Triceps Extension is a free weight exercise.
+
+JM Press primarily targets triceps.
+JM Press primarily sub-muscle group is long head.
+JM Press is a compound exercise.
+JM Press is a free weight exercise.
+
+## Quadriceps Exercises
+
+Barbell Squat primarily targets quadriceps.
+Barbell Squat primarily sub-muscle group is quadriceps.
+Barbell Squat is a compound exercise.
+Barbell Squat is a free weight exercise.
+
+Leg Press primarily targets quadriceps.
+Leg Press primarily sub-muscle group is quadriceps.
+Leg Press is a compound exercise.
+Leg Press is a machine exercise.
+
+Leg Extension primarily targets quadriceps.
+Leg Extension primarily sub-muscle group is rectus femoris.
+Leg Extension is an isolation exercise.
+Leg Extension is a machine exercise.
+
+## Hamstrings and Glutes Exercises
+
+Romanian Deadlift primarily targets hamstrings.
+Romanian Deadlift primarily sub-muscle group is hamstring (lengthened).
+Romanian Deadlift is a compound exercise.
+Romanian Deadlift is a free weight exercise.
+
+Seated Hamstring Curl primarily targets hamstrings.
+Seated Hamstring Curl primarily sub-muscle group is hamstring (shortened).
+Seated Hamstring Curl is an isolation exercise.
+Seated Hamstring Curl is a machine exercise.
+
+## Glutes
+
+Hip Thrust primarily targets glutes.
+Hip Thrust primarily sub-muscle group is gluteus maximus.
+Hip Thrust is a compound exercise.
+Hip Thrust is a free weight exercise.
+
+Abductor hip extensions primarily targets glutes.
+Abductor hip extensions primarily sub-muscle group is gluteus medial.
+Abductor hip extensions primarily sub-muscle group is gluteus minimus.
+Abductor hip extensions a machine exercise.
+Abductor hip extensions is a machine exercise.
+
+## Calf Exercises
+
+Standing Calf Raise primarily targets calves.
+Standing Calf Raise primarily sub-muscle group is gastrocnemius.
+Standing Calf Raise is an isolation exercise.
+Standing Calf Raise is a bodyweight exercise.
+
+## Ab Exercises
+
+Cable Crunch primarily targets abs.
+Cable Crunch primarily sub-muscle group is rectus abdominis.
+Cable Crunch is an isolation exercise.
+Cable Crunch is a cable exercise.
+
+Ab Crunch Machine primarily targets abs.
+Ab Crunch Machine primarily sub-muscle group is rectus abdominis.
+Ab Crunch Machine is an isolation exercise.
+Ab Crunch Machine is a machine exercise.
