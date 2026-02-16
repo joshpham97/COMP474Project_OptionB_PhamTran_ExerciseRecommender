@@ -1,0 +1,30 @@
+# Intializing the days
+
+IF Workout split is Upper-Lower THEN
+    Routine has a day named Upper1
+    Upper1 focus is upper body
+    Routine has a day named Lower1
+    Lower1 focus is lower body
+    Routine has a day named Upper2
+    Upper2 focus is upper body
+    Routine has a day named Lower2
+    Lower2 focus is lower body
+
+IF workout split is upper-lower AND frequency is 5 days THEN
+    Routine has a day named Shoulder
+    Shoulder focus is shoulder
+
+# Initialize template for each day
+
+IF Day focus is Upper THEN
+    Day requires 2 chest exercises
+    Day requires 2 back exercises
+    Day requires 1 biceps exercise
+    Day requires 1 tricep exercise
+    IF frequency is 4 days THEN
+        Day requires 1 shoulder exercise
+ELSE IF focus is Lower THEN
+    Day requires 2 quads exercises
+    Day requires 2 hamstring exercises
+    Day requires 1 glutes exercises
+    Day requires 1 calves exercises
