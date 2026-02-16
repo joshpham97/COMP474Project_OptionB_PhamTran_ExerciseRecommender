@@ -1,3 +1,9 @@
+# Exercise order source: https://link.springer.com/article/10.2165/11597240-000000000-00000#Sec11
+# Why goal should be first: https://pmc.ncbi.nlm.nih.gov/articles/PMC3737971/#sec1-4
+# Workout split recommendation: https://pmc.ncbi.nlm.nih.gov/articles/PMC8372753/#sec18
+# Why alternating exercises (time+strength): file:///C:/Users/Josh/Downloads/Robbinsetal.2010PairedSetreview%20(2).pdf
+# Exercise order: https://pubmed.ncbi.nlm.nih.gov/19204579/
+
 # Determining the split
 
 IF frequency is 3 days THEN
@@ -61,3 +67,20 @@ ELSE IF goal is Hypertrophy
     Repetition range is 8-12
 ELSE IF goal is Endurance
     Repetition range is 15+
+
+# Set (of workout) goals
+## Weekly volume = # of sets of primary muscle groups * 1 + # of sets of secondary muscle group * 0.5
+# https://fitnessmadepractical.com/training-frequency-and-volume-what-the-research-really-shows/?utm_source=chatgpt.com
+
+IF exercise does not have a set count assigned THEN
+    IF muscle group priority is high THEN
+        Number of set is 3
+    ELSE 
+        Number of set is 2
+
+FOR ALL muscle groups, weekly volume equals number of sets for primary muscle group * 1 + number of sets for secondary muscle group * 0.5
+
+FOR ALL muscle groups total weekly volume of the muscle group is at least 8 sets
+
+
+
