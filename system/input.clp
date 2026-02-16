@@ -6,61 +6,50 @@
 ;- Time: Under 1 hour, 1-2 hour
 ;- Exercise type preference: Free weight, Machine
 
-; Template for the user-input facts
-(deftemplate user-input
-   (slot goal)
-   (slot frequency)
-   (slot muscle-group)
-   (slot time)
-   (slot exercise-type)
-)
-
 ; Initial rule to set up the user-input fact
-(defrule init-user
-   (not (user-input))
-   =>
-   (assert (user-input
+(deffacts init-user
+   (user-input
       (goal nil)
       (frequency nil)
       (muscle-group nil)
       (time nil)
-      (exercise-type nil)))
+      (exercise-type nil))
 )
 
 
 (deffunction set-goal (?g)
    (do-for-all-facts
-      ((?f user-input))
+      ((?ui user-input))
       TRUE
-      (modify ?f (goal ?g))
+      (modify ?ui (goal ?g))
    )
 )
 (deffunction set-frequency (?f)
    (do-for-all-facts
-      ((?f user-input))
+      ((?ui user-input))
       TRUE
-      (modify ?f (frequency ?f))
+      (modify ?ui (frequency ?f))
    )
 )
 (deffunction set-muscle-group (?m)
    (do-for-all-facts
-      ((?f user-input))
+      ((?ui user-input))
       TRUE
-      (modify ?f (muscle-group ?m))
+      (modify ?ui (muscle-group ?m))
    )
 )
 (deffunction set-time (?t)
    (do-for-all-facts
-      ((?f user-input))
+      ((?ui user-input))
       TRUE
-      (modify ?f (time ?t))
+      (modify ?ui (time ?t))
    )
 )
 (deffunction set-exercise-type (?e)
    (do-for-all-facts
-      ((?f user-input))
+      ((?ui user-input))
       TRUE
-      (modify ?f (exercise-type ?e))
+      (modify ?ui (exercise-type ?e))
    )
 )
 
@@ -104,27 +93,33 @@
    (printout t "2. Back" crlf)
    (printout t "3. Shoulders" crlf)
    (printout t "4. Legs" crlf)
+   (printout t "5. Full body" crlf)
+
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4 5))))
       then
-      (printout t "Invalid input. Please enter a number between 1 and 4." crlf)
+      (printout t "Invalid input. Please enter a number between 1 and 5." crlf)
       (input-muscle-group)
    else
       (if (= ?input 1)
          then
-         (set-muscle-group Chest)
+         (set-muscle-group chest)
       else
          (if (= ?input 2)
             then
-            (set-muscle-group Back)
+            (set-muscle-group back)
          else
             (if (= ?input 3)
                then
-               (set-muscle-group Shoulders)
+               (set-muscle-group shoulder)
             else
-               (set-muscle-group Legs))))))
+               (if (= ?input 4)
+                  then
+                  (set-muscle-group legs)
+               else
+                  (set-muscle-group full-body)))))))
    
 
 (deffunction input-time ()
@@ -163,4 +158,3 @@
       else
          (set-exercise-type "Machine"))))
 
-; Call the inputs

@@ -1,0 +1,351 @@
+; Facts for muscle groups, sub-muscle groups and exercises used in the exercise recommendation system.
+(deffacts muscle-groups-data
+    (muscle-group (name chest) (priority high) (region upper) (type push))
+    (muscle-group (name back) (priority high) (region upper) (type pull))
+    (muscle-group (name shoulder) (priority high) (region upper) (type push))
+    (muscle-group (name quads) (priority high) (region lower) (type leg))
+    (muscle-group (name hamstring) (priority high) (region upper) (type leg))
+    (muscle-group (name glutes) (priority high) (region lower) (type leg))
+    (muscle-group (name biceps) (priority low) (region upper) (type pull))
+    (muscle-group (name triceps) (priority low) (region upper) (type push))
+    (muscle-group (name calves) (priority low) (region lower) (type leg))
+)
+
+
+(deffacts sub-muscle-groups-data
+    (sub-muscle-group (main-muscle-group chest) (name middle-chest) (priority high))
+    (sub-muscle-group (main-muscle-group chest) (name upper-chest) (priority medium))
+    (sub-muscle-group (main-muscle-group chest) (name lower-chest) (priority low))
+    
+    (sub-muscle-group (main-muscle-group back) (name frontal-plane-lats) (priority high))
+    (sub-muscle-group (main-muscle-group back) (name upper-back) (priority high))
+    (sub-muscle-group (main-muscle-group back) (name sagittal-plane-lats) (priority medium))
+    (sub-muscle-group (main-muscle-group back) (name traps) (priority low))
+
+    (sub-muscle-group (main-muscle-group shoulder) (name front-delt) (priority high))
+    (sub-muscle-group (main-muscle-group shoulder) (name side-delt) (priority medium))
+    (sub-muscle-group (main-muscle-group shoulder) (name rear-delt) (priority low))
+
+    (sub-muscle-group (main-muscle-group biceps) (name long-and-short-head) (priority high))
+    (sub-muscle-group (main-muscle-group biceps) (name branchialis) (priority low))
+
+    (sub-muscle-group (main-muscle-group triceps) (name lateral-and-medial-head) (priority high))
+    (sub-muscle-group (main-muscle-group triceps) (name long-head) (priority low))
+
+    (sub-muscle-group (main-muscle-group hamstring) (name lengthened) (priority high))
+    (sub-muscle-group (main-muscle-group hamstring) (name shortened) (priority low))
+
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-maximus) (priority high))
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-medius) (priority low))
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-minimus) (priority low))
+
+    (sub-muscle-group (main-muscle-group quads) (name compound) (priority high))
+    (sub-muscle-group (main-muscle-group quads) (name isolation) (priority low))
+)
+
+
+(deffacts chest-exercises-data
+    (exercise 
+        (id dumb-bell-bench-press) 
+        (name "Dumbbell Bench Press") 
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group middle-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id pec-deck)
+        (name "Pec Deck")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group middle-chest)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id incline-dumb-bell-press)
+        (name "Incline Dumbbell Press")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group upper-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id low-to-high-cable-fly)
+        (name "Low to High Cable Fly")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group upper-chest)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id chest-dip)
+        (name "Chest Dip")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group lower-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id high-to-low-cable-fly)
+        (name "High to Low Cable Fly")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group lower-chest)
+        (movement isolation)
+        (equipment machine))
+)
+(deffacts back-exercises-data
+    (exercise 
+        (id lat-pulldown)
+        (name "Lat Pulldown")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group frontal-plane-lats)
+        (secondary-muscle-groups biceps)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id pull-up)
+        (name "Pull-Up")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group frontal-plane-lats)
+        (secondary-muscle-groups biceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id wide-grip-row)
+        (name "Wide Grip Row")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group upper-back)
+        (secondary-muscle-groups shoulder)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id chest-supported-row)
+        (name "Chest Supported Row")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group upper-back)
+        (secondary-muscle-groups shoulder)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id one-arm-dumb-bell-row)
+        (name "One Arm Dumbbell Row")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group sagittal-plane-lats)
+        (secondary-muscle-groups shoulder biceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id v-bar-row)
+        (name "V-Bar Row")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group sagittal-plane-lats)
+        (secondary-muscle-groups shoulder biceps) ; Recheck
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id dumb-bell-shrug)
+        (name "Dumbbell Shrug")
+        (primary-muscle-group back)
+        (targeted-sub-muscle-group traps)
+        (movement isolation)
+        (equipment free-weight))
+)
+(deffacts shoulder-exercises-data
+    (exercise
+        (id machine-shoulder-press)
+        (name "Machine Shoulder Press")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group front-delt)
+        (secondary-muscle-groups triceps chest)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id dumb-bell-shoulder-press)
+        (name "Dumbbell Shoulder Press")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group front-delt)
+        (secondary-muscle-groups triceps chest)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id cable-lateral-raise)
+        (name "Cable Lateral Raise")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group side-delt)
+        (secondary-muscle-groups back)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id dumb-bell-lateral-raise)
+        (name "Dumbbell Lateral Raise")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group side-delt)
+        (secondary-muscle-groups back)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id rear-delt-fly)
+        (name "Rear Delt Fly")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group rear-delt)
+        (secondary-muscle-groups back)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id reverse-pec-deck)
+        (name "Reverse Pec Deck")
+        (primary-muscle-group shoulder)
+        (targeted-sub-muscle-group rear-delt)
+        (secondary-muscle-groups back)
+        (movement isolation)
+        (equipment machine))
+)
+(deffacts biceps-exercises-data
+    (exercise
+        (id preacher-curl)
+        (name "Preacher Curl")
+        (primary-muscle-group biceps)
+        (targeted-sub-muscle-group long-and-short-head)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id cacle-curl)
+        (name "Cable Curl")
+        (primary-muscle-group biceps)
+        (targeted-sub-muscle-group long-and-short-head)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id hammer-dumb-bell-curl)
+        (name "Hammer Dumbbell Curl")
+        (primary-muscle-group biceps)
+        (targeted-sub-muscle-group branchialis)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id machine-hammer-curl)
+        (name "Machine Hammer Curl")
+        (primary-muscle-group biceps)
+        (targeted-sub-muscle-group branchialis)
+        (movement isolation)
+        (equipment machine))
+)
+(deffacts triceps-exercises-data
+    (exercise
+        (id triceps-pushdown)
+        (name "Triceps Pushdown")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group lateral-and-medial-head)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id single-arm-triceps-extension)
+        (name "Single Arm Triceps Extension")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group lateral-and-medial-head)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id overhead-triceps-extension)
+        (name "Overhead Triceps Extension")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group long-head)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id jm-press)
+        (name "JM Press")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group long-head)
+        (movement compound)
+        (equipment free-weight))
+)
+(deffacts quads-exercises-data
+    (exercise
+        (id barbell-squat)
+        (name "Barbell Squat")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group compound)
+        (secondary-muscle-groups glutes)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id leg-press)
+        (name "Leg Press")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group compound)
+        (secondary-muscle-groups hamstring glutes)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id leg-extension)
+        (name "Leg Extension")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group isolation)
+        (movement isolation)
+        (equipment machine))
+)
+(deffacts hamstring-exercises-data
+    (exercise
+        (id romanian-deadlift)
+        (name "Romanian Deadlift")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group lengthened)
+        (secondary-muscle-groups glutes)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id seated-hamstring-curl)
+        (name "Seated Hamstring Curl")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group shortened)
+        (secondary-muscle-groups calves)
+        (movement isolation)
+        (equipment machine))
+)
+(deffacts glutes-exercises-data
+    (exercise
+        (id hip-thrust)
+        (name "Hip Thrust")
+        (primary-muscle-group glutes)
+        (targeted-sub-muscle-group gluteus-maximus)
+        (secondary-muscle-groups hamstring)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id abductor-hip-extension)
+        (name "Abductor Hip Extension")
+        (primary-muscle-group glutes)
+        (targeted-sub-muscle-group gluteus-medius)
+        (movement isolation) ;TODO: Recheck, missing data in execise database
+        (equipment machine))
+)
+; TODO: calves exercises data, neeed more explanations on the sub-muscle groups and movement type for calves exercises
+(deffacts calves-exercises-data
+    (exercise
+        (id standing-calf-raise)
+        (name "Standing Calf Raise")
+        (primary-muscle-group calves)
+        (movement isolation)
+        (equipment free-weight)) ;TODO: Recheck, in exercises.txt it's stated as bodyweight, but we don't use it
+    (exercise
+        (id seated-calf-raise)
+        (name "Seated Calf Raise")
+        (primary-muscle-group calves)
+        (targeted-sub-muscle-group soleus) ;TODO: Recheck, missing data in exercise database
+        (movement isolation) ;TODO: Recheck, missing data in exercise database
+        (equipment machine))
+)
+
+(deffacts abs-exercises-data
+    (exercise
+        (id cable-crunch)
+        (name "Cable Crunch")
+        (primary-muscle-group abs)
+        (movement isolation)
+        (equipment machine)) ;TODO: Recheck, stated as cable exercise in exercises.txt, but we don't have that as an equipment type, so we use machine
+    (exercise
+        (id ab-crunch-machine)
+        (name "Ab Crunch Machine")
+        (primary-muscle-group abs)
+        (movement isolation)
+        (equipment machine))
+)
