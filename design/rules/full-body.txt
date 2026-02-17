@@ -1,3 +1,5 @@
+# https://link.springer.com/article/10.1007/s40279-021-01490-1?utm_source=chatgpt.com#Sec4
+
 IF Workout split is Full body THEN
     Workout split has a day named Day1
     Workout split has a day named Day2
@@ -6,12 +8,19 @@ IF Workout split is Full body THEN
 # Initialize template for each day 
 
 FOR ALL days in the workout split
-    Day requires 1 chest exercises
+    Day requires 1 chest exercise
     Day requires 1 shoulder exercise
-    Day requires 1 back exercises
-    Day requires 1 triceps exercise
-    Day requires 1 triceps exercise
-    Day requires 1 quads exercises
-    Day requires 1 hamstring exercises
+    Day requires 2 back exercises
+    Day requires 1 quad exercise
+    Day requires 1 hamstring exercise
 
-# When picking exercises need to prioritize compound movements
+IF Workout split is Full-body
+THEN
+    FOR ALL exercise slots AND days AND slot is not assigned a muscle group
+        IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
+            IF day is Day1
+            THEN The target muscle group of the exercise slot is chest
+            ELSE IF day is Day2
+            THEN The target muscle group of the exercise slot is back
+            ELSE IF day is Day3
+            THEN The target muscle group of the exercise slot is quad
