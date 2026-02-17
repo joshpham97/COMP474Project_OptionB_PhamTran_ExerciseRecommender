@@ -1,6 +1,7 @@
 # Intializing the days
 
-IF Workout split is Upper-Lower THEN
+IF Workout split is upper-lower 
+THEN 
     Routine has a day named Upper1
     Upper1 focus is upper body
     Routine has a day named Lower1
@@ -28,3 +29,20 @@ ELSE IF focus is Lower THEN
     Day requires 2 hamstring exercises
     Day requires 1 glutes exercises
     Day requires 1 calves exercises
+
+# Picking the first exercise for each day
+
+IF Workout split is upper-lower 
+THEN
+    FOR ALL exercise slots AND days AND slot is not assigned a muscle group
+        IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
+            IF day is Upper1
+            THEN The target muscle group of the exercise slot is chest
+            ELSE IF day is Upper2 
+            THEN The target muscle group of the exercise slot is back
+            ELSE IF day is Lower1 
+            THEN The target muscle group of the exercise slot is quads
+            ELSE IF day is Lower2
+            THEN The target muscle group of the exercise slot is hamstring
+            ELSE IF day is Shoulder
+            THEN The target muscle group of the exercise slot is shoulder
