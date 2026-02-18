@@ -16,6 +16,38 @@
    (assert (workout-split 
             (name "Push-Pull-Leg"))))
 
+
+; Reps determination
+
+(defrule assign-rep-strength
+   (user-input (goal strength))
+   ?e <- (exercise-slot (min-reps ?r&~1) (max-reps ?r&~5))
+   =>
+   (modify ?e (min-reps 1) (max-reps 5)))
+
+(defrule assign-rep-hypertrophy
+   (user-input (goal hypertrophy))
+   ?e <- (exercise-slot (min-reps ?r&~8) (max-reps ?r&~12))
+   =>
+   (modify ?e (min-reps 8) (max-reps 12)))
+(defrule assign-rep-endurance
+   (user-input (goal hypertrophy))
+   ?e <- (exercise-slot (min-reps ?r&~15) (max-reps ?r&~100))
+   =>
+   (modify ?e (min-reps 15) (max-reps 100)))
+
+; Set assignment
+(defrule assign-set-high-priority
+   ?e <- (exercise-slot (primary-muscle-group ?m) (sets 0))
+   (muscle-group (name ?m) (priority 1))
+   =>
+   (modify ?e (sets 3)))
+(defrule assign-set-not-high-priority
+   ?e <- (exercise-slot (primary-muscle-group ?m) (sets 0))
+   (muscle-group (name ?m) (priority ?p&~1))
+   =>
+   (modify ?e (sets 2)))
+
 (defrule assign-next-exercise
    (declare (salience -1))
    ;; Match a day

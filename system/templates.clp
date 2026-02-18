@@ -26,6 +26,7 @@
    (multislot secondary-muscle-groups)
    (slot movement (allowed-values compound isolation))
    (slot equipment (allowed-values free-weight machine bodyweight))
+   (slot set)
 )
 
 ; Workout split template
@@ -45,7 +46,10 @@
    (slot id) ; allow creating similar facts within the same day
    (slot day)
    (slot primary-muscle-group) 
-   (slot order) 
+   (slot min-reps (default 0))
+   (slot max-reps (default 0))
+   (slot sets (default 0))
+   (slot order)
    (slot priority)
 )
 
