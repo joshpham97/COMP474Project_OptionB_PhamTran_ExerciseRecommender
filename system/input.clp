@@ -57,6 +57,7 @@
    (printout t "Please enter your goal number: " crlf)
    (printout t "1. Strength" crlf)
    (printout t "2. Hypertrophy" crlf)
+   (printout t "3. Endurance" crlf)
 
    (bind ?input (read))
 
@@ -67,10 +68,14 @@
    else
       (if (= ?input 1)
          then
-         (set-goal "Strength")
+         (set-goal strength)
       else
-         (set-goal "Hypertrophy")
-      )))
+         (if (= ?input 2)
+         then
+         (set-goal hypertrophy)
+         else
+         (set-goal endurance)
+         ))))
 
 (deffunction input-frequency ()
    (printout t "Please enter your training frequency number: " crlf)
@@ -154,7 +159,7 @@
    else
       (if (= ?input 1)
          then
-         (set-exercise-type "Free weight")
+         (set-exercise-type free-weight)
       else
-         (set-exercise-type "Machine"))))
+         (set-exercise-type machine))))
 
