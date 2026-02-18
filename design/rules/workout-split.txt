@@ -7,10 +7,7 @@
 # Determining the split
 
 IF frequency is 3 days THEN
-    IF user preference is Full body THEN
-        Workout split is Full body OR
-    ELSE
-        Workout split is Push-pull-leg
+    Workout split is Full body 
 ELSE IF frequency is 4 days OR 5 days THEN
     Workout split is Upper-Lower
 ELSE IF frequency is 6 days THEN

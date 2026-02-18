@@ -3,7 +3,7 @@
 ; Muscle group template
 (deftemplate muscle-group
    (slot name)
-   (slot priority (allowed-values high medium low))
+   (slot priority (allowed-values 1 2 3)) ; 1 = high, 2 = medium, 3 = low
    (slot region (allowed-values upper lower))
    (slot type (allowed-values push pull leg))
 )
@@ -13,7 +13,7 @@
 (deftemplate sub-muscle-group
    (slot main-muscle-group)
    (slot name)
-   (slot priority (allowed-values high medium low))
+   (slot priority (allowed-values 1 2 3)) ; 1 = high, 2 = medium, 3 = low
 )
 
 
@@ -31,20 +31,23 @@
 ; Workout split template
 (deftemplate workout-split
    (slot name)
-   (multislot days)
 )
 
 ; Day template
 (deftemplate day
    (slot name)
    (slot focus)
-   (multislot exercises)
+   (slot is-initialized)
 )
 
 ; Exercise slot template for day
 (deftemplate exercise-slot
+   (slot id) ; allow creating similar facts within the same day
+   (slot day)
    (slot primary-muscle-group) 
-   (slot order (type INTEGER)) 
+   (slot order) 
+   (slot priority)
+   (slot is-assigned)
 )
 
 ; User input template

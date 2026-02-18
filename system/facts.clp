@@ -1,46 +1,46 @@
 ; Facts for muscle groups, sub-muscle groups and exercises used in the exercise recommendation system.
 (deffacts muscle-groups-data
-    (muscle-group (name chest) (priority high) (region upper) (type push))
-    (muscle-group (name back) (priority high) (region upper) (type pull))
-    (muscle-group (name shoulder) (priority high) (region upper) (type push))
-    (muscle-group (name quads) (priority high) (region lower) (type leg))
-    (muscle-group (name hamstring) (priority high) (region upper) (type leg))
-    (muscle-group (name glutes) (priority high) (region lower) (type leg))
-    (muscle-group (name biceps) (priority low) (region upper) (type pull))
-    (muscle-group (name triceps) (priority low) (region upper) (type push))
-    (muscle-group (name calves) (priority low) (region lower) (type leg))
+    (muscle-group (name chest) (priority 1) (region upper) (type push))
+    (muscle-group (name back) (priority 1) (region upper) (type pull))
+    (muscle-group (name shoulder) (priority 1) (region upper) (type push))
+    (muscle-group (name quads) (priority 1) (region lower) (type leg))
+    (muscle-group (name hamstring) (priority 1) (region upper) (type leg))
+    (muscle-group (name glutes) (priority 1) (region lower) (type leg))
+    (muscle-group (name biceps) (priority 3) (region upper) (type pull))
+    (muscle-group (name triceps) (priority 3) (region upper) (type push))
+    (muscle-group (name calves) (priority 3) (region lower) (type leg))
 )
 
 
 (deffacts sub-muscle-groups-data
-    (sub-muscle-group (main-muscle-group chest) (name middle-chest) (priority high))
-    (sub-muscle-group (main-muscle-group chest) (name upper-chest) (priority medium))
-    (sub-muscle-group (main-muscle-group chest) (name lower-chest) (priority low))
+    (sub-muscle-group (main-muscle-group chest) (name middle-chest) (priority 1))
+    (sub-muscle-group (main-muscle-group chest) (name upper-chest) (priority 2))
+    (sub-muscle-group (main-muscle-group chest) (name lower-chest) (priority 3))
     
-    (sub-muscle-group (main-muscle-group back) (name frontal-plane-lats) (priority high))
-    (sub-muscle-group (main-muscle-group back) (name upper-back) (priority high))
-    (sub-muscle-group (main-muscle-group back) (name sagittal-plane-lats) (priority medium))
-    (sub-muscle-group (main-muscle-group back) (name traps) (priority low))
+    (sub-muscle-group (main-muscle-group back) (name frontal-plane-lats) (priority 1))
+    (sub-muscle-group (main-muscle-group back) (name upper-back) (priority 1))
+    (sub-muscle-group (main-muscle-group back) (name sagittal-plane-lats) (priority 2))
+    (sub-muscle-group (main-muscle-group back) (name traps) (priority 3))
 
-    (sub-muscle-group (main-muscle-group shoulder) (name front-delt) (priority high))
-    (sub-muscle-group (main-muscle-group shoulder) (name side-delt) (priority medium))
-    (sub-muscle-group (main-muscle-group shoulder) (name rear-delt) (priority low))
+    (sub-muscle-group (main-muscle-group shoulder) (name front-delt) (priority 1))
+    (sub-muscle-group (main-muscle-group shoulder) (name side-delt) (priority 2))
+    (sub-muscle-group (main-muscle-group shoulder) (name rear-delt) (priority 3))
 
-    (sub-muscle-group (main-muscle-group biceps) (name long-and-short-head) (priority high))
-    (sub-muscle-group (main-muscle-group biceps) (name branchialis) (priority low))
+    (sub-muscle-group (main-muscle-group biceps) (name long-and-short-head) (priority 1))
+    (sub-muscle-group (main-muscle-group biceps) (name branchialis) (priority 3))
 
-    (sub-muscle-group (main-muscle-group triceps) (name lateral-and-medial-head) (priority high))
-    (sub-muscle-group (main-muscle-group triceps) (name long-head) (priority low))
+    (sub-muscle-group (main-muscle-group triceps) (name lateral-and-medial-head) (priority 1))
+    (sub-muscle-group (main-muscle-group triceps) (name long-head) (priority 3))
 
-    (sub-muscle-group (main-muscle-group hamstring) (name lengthened) (priority high))
-    (sub-muscle-group (main-muscle-group hamstring) (name shortened) (priority low))
+    (sub-muscle-group (main-muscle-group hamstring) (name lengthened) (priority 1))
+    (sub-muscle-group (main-muscle-group hamstring) (name shortened) (priority 3))
 
-    (sub-muscle-group (main-muscle-group glutes) (name gluteus-maximus) (priority high))
-    (sub-muscle-group (main-muscle-group glutes) (name gluteus-medius) (priority low))
-    (sub-muscle-group (main-muscle-group glutes) (name gluteus-minimus) (priority low))
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-maximus) (priority 1))
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-medius) (priority 3))
+    (sub-muscle-group (main-muscle-group glutes) (name gluteus-minimus) (priority 3))
 
-    (sub-muscle-group (main-muscle-group quads) (name compound) (priority high))
-    (sub-muscle-group (main-muscle-group quads) (name isolation) (priority low))
+    (sub-muscle-group (main-muscle-group quads) (name compound) (priority 1))
+    (sub-muscle-group (main-muscle-group quads) (name isolation) (priority 3))
 )
 
 
