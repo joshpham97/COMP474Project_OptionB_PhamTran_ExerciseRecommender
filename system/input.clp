@@ -61,9 +61,9 @@
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3))))
       then
-      (printout t "Invalid input. Please enter 1 or 2." crlf)
+      (printout t "Invalid input. Please enter 1, 2, or 3." crlf)
       (input-goal)
    else
       (if (= ?input 1)
