@@ -15,3 +15,29 @@
    =>
    (assert (workout-split 
             (name "Push-Pull-Leg"))))
+
+(defrule assign-next-exercise
+   (declare (salience -1))
+   ;; Match a day
+   ?day <- (day (name ?dname))
+   
+   ;; Find the last assigned exercise for this day (highest order)
+   ?last <- (exercise-slot (day ?dname) (order ?last-order&~nil) (priority ?last-priority&~nil) (primary-muscle-group ?last-mg))
+   (not (exercise-slot (day ?dname) (order ?o2&~nil&:(> ?o2 ?last-order))))
+   
+   ;; Find an unassigned exercise for this day
+   ?unassigned-slot <- (exercise-slot (day ?dname) (order nil) (primary-muscle-group ?unassigned-mg) (priority ?unassigned-priority&~nil))
+   
+   ;; Ensure it is not the same muscle group as the last assigned exercise
+   (test (or (eq ?last nil) (neq ?unassigned-mg ?last-mg)))
+
+   ;; Ensure there is no unassigned exercise with higher priority
+   (not (exercise-slot (day ?dname) (order nil) (priority ?p2&~nil&:(> ?unassigned-priority ?p2))))
+
+   =>
+   ;; Compute next order number
+   (bind ?next-order (+ ?last-order 1))
+   
+   ;; Assign the exercise
+   (modify ?unassigned-slot (order ?next-order))
+)

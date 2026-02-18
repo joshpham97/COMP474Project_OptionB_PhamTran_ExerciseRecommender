@@ -47,7 +47,6 @@
    (slot primary-muscle-group) 
    (slot order) 
    (slot priority)
-   (slot is-assigned)
 )
 
 ; User input template
