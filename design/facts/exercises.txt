@@ -162,8 +162,8 @@ One-Arm Dumbbell Row is a free weight exercise.
 
 V-Bar Row primarily targets back.
 V-Bar Row primarily sub-muscle group is sagittal plane lats.
-One-Arm Dumbbell Row secondarily targets shoulders.
-One-Arm Dumbbell Row secondarily targets biceps.
+V-Bar Row secondarily targets shoulders.
+V-Bar Row secondarily targets biceps.
 V-Bar Row is a compound exercise.
 V-Bar Row is a machine exercise.
 
