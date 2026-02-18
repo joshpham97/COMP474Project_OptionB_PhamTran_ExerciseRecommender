@@ -31,7 +31,7 @@ The exepected output is a workout routine recommendation with:
 #### Report
 
 - [ ] Clean up and finalize reports
-- [ ] Add references
+- [x] Add references
 
 #### Design 
 
@@ -40,8 +40,8 @@ The exepected output is a workout routine recommendation with:
 #### Implementations
 
 - [ ] Ensure the code supports debugging
-- [ ] Read user input
-- [ ] Define templates for objects (exercises, muscle groups, etc.)
+- [x] Read user input
+- [x] Define templates for objects (exercises, muscle groups, etc.)
 - [ ] Implement routine selection (full body, upper lower, ppl) based on: Frequency
 - [ ] Implement initilization of days in a routine (focus, day name, etc.)
 - [ ] Implement exercise order based on muscle groups and user weakpoint (exercises slots)
