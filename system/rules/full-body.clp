@@ -25,7 +25,7 @@
 
 (defrule assign-first-exercise-push
    (workout-split (name "Full-body"))
-   (day (name ?d) ))
+   (day (name ?d) )
    ?s <- (exercise-slot
             (day ?d)
             (order 1)
@@ -36,6 +36,4 @@
     else if (eq ?d "Day 2") then
         (modify ?s (primary-muscle-group back))
     else if (eq ?d "Day 3") then
-        (modify ?s (primary-muscle-group quad))
-    else if (eq ?d "Pull 2") then
-        (modify ?s (primary-muscle-group back)))
+        (modify ?s (primary-muscle-group quad))))

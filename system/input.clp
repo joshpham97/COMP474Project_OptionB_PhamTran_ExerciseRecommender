@@ -10,7 +10,7 @@
 (deffacts init-user
    (user-input
       (goal nil)
-      (frequency nil)
+      (frequency 0)
       (muscle-group nil)
       (time nil)
       (exercise-type nil))

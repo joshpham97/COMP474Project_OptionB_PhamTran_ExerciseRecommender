@@ -1,6 +1,6 @@
 (defrule initialize-push-pull-leg-not-frequency-6
    (workout-split (name "Push-Pull-Leg"))
-   (user-input (frequency ?f&:(= ?f 6)))
+   (user-input (frequency ?f&:(<> ?f 6)))
    (not (day))
    =>
    (assert (day (name "Push 1") 
@@ -14,6 +14,7 @@
 (defrule initialize-push-pull-leg-frequency-6
    (workout-split (name "Push-Pull-Leg"))
    (user-input (frequency 6))
+   (not (day))
    =>
    (assert (day (name "Push 2") (focus push)))
    (assert (day (name "Pull 2") (focus pull)))
