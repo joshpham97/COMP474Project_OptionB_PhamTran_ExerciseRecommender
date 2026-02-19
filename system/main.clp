@@ -2,6 +2,8 @@
 (load "templates.clp")
 (load "facts.clp")
 (load "input.clp")
+(load "rules/full-body.clp")
+(load "rules/push-pull-leg.clp")
 (load "rules/upper-lower.clp")
 (load "rules/workout-split.clp")
 (reset)
