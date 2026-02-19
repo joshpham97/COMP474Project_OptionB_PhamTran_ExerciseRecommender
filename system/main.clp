@@ -6,4 +6,5 @@
 (load "rules/push-pull-leg.clp")
 (load "rules/upper-lower.clp")
 (load "rules/workout-split.clp")
+(load "rules/exercise-selection.clp")
 (reset)

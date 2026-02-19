@@ -157,3 +157,11 @@
       else
          (set-exercise-type "Machine"))))
 
+(deffunction input-all ()
+   (printout t "Getting all the user inputs" crlf)
+   (input-goal)
+   (input-frequency)
+   (input-muscle-group)
+   (input-time)
+   (input-exercise-type))
+
