@@ -10,7 +10,7 @@
 (deffacts init-user
    (user-input
       (goal nil)
-      (frequency nil)
+      (frequency 0)
       (muscle-group nil)
       (time nil)
       (exercise-type nil))
@@ -156,4 +156,12 @@
          (set-exercise-type "Free weight")
       else
          (set-exercise-type "Machine"))))
+
+(deffunction input-all ()
+   (printout t "Getting all the user inputs" crlf)
+   (input-goal)
+   (input-frequency)
+   (input-muscle-group)
+   (input-time)
+   (input-exercise-type))
 
