@@ -23,17 +23,27 @@
     (modify ?day (is-initialized TRUE))
 )
 
-(defrule assign-first-exercise-push
+(defrule assign-first-fullbody-day1
    (workout-split (name "Full-body"))
-   (day (name ?d) )
-   ?s <- (exercise-slot
-            (day ?d)
-            (order 1)
-            (primary-muscle-group nil))
+   (day (name "Day 1") (focus full-body))
+   (not (exercise-slot (day "Day 1") (order 1)))
+   ?s <- (exercise-slot (day "Day 1") (order nil))
    =>
-   (if (eq ?d "Day 1") then
-        (modify ?s (primary-muscle-group chest))
-    else if (eq ?d "Day 2") then
-        (modify ?s (primary-muscle-group back))
-    else if (eq ?d "Day 3") then
-        (modify ?s (primary-muscle-group quad))))
+   (modify ?s (primary-muscle-group chest) (order 1))
+)
+(defrule assign-first-fullbody-day21
+   (workout-split (name "Full-body"))
+   (day (name "Day 2") (focus full-body))
+   (not (exercise-slot (day "Day 2") (order 1)))
+   ?s <- (exercise-slot (day "Day 2") (order nil))
+   =>
+   (modify ?s (primary-muscle-group back) (order 1))
+)
+(defrule assign-first-fullbody-day3
+   (workout-split (name "Full-body"))
+   (day (name "Day 3") (focus full-body))
+   (not (exercise-slot (day "Day 3") (order 1)))
+   ?s <- (exercise-slot (day "Day 3") (order nil))
+   =>
+   (modify ?s (primary-muscle-group quads) (order 1))
+)

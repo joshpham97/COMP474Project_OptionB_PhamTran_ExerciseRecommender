@@ -32,7 +32,7 @@
     (modify ?day (is-initialized TRUE))
 )
 (defrule initialize-pull-day-exercise
-    ?day <- (day (name ?dname) (focus push) (is-initialized nil))
+    ?day <- (day (name ?dname) (focus pull) (is-initialized nil))
     =>
     (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
@@ -62,23 +62,41 @@
 )
 
 (defrule assign-first-exercise-push
-   (workout-split (name "Push-Pull-Leg"))
-   (day (name ?d) (focus ?f))
-   ?s <- (exercise-slot
-            (day ?d)
-            (order 1)
-            (primary-muscle-group nil))
+   (day (name ?d2name) (focus ?f))
+   (day (name ?d1name) (focus ?f))
+   (test (neq ?d1name ?d2name))
+   (test (eq ?f push))
+   (not (exercise-slot (day ?d1name) (order 1)))
+   (not (exercise-slot (day ?d2name) (order 1)))
+   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group chest) (order nil))
+   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group shoulder) (order nil))
    =>
-   (if (eq ?d "Push 1") then
-        (modify ?s (primary-muscle-group chest))
-    else if (eq ?d "Push 2") then
-        (modify ?s (primary-muscle-group shoulder))
-    else if (eq ?d "Pull 1") then
-        (modify ?s (primary-muscle-group back))
-    else if (eq ?d "Pull 2") then
-        (modify ?s (primary-muscle-group back))
-    else if (eq ?d "Leg 1") then
-        (modify ?s (primary-muscle-group quads))
-    else if (eq ?d "Leg 2") then
-        (modify ?s (primary-muscle-group hamstring))))
-
+   (modify ?exercise1 (order 1))
+   (modify ?exercise2 (order 1))
+)
+(defrule assign-first-exercise-pull
+   (day (name ?d2name) (focus ?f))
+   (day (name ?d1name) (focus ?f))
+   (test (neq ?d1name ?d2name))
+   (test (eq ?f pull))
+   (not (exercise-slot (day ?d1name) (order 1)))
+   (not (exercise-slot (day ?d2name) (order 1)))
+   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group back) (order nil))
+   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group back) (order nil))
+   =>
+   (modify ?exercise1 (order 1))
+   (modify ?exercise2 (order 1))
+)
+(defrule assign-first-exercise-leg
+   (day (name ?d2name) (focus ?f))
+   (day (name ?d1name) (focus ?f))
+   (test (neq ?d1name ?d2name))
+   (test (eq ?f leg))
+   (not (exercise-slot (day ?d1name) (order 1)))
+   (not (exercise-slot (day ?d2name) (order 1)))
+   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group quads) (order nil))
+   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group hamstring) (order nil))
+   =>
+   (modify ?exercise1 (order 1))
+   (modify ?exercise2 (order 1))
+)

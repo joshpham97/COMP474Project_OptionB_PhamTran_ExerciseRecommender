@@ -31,7 +31,7 @@
    =>
    (modify ?e (min-reps 8) (max-reps 12)))
 (defrule assign-rep-endurance
-   (user-input (goal hypertrophy))
+   (user-input (goal endurance))
    ?e <- (exercise-slot (min-reps ?r&~15) (max-reps ?r&~100))
    =>
    (modify ?e (min-reps 15) (max-reps 100)))
