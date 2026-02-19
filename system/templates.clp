@@ -46,6 +46,7 @@
    (slot id) ; allow creating similar facts within the same day
    (slot day)
    (slot primary-muscle-group) 
+   (slot exercise)
    (slot min-reps (default 0))
    (slot max-reps (default 0))
    (slot sets (default 0))
@@ -60,4 +61,24 @@
    (slot muscle-group)
    (slot time)
    (slot exercise-type)
+)
+
+; Helper templates for exercise selection
+
+(deftemplate candidate-exercise
+   (slot day)
+   (slot slot-id)
+   (slot muscle-group)
+   (slot exercise-id)
+   (slot priority)
+)
+
+(deftemplate candidate-initialized
+   (slot day)
+   (slot slot-id)
+)
+
+(deftemplate to-be-processed
+   (slot day)
+   (slot id)
 )

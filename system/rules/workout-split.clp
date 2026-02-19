@@ -48,7 +48,7 @@
    =>
    (modify ?e (sets 2)))
 
-(defrule assign-next-exercise
+(defrule assign-next-order
    (declare (salience -1))
    ;; Match a day
    ?day <- (day (name ?dname))
