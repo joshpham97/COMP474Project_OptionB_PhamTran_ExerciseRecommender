@@ -41,6 +41,9 @@
 
     (sub-muscle-group (main-muscle-group quads) (name compound) (priority 1))
     (sub-muscle-group (main-muscle-group quads) (name isolation) (priority 3))
+
+    ; Calves is a special case, there is no sub-muscle groups, so we leave it as is
+    (sub-muscle-group (main-muscle-group calves) (name calves) (priority 1))
 )
 
 
@@ -324,28 +327,14 @@
         (id standing-calf-raise)
         (name "Standing Calf Raise")
         (primary-muscle-group calves)
+        (targeted-sub-muscle-group calves)
         (movement isolation)
         (equipment free-weight)) ;TODO: Recheck, in exercises.txt it's stated as bodyweight, but we don't use it
     (exercise
         (id seated-calf-raise)
         (name "Seated Calf Raise")
         (primary-muscle-group calves)
-        (targeted-sub-muscle-group soleus) ;TODO: Recheck, missing data in exercise database
+        (targeted-sub-muscle-group calves) ;TODO: Recheck, missing data in exercise database
         (movement isolation) ;TODO: Recheck, missing data in exercise database
-        (equipment machine))
-)
-
-(deffacts abs-exercises-data
-    (exercise
-        (id cable-crunch)
-        (name "Cable Crunch")
-        (primary-muscle-group abs)
-        (movement isolation)
-        (equipment machine)) ;TODO: Recheck, stated as cable exercise in exercises.txt, but we don't have that as an equipment type, so we use machine
-    (exercise
-        (id ab-crunch-machine)
-        (name "Ab Crunch Machine")
-        (primary-muscle-group abs)
-        (movement isolation)
         (equipment machine))
 )

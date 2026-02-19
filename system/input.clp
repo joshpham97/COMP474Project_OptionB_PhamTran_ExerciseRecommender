@@ -16,7 +16,6 @@
       (exercise-type nil))
 )
 
-
 (deffunction set-goal (?g)
    (do-for-all-facts
       ((?ui user-input))
@@ -57,25 +56,20 @@
    (printout t "Please enter your goal number: " crlf)
    (printout t "1. Strength" crlf)
    (printout t "2. Hypertrophy" crlf)
-   (printout t "3. Endurance" crlf)
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
       then
-      (printout t "Invalid input. Please enter 1, 2, or 3." crlf)
+      (printout t "Invalid input. Please enter 1 or 2." crlf)
       (input-goal)
    else
       (if (= ?input 1)
          then
-         (set-goal strength)
+         (set-goal "Strength")
       else
-         (if (= ?input 2)
-         then
-         (set-goal hypertrophy)
-         else
-         (set-goal endurance)
-         ))))
+         (set-goal "Hypertrophy")
+      )))
 
 (deffunction input-frequency ()
    (printout t "Please enter your training frequency number: " crlf)
@@ -159,7 +153,7 @@
    else
       (if (= ?input 1)
          then
-         (set-exercise-type free-weight)
+         (set-exercise-type "Free weight")
       else
-         (set-exercise-type machine))))
+         (set-exercise-type "Machine"))))
 
