@@ -73,3 +73,4 @@
    ;; Assign the exercise
    (modify ?unassigned-slot (order ?next-order))
 )
+

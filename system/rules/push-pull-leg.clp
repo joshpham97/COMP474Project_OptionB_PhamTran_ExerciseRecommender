@@ -1,24 +1,14 @@
-(defrule initialize-push-pull-leg-not-frequency-6
-   (workout-split (name "Push-Pull-Leg"))
-   (user-input (frequency ?f&:(<> ?f 6)))
-   (not (day))
-   =>
-   (assert (day (name "Push 1") 
-                (focus push)))
-   (assert (day (name "Pull 1")
-                (focus pull)))
-   (assert (day (name "Leg 1")
-                (focus leg)))
-)
-
-(defrule initialize-push-pull-leg-frequency-6
+(defrule initialize-push-pull-leg
    (workout-split (name "Push-Pull-Leg"))
    (user-input (frequency 6))
    (not (day))
    =>
+   (assert (day (name "Push 1") (focus push)))
+   (assert (day (name "Pull 1") (focus pull)))
+   (assert (day (name "Leg 1") (focus leg)))
    (assert (day (name "Push 2") (focus push)))
    (assert (day (name "Pull 2") (focus pull)))
-   (assert (day (name "Leg 2")  (focus leg))))
+   (assert (day (name "Leg 2") (focus leg))))
 
 ; Initialize template for each day 
 (defrule initialize-push-day-exercise
@@ -37,7 +27,7 @@
     (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group trap)))
+    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
@@ -74,6 +64,7 @@
    (modify ?exercise1 (order 1))
    (modify ?exercise2 (order 1))
 )
+
 (defrule assign-first-exercise-pull
    (day (name ?d2name) (focus ?f))
    (day (name ?d1name) (focus ?f))
@@ -87,6 +78,7 @@
    (modify ?exercise1 (order 1))
    (modify ?exercise2 (order 1))
 )
+
 (defrule assign-first-exercise-leg
    (day (name ?d2name) (focus ?f))
    (day (name ?d1name) (focus ?f))
@@ -99,4 +91,23 @@
    =>
    (modify ?exercise1 (order 1))
    (modify ?exercise2 (order 1))
+)
+
+; Pull day has a special order assignment 
+(defrule assign-next-order-pull-day
+   ;; Match a day
+   ?day <- (day (name ?dname) (focus pull))
+
+   ;; Find the last assigned back exercise for this day (highest order)
+   ?last <- (exercise-slot (day ?dname) (primary-muscle-group back) (order ?last-order&~nil) (priority ?last-priority&~nil))
+   (not (exercise-slot (day ?dname) (order ?o2&~nil&:(> ?o2 ?last-order))))
+   
+   ;; Find an unassigned back exercise for this day
+   ?unassigned-slot <- (exercise-slot (day ?dname) (order nil) (primary-muscle-group back))
+   =>
+   ;; Compute next order number
+   (bind ?next-order (+ ?last-order 1))
+   
+   ;; Assign the exercise
+   (modify ?unassigned-slot (order ?next-order))
 )
