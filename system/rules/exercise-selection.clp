@@ -1,11 +1,12 @@
+; global queue position
+(defglobal ?*queue-position* = 0)
+
 (deffunction select-exercise-by-slot (?day ?slot-id)
-   (printout t "Processing exercise slot " ?slot-id " for day " ?day crlf)
 
    ; assert the control fact for this day
-   (bind ?f (assert (to-be-processed (day ?day) (id ?slot-id))))
-
-   ; run until agenda is empty
-   (run)
+   (bind ?*queue-position* (+ ?*queue-position* 1))
+   (printout t "Processing exercise slot " ?slot-id " for day " ?day " queue position " ?*queue-position* crlf)
+   (assert (to-be-processed (day ?day) (id ?slot-id) (queue-position ?*queue-position*)))
 )
 
 (deffunction process-exercise-by-order (?day)
@@ -43,8 +44,25 @@
    )
 )
 
+(deffunction has-multiple-candidates (?day ?slot)
+   (> (length$
+        (find-all-facts
+           ((?c candidate-exercise))
+           (and (eq ?c:day ?day)
+                (eq ?c:slot-id ?slot))))
+1))
+
+(defrule dequeue
+   ?item <- (to-be-processed (day ?day) (id ?slot-id) (queue-position ?pos1))
+   (not (to-be-processed (queue-position ?pos2&:(> ?pos1 ?pos2))))
+   (not (currently-processing))
+   =>
+   (assert (currently-processing (day ?day) (id ?slot-id)))
+   (retract ?item)
+)
+
 (defrule generate-candidate
-   (to-be-processed (day ?dname) (id ?slot-id))
+   (currently-processing (day ?dname) (id ?slot-id))
    (not (candidate-initialized (day ?dname) (slot-id ?slot-id)))
    ?slot <- (exercise-slot 
                (id ?slot-id)
@@ -66,11 +84,12 @@
                (muscle-group ?muscle-group)
                (exercise-id ?ex-id)
                (priority ?priority)))
+   
+   (printout t "Generate exercise " ?ex-id " for day " ?dname " slot " ?slot-id crlf)
 )
 
 (defrule all-candidates-generated-per-slot
-   ?cs <- (to-be-processed (day ?day) (id ?slot-id))
-
+   (currently-processing (day ?day) (id ?slot-id))
    ; the slot we are working on
    (exercise-slot 
       (id ?slot-id) 
@@ -92,17 +111,13 @@
 )
 
 (defrule filter-assigned-candidate
-   (declare (salience 50))
-   ; We are processing this slot
+   (declare (salience 52))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
-
-   ; Candidate for this slot
+   (test (has-multiple-candidates ?d ?slot-id))
    ?c <- (candidate-exercise 
             (day ?d)
             (slot-id ?slot-id)
             (exercise-id ?id))
-
-   ; Some OTHER slot on the SAME day already assigned it
    (exercise-slot 
       (day ?d)
       (id ?other-slot&~?slot-id)
@@ -112,9 +127,35 @@
    (retract ?c)
 )
 
+(defrule filter-assigned-candidate-by-sub-muscle-group
+   (declare (salience 51))
+   (candidate-initialized (day ?d) (slot-id ?slot-id))
+   (test (has-multiple-candidates ?d ?slot-id))
+   ; Candidate for this slot
+   ?c <- (candidate-exercise 
+            (day ?d)
+            (slot-id ?slot-id)
+            (exercise-id ?id))
+   (exercise (id ?id) (targeted-sub-muscle-group ?sub))
+   (and 
+      (exercise-slot 
+         (day ?d)
+         (id ?other-slot&~?slot-id)
+         (exercise ?other-id))
+      (exercise (id ?other-id) (targeted-sub-muscle-group ?sub))
+   )
+   =>
+   (retract ?c)
+)
+
+
 (defrule filter-candidate-by-priority
    (declare (salience 49))
+   
    (candidate-initialized (day ?d) (slot-id ?slot-id))
+
+   (test (has-multiple-candidates ?d ?slot-id))
+
    ?c1 <- (candidate-exercise 
               (day ?d)
               (slot-id ?slot-id)
@@ -132,22 +173,24 @@
 )
 
 (defrule filter-by-user-preference 
-   ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
+   (declare (salience 48))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (user-input (exercise-type ?typet&~nil))
+   (test (has-multiple-candidates ?d ?slot-id))
+   (user-input (exercise-type ?user-type))
    ?c1 <- (candidate-exercise
             (day ?d)
             (slot-id ?slot-id)
             (exercise-id ?ex-id1)
             (priority ?p))
-   (exercise (id ?ex-id1) (equipment ?type))
+   (exercise (id ?ex-id1) (equipment ?user-type))
    ?c2 <- (candidate-exercise
             (day ?d)
             (slot-id ?slot-id)
             (exercise-id ?ex-id2)
             (priority ?p))
-   (exercise (id ?ex-id2) (equipment ?t))
-   (test (neq ?t ?type))
+   (exercise (id ?ex-id2) (equipment ?other-type&~?user-type))
+
+   ;; Ensure no candidate exists for this slot & day with a different movement type
    => 
    (retract ?c2)
 )
@@ -155,7 +198,7 @@
 (defrule filter-candidate-by-movement
    ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
-   
+   (test (has-multiple-candidates ?d ?slot-id))
    ;; Isolation candidate (the one we may retract)
    ?iso <- (candidate-exercise 
                (day ?d)
@@ -186,7 +229,7 @@
 (defrule filter-candidate-random
    ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
-
+   (test (has-multiple-candidates ?d ?slot-id))
    ;; Candidate 1
    ?c1 <- (candidate-exercise
               (day ?d)
@@ -230,14 +273,16 @@
 )
 
 (defrule select-exercise
-   ?to-be-processed <- (to-be-processed (day ?day) (id ?slot-id))
+   (declare (salience 50))
+   ?processing <- (currently-processing (day ?day) (id ?slot-id)) 
    (candidate-initialized (day ?day) (slot-id ?slot-id))
    ?candidate <- (candidate-exercise
             (day ?day)
             (slot-id ?slot-id)
             (exercise-id ?id)
+            (priority ?p)
          )
-   ?s <- (exercise-slot (day ?day) (id ?slot-id))
+   ?s <- (exercise-slot (day ?day) (id ?slot-id) (order ?current-order))
    ;; There must NOT exist another candidate for the same slot & day
    (not
       (and
@@ -249,9 +294,10 @@
       )  
    )
    =>
+   (printout t "Assigned exercise for day " ?day " slot " ?slot-id " exercise " ?id  " priority " ?p " order " ?current-order crlf)
    (modify ?s (exercise ?id))
    (retract ?candidate)
-   (retract ?to-be-processed)
+   (retract ?processing)
 )
 
 (defrule all-exercises-ready

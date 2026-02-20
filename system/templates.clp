@@ -79,6 +79,12 @@
 )
 
 (deftemplate to-be-processed
+   (slot queue-position)
+   (slot day)
+   (slot id)
+)
+
+(deftemplate currently-processing
    (slot day)
    (slot id)
 )
