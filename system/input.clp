@@ -56,19 +56,24 @@
    (printout t "Please enter your goal number: " crlf)
    (printout t "1. Strength" crlf)
    (printout t "2. Hypertrophy" crlf)
+   (printout t "3. Endurance" crlf)
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3))))
       then
       (printout t "Invalid input. Please enter 1 or 2." crlf)
       (input-goal)
    else
       (if (= ?input 1)
          then
-         (set-goal "Strength")
+         (set-goal strength)
       else
-         (set-goal "Hypertrophy")
+         (if (= ?input 2)
+         then
+         (set-goal hypertrophy)
+         else
+         (set-goal endurance))
       )))
 
 (deffunction input-frequency ()
@@ -159,6 +164,7 @@
 
 (deffunction input-all ()
    (printout t "Getting all the user inputs" crlf)
+   (printout t "Please select each option by entering the corresponding number" crlf)
    (input-goal)
    (input-frequency)
    (input-muscle-group)

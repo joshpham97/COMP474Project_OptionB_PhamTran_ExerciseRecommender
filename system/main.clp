@@ -7,4 +7,5 @@
 (load "rules/upper-lower.clp")
 (load "rules/workout-split.clp")
 (load "rules/exercise-selection.clp")
+(load "output.clp")
 (reset)
