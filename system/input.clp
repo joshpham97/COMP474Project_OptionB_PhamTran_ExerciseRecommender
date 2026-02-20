@@ -164,6 +164,7 @@
 
 (deffunction input-all ()
    (printout t "Getting all the user inputs" crlf)
+   (printout t "Please select each option by entering the corresponding number" crlf)
    (input-goal)
    (input-frequency)
    (input-muscle-group)
