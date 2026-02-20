@@ -1,16 +1,25 @@
-(defrule assign-full-body
-   (user-input (frequency ?f&:(and (neq ?f nil) (= ?f 3))))
+(defrule assign-workout-split-frequency-3-full-body
+   (user-input 
+      (frequency ?f&:(= ?f 3)) 
+      (muscle-group full-body))
    =>
    (assert (workout-split 
             (name "Full-body"))))
+(defrule assign-workout-split-frequency-3-not-full-body
+   (user-input 
+      (frequency ?f&:(= ?f 3)) 
+      (preference ?p&:(neq ?p "Full-body")))
+   =>
+   (assert (workout-split 
+            (name "Push-Pull-Leg"))))
 
-(defrule assign-upper-lower
+(defrule assign-workout-split-frequency-45
    (user-input (frequency ?f&:(and (neq ?f nil) (or (= ?f 4) (= ?f 5)))))
    =>
    (assert (workout-split 
             (name "Upper-Lower"))))
 
-(defrule assign-push-pull-leg
+(defrule assign-workout-split-frequency-6
    (user-input (frequency ?f&:(and (neq ?f nil) (= ?f 6))))
    =>
    (assert (workout-split 
