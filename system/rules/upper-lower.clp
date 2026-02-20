@@ -1,5 +1,6 @@
-(defrule initialize-upper-lower
+(defrule initialize-upper-lower-frequency-not-5
    ?split <- (workout-split (name "Upper-Lower"))
+   (user-input (frequency ?f&:(= ?f 4)))
    (not (day))
    =>
    (assert (day (name "Upper 1")
@@ -15,9 +16,29 @@
                 (focus lower))
    )
 )
-
-(defrule initialize-upper-day-exercise
+(defrule initialize-upper-lower-frequency-5
+   ?split <- (workout-split (name "Upper-Lower"))
+   (user-input 
+      (frequency ?f&:(<> ?f 5)))
+   (not (day))
+   =>
+   (assert (day (name "Upper 1")
+                (focus upper))
+   )
+   (assert (day (name "Lower 1")
+                (focus lower))
+   )
+   (assert (day (name "Upper 2")
+                (focus upper))
+   )
+   (assert (day (name "Lower 2")
+                (focus lower))
+   )
+)
+(defrule initialize-upper-day-exercise-frequency-not-4
     ?day <- (day (name ?dname) (focus upper) (is-initialized nil))
+   (user-input 
+      (frequency ?f&:(<> ?f 4)))
     =>
     (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
     (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
@@ -25,6 +46,19 @@
     (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group biceps)))
     (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group triceps)))
+    (modify ?day (is-initialized TRUE))
+)
+(defrule initialize-upper-day-exercise-frequency-4
+    ?day <- (day (name ?dname) (focus upper) (is-initialized nil))
+   (user-input (frequency ?f&:(= ?f 4)))
+    =>
+    (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
+    (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
+    (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group chest)))
+    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
+    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group biceps)))
+    (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group triceps)))
+    (assert(exercise-slot (id 7) (day ?dname) (primary-muscle-group shoulder)))
     (modify ?day (is-initialized TRUE))
 )
 

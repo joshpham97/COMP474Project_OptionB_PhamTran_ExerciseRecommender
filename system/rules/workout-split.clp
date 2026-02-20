@@ -8,7 +8,7 @@
 (defrule assign-workout-split-frequency-3-not-full-body
    (user-input 
       (frequency ?f&:(= ?f 3)) 
-      (preference ?p&:(neq ?p "Full-body")))
+      (muscle-group ?p&:(neq ?p "Full-body")))
    =>
    (assert (workout-split 
             (name "Push-Pull-Leg"))))
