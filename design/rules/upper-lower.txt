@@ -11,20 +11,15 @@ THEN
     Routine has a day named Lower2
     Lower2 focus is lower body
 
-IF workout split is upper-lower AND frequency is 5 days THEN
-    Routine has a day named Shoulder
-    Shoulder focus is shoulder
-
 # Initialize template for each day
 
-IF Day focus is Upper THEN
+IF Day focus is upper body THEN
     Day requires 2 chest exercises
     Day requires 2 back exercises
+    Day requires 1 shoulder exercise
     Day requires 1 biceps exercise
     Day requires 1 tricep exercise
-    IF frequency is 4 days THEN
-        Day requires 1 shoulder exercise
-ELSE IF focus is Lower THEN
+ELSE IF focus is lower body THEN
     Day requires 2 quads exercises
     Day requires 2 hamstring exercises
     Day requires 1 glutes exercises
@@ -32,17 +27,26 @@ ELSE IF focus is Lower THEN
 
 # Picking the first exercise for each day
 
-IF Workout split is upper-lower 
+IF workout split is upper-lower AND
+    There are 2 different upper days AND
+    There is no exercise of the day1 assigned an order 1 AND
+    There is no exercise of the day2 assigned an order 1 AND
+    The exercise s1 of day1 is not assigned an order AND 
+    The exercise s1 is a chest exercise AND
+    The exercise s2 of day2 is not assigned an order AND
+    The exercise s2 is a back exercise
 THEN
-    FOR ALL exercise slots AND days AND slot is not assigned a muscle group
-        IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
-            IF day is Upper1
-            THEN The target muscle group of the exercise slot is chest
-            ELSE IF day is Upper2 
-            THEN The target muscle group of the exercise slot is back
-            ELSE IF day is Lower1 
-            THEN The target muscle group of the exercise slot is quads
-            ELSE IF day is Lower2
-            THEN The target muscle group of the exercise slot is hamstring
-            ELSE IF day is Shoulder
-            THEN The target muscle group of the exercise slot is shoulder
+    The exercise s1 is assigned order 1
+    The exercise s2 is assigned order 1
+
+IF workout split is upper-lower AND
+    There are 2 different lower days AND
+    There is no exercise of the day1 assigned an order 1 AND
+    There is no exercise of the day2 assigned an order 1 AND
+    The exercise s1 of day1 is not assigned an order AND 
+    The exercise s1 is a quads exercise AND
+    The exercise s2 of day2 is not assigned an order AND
+    The exercise s2 is a hamstring exercise
+THEN
+    The exercise s1 is assigned order 1
+    The exercise s2 is assigned order 1

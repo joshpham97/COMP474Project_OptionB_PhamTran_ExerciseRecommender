@@ -5,7 +5,7 @@
             (name "Full-body"))))
 
 (defrule assign-upper-lower
-   (user-input (frequency ?f&:(and (neq ?f nil) (or (= ?f 4) (= ?f 5)))))
+   (user-input (frequency ?f&:(and (neq ?f nil) (= ?f 4))))
    =>
    (assert (workout-split 
             (name "Upper-Lower"))))
@@ -50,20 +50,11 @@
 
 (defrule assign-next-order
    (declare (salience -1))
-   ;; Match a day
    ?day <- (day (name ?dname))
-   
-   ;; Find the last assigned exercise for this day (highest order)
    ?last <- (exercise-slot (day ?dname) (order ?last-order&~nil) (priority ?last-priority&~nil) (primary-muscle-group ?last-mg))
    (not (exercise-slot (day ?dname) (order ?o2&~nil&:(> ?o2 ?last-order))))
-   
-   ;; Find an unassigned exercise for this day
    ?unassigned-slot <- (exercise-slot (day ?dname) (order nil) (primary-muscle-group ?unassigned-mg) (priority ?unassigned-priority&~nil))
-   
-   ;; Ensure it is not the same muscle group as the last assigned exercise
    (test (or (eq ?last nil) (neq ?unassigned-mg ?last-mg)))
-
-   ;; Ensure there is no unassigned exercise with higher priority
    (not (exercise-slot (day ?dname) (order nil) (priority ?p2&~nil&:(> ?unassigned-priority ?p2))))
 
    =>
@@ -74,3 +65,19 @@
    (modify ?unassigned-slot (order ?next-order))
 )
 
+(defrule assign-first-exercise-by-weakpoint
+   (day (name ?dname) (focus ?f))
+   (user-input (muscle-group ?mg))
+   ?mg-fact <- (muscle-group (name ?mg) (region ?f))
+   (not (exercise-slot (day ?dname) (order 1)))
+   ?exercise <- (exercise-slot (day ?dname) (primary-muscle-group ?mg) (priority ?p&~nil) (order nil))
+   =>
+   (modify ?exercise (order 1))
+)
+
+(defrule initialize-priority
+   ?exercise <- (exercise-slot (primary-muscle-group ?mg) (priority nil))
+   ?muscle-group <- (muscle-group (name ?mg) (priority ?p))
+   =>
+   (modify ?exercise (priority ?p))
+)

@@ -47,6 +47,7 @@
     )
 )
 (deffunction output ()
+    (run)
     (do-for-all-facts ((?ws workout-split))
         TRUE
         =>

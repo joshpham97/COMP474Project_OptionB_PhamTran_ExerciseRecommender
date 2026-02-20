@@ -1,6 +1,4 @@
-# https://link.springer.com/article/10.1007/s40279-021-01490-1?utm_source=chatgpt.com#Sec4
-
-IF Workout split is Full body THEN
+IF Workout split is full-body THEN
     Workout split has a day named Day1
     Workout split has a day named Day2
     Workout split has a day named Day3
@@ -14,13 +12,26 @@ FOR ALL days in the workout split
     Day requires 1 quad exercise
     Day requires 1 hamstring exercise
 
-IF Workout split is Full-body
+IF workout split is full-body AND
+    Day is 1 AND
+    There is no exercise of the day assigned an order 1 AND
+    The exercise s is not assigned an order
 THEN
-    FOR ALL exercise slots AND days AND slot is not assigned a muscle group
-        IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
-            IF day is Day1
-            THEN The target muscle group of the exercise slot is chest
-            ELSE IF day is Day2
-            THEN The target muscle group of the exercise slot is back
-            ELSE IF day is Day3
-            THEN The target muscle group of the exercise slot is quad
+    The exercise s is a chest exercise
+    The exercise s is assigned order 1
+
+IF workout split is full-body AND
+    Day is 2 AND
+    There is no exercise of the day assigned an order 1 AND
+    The exercise s is not assigned an order
+THEN
+    The exercise s is a back exercise
+    The exercise s is assigned order 1
+
+IF workout split is full-body AND
+    Day is 3 AND
+    There is no exercise of the day assigned an order 1 AND
+    The exercise s is not assigned an order
+THEN
+    The exercise s is a quads exercise
+    The exercise s is assigned order 1

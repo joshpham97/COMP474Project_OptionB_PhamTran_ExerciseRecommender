@@ -2,36 +2,25 @@
 (defglobal ?*queue-position* = 0)
 
 (deffunction select-exercise-by-slot (?day ?slot-id)
-
-   ; assert the control fact for this day
    (bind ?*queue-position* (+ ?*queue-position* 1))
-   (printout t "Processing exercise slot " ?slot-id " for day " ?day " queue position " ?*queue-position* crlf)
    (assert (to-be-processed (day ?day) (id ?slot-id) (queue-position ?*queue-position*)))
 )
 
 (deffunction process-exercise-by-order (?day)
-   ; find maximum order dynamically for that day only
    (bind ?max 0)
-
    (do-for-all-facts ((?f exercise-slot))
       (eq ?f:day ?day)
 
       (if (> ?f:order ?max)
           then (bind ?max ?f:order))
    )
-
-   ; iterate from 1 to max
    (bind ?i 1)
-
    (while (<= ?i ?max) do
-
       (do-for-all-facts ((?f exercise-slot))
          (and (eq ?f:day ?day)
               (= ?f:order ?i))
-
          (select-exercise-by-slot ?f:day ?f:id)
       )
-
       (bind ?i (+ ?i 1))
    )
 )
@@ -39,7 +28,6 @@
 (deffunction select-exercises-for-day ()
    (do-for-all-facts ((?d day)) 
       TRUE
-      (printout t "Day is " ?d:name crlf)
       (process-exercise-by-order ?d:name)
    )
 )
@@ -84,8 +72,6 @@
                (muscle-group ?muscle-group)
                (exercise-id ?ex-id)
                (priority ?priority)))
-   
-   (printout t "Generate exercise " ?ex-id " for day " ?dname " slot " ?slot-id crlf)
 )
 
 (defrule all-candidates-generated-per-slot
@@ -189,8 +175,6 @@
             (exercise-id ?ex-id2)
             (priority ?p))
    (exercise (id ?ex-id2) (equipment ?other-type&~?user-type))
-
-   ;; Ensure no candidate exists for this slot & day with a different movement type
    => 
    (retract ?c2)
 )
@@ -199,7 +183,6 @@
    ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
    (test (has-multiple-candidates ?d ?slot-id))
-   ;; Isolation candidate (the one we may retract)
    ?iso <- (candidate-exercise 
                (day ?d)
                (slot-id ?slot-id)
@@ -208,8 +191,6 @@
                (priority ?p))
 
    (exercise (id ?iso-id) (movement isolation))
-
-   ;; Ensure there exists at least one compound candidate with the same priority
    (exists
       (and
          (candidate-exercise
@@ -230,23 +211,18 @@
    ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
    (candidate-initialized (day ?d) (slot-id ?slot-id))
    (test (has-multiple-candidates ?d ?slot-id))
-   ;; Candidate 1
    ?c1 <- (candidate-exercise
               (day ?d)
               (slot-id ?slot-id)
               (exercise-id ?id1)
               (priority ?p))
    (exercise (id ?id1) (movement ?move))
-
-   ;; Candidate 2 (different exercise, same slot and day)
    ?c2 <- (candidate-exercise
               (day ?d)
               (slot-id ?slot-id)
               (exercise-id ?id2&~?id1)
               (priority ?p))
    (exercise (id ?id2) (movement ?move))
-
-   ;; Ensure no candidate exists for this slot & day with a different movement type
    (not
       (and
          (candidate-exercise
@@ -257,8 +233,6 @@
          (exercise (id ?other-id) (movement ?other-move&~?move))
       )
    )
-
-   ;; Ensure all candidates for this slot/day have the same priority
    (not
       (candidate-exercise
          (day ?d)
@@ -294,7 +268,6 @@
       )  
    )
    =>
-   (printout t "Assigned exercise for day " ?day " slot " ?slot-id " exercise " ?id  " priority " ?p " order " ?current-order crlf)
    (modify ?s (exercise ?id))
    (retract ?candidate)
    (retract ?processing)

@@ -22,9 +22,10 @@
     (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
     (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
     (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group chest)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group biceps)))
-    (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group triceps)))
+    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group shoulder)))
+    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group back)))
+    (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group biceps)))
+    (assert(exercise-slot (id 7) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
 
@@ -38,23 +39,6 @@
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group glutes)))
     (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group calves)))
     (modify ?day (is-initialized TRUE))
-)
-
-(defrule initialize-priority
-   ?exercise <- (exercise-slot (primary-muscle-group ?mg) (priority nil))
-   ?muscle-group <- (muscle-group (name ?mg) (priority ?p))
-   =>
-   (modify ?exercise (priority ?p))
-)
-
-(defrule assign-first-exercise-by-weakpoint
-   (day (name ?dname) (focus ?f))
-   (user-input (muscle-group ?mg))
-   ?mg-fact <- (muscle-group (name ?mg) (region ?f))
-   (not (exercise-slot (day ?dname) (order 1)))
-   ?exercise <- (exercise-slot (day ?dname) (primary-muscle-group ?mg) (priority ?p&~nil) (order nil))
-   =>
-   (modify ?exercise (order 1))
 )
 
 (defrule assign-first-exercise-lower
