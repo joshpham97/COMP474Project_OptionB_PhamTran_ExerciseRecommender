@@ -1,7 +1,7 @@
 ; Getting user input
 
 ;- Goal: Strength or Hypertrophy
-;- Frequency: 3,4,5,6
+;- Frequency: 3,4,6
 ;- Primary muscle group: Chest, Back, Shoulder, Legs
 ;- Time: Under 1 hour, 1-2 hour
 ;- Exercise type preference: Free weight, Machine
@@ -56,11 +56,10 @@
    (printout t "Please enter your goal number: " crlf)
    (printout t "1. Strength" crlf)
    (printout t "2. Hypertrophy" crlf)
-   (printout t "3. Endurance" crlf)
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
       then
       (printout t "Invalid input. Please enter 1 or 2." crlf)
       (input-goal)
@@ -69,24 +68,20 @@
          then
          (set-goal strength)
       else
-         (if (= ?input 2)
-         then
-         (set-goal hypertrophy)
-         else
-         (set-goal endurance))
-      )))
+         (set-goal hypertrophy))
+   )
+)
 
 (deffunction input-frequency ()
    (printout t "Please enter your training frequency number: " crlf)
    (printout t "3 days per week" crlf)
    (printout t "4 days per week" crlf)
-   (printout t "5 days per week" crlf)
    (printout t "6 days per week" crlf)
 
    (bind ?input (read))
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 3 4 5 6))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 3 4 6))))
       then
-      (printout t "Invalid input. Please enter a number between 3 and 6." crlf)
+      (printout t "Invalid input. Please enter a number either 3, 4 or 6." crlf)
       (input-frequency)
    else
       (set-frequency ?input)))
@@ -97,12 +92,10 @@
    (printout t "2. Back" crlf)
    (printout t "3. Shoulders" crlf)
    (printout t "4. Legs" crlf)
-   (printout t "5. Full body" crlf)
-
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4 5))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4))))
       then
       (printout t "Invalid input. Please enter a number between 1 and 5." crlf)
       (input-muscle-group)
@@ -119,11 +112,7 @@
                then
                (set-muscle-group shoulder)
             else
-               (if (= ?input 4)
-                  then
-                  (set-muscle-group legs)
-               else
-                  (set-muscle-group full-body)))))))
+               (set-muscle-group legs))))))
    
 
 (deffunction input-time ()
@@ -168,6 +157,6 @@
    (input-goal)
    (input-frequency)
    (input-muscle-group)
-   (input-time)
+   ;(input-time)
    (input-exercise-type))
 

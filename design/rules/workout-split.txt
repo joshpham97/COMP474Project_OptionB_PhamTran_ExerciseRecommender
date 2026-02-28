@@ -6,45 +6,11 @@ THEN
     THEN Workout split is Full body
     ELSE Workout split is Push-pull-leg
 ELSE 
-    IF frequency is 4 days OR 5 days 
+    IF frequency is 4 days
     THEN Workout split is Upper-Lower
 ELSE 
     IF frequency is 6 days 
     THEN Workout split is Push-pull-leg
-
-# Picking exercises for the 1st slot. Should have higher salience compared to workout split specific rules.
-FOR ALL exercise slots AND days
-    IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
-    THEN
-        IF user weakpoint is entered AND user weakpoint is the same as the day focus
-        THEN The target muscle group of the exercise slot is the user weakpoint
-
-
-FOR ALL day
-    FOR ALL exercise slot starting from slot 2
-        FOR ALL remaining required muscle groups
-            IF the muscle group is not the same as the previous slot AND
-                the muscle group has the highest priority among the remaining required muscle groups THEN
-                The muscle group is assigned to the slot
-    
-# Exercise matching for upper-lower and ppl
-
-IF workout split is fullbody THEN
-    Exercise type priority is compound
-ELSE
-    There is no exercise type priority
-
-FOR EACH day
-    FOR EACH exercise slot of the day
-        FOR ALL exercises in fact-base
-            IF exercise matches the slot muscle group AND
-                exercise is unassigned AND
-                the muscle sub-group exercise in fact base has the highest priority among the unassigned exercise of the same primary muscle group AND
-                exercise matches the exercise type priority
-            THEN 
-                exercise in fact base is assigned to the day
-
-# Goal map to reps: https://pmc.ncbi.nlm.nih.gov/articles/PMC7927075/
 
 IF goal is Strength
     Repetition range is 1-5
@@ -53,19 +19,28 @@ ELSE IF goal is Hypertrophy
 ELSE IF goal is Endurance
     Repetition range is 15+
 
-# Set (of workout) goals
-## Weekly volume = # of sets of primary muscle groups * 1 + # of sets of secondary muscle group * 0.5
-# https://fitnessmadepractical.com/training-frequency-and-volume-what-the-research-really-shows/?utm_source=chatgpt.com
-
 IF exercise does not have a set count assigned THEN
     IF muscle group priority is high THEN
         Number of set is 3
     ELSE 
         Number of set is 2
 
-FOR ALL muscle groups, weekly volume equals number of sets for primary muscle group * 1 + number of sets for secondary muscle group * 0.5
+# Logic to assign order
+FOR ALL days
+    IF an exercise-slot previous-slot with order o-highest AND
+        the order is the highest among exercise-slots AND
+        an exercise-slot unassigned-slot with no order AND
+        unassigned-slot does not targets the same muscle group as previous-slot AND
+        unassigned-slot has the highest priority among the unordered slots AND
+    THEN 
+        unassigned-slot is assigned the next order
 
-FOR ALL muscle groups total weekly volume of the muscle group is at least 8 sets
+# Start the day with the user weak muscle group
+FOR ALL days 
+    IF the day contains an exercise slot AND
+        the slot targets the user weak muscle group
+    THEN 
+        1he slot has order 1
 
 
 

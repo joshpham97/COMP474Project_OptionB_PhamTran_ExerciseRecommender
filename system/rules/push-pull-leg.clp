@@ -21,6 +21,7 @@
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
+
 (defrule initialize-pull-day-exercise
     ?day <- (day (name ?dname) (focus pull) (is-initialized nil))
     =>
@@ -31,6 +32,7 @@
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
+
 (defrule initialize-leg-day-exercise
     ?day <- (day (name ?dname) (focus leg) (is-initialized nil))
     =>
@@ -41,14 +43,6 @@
     (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group glutes)))
     (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group calves)))
     (modify ?day (is-initialized TRUE))
-)
-
-; 
-(defrule initialize-priority
-   ?exercise <- (exercise-slot (primary-muscle-group ?mg) (priority nil))
-   ?muscle-group <- (muscle-group (name ?mg) (priority ?p))
-   =>
-   (modify ?exercise (priority ?p))
 )
 
 (defrule assign-first-exercise-push

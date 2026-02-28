@@ -5,13 +5,12 @@ IF Workout split is Push-Pull-Leg THEN
     Pull1 focus is pull
     Workout split has a day named Leg1
     Leg1 focus is pull
-    IF frequency is 6 days
-        Workout split has a day named Push2
-        Push2 focus is push
-        Workout split has a day named Pull2
-        Pull2 focus is pull
-        Workout split has a day named Leg2
-        Leg2 focus is pull
+    Workout split has a day named Push2
+    Push2 focus is push
+    Workout split has a day named Pull2
+    Pull2 focus is pull
+    Workout split has a day named Leg2
+    Leg2 focus is pull
 
 # Initialize template for each day 
 
@@ -31,17 +30,49 @@ ELSE IF focus is Leg THEN
 
 # Picking the first exercise for each day
 
-IF Workout split is Push-Pull-Leg
+IF workout split is push-pull-leg AND
+    There are 2 different push days AND
+    There is no exercise of the day1 assigned an order 1 AND
+    There is no exercise of the day2 assigned an order 1 AND
+    The exercise s1 of day1 is not assigned an order AND 
+    The exercise s1 is a chest exercise AND
+    The exercise s2 of day2 is not assigned an order AND
+    The exercise s2 is a shoulder exercise
 THEN
-    FOR ALL exercise slots AND days AND slot is not assigned a muscle group
-        IF exercise slot is 1 AND the exercise slot belongs to the day AND slot is not assigned a muscle group
-            IF day is Push1
-            THEN The target muscle group of the exercise slot is chest
-            ELSE IF day is Push2 
-            THEN The target muscle group of the exercise slot is shoulder
-            ELSE IF day is Pull1 OR Pull2 
-            THEN The target muscle group of the exercise slot is back
-            ELSE IF day is Leg1
-            THEN The target muscle group of the exercise slot is quads
-            ELSE IF day is Leg2
-            THEN The target muscle group of the exercise slot is hamstring
+    The exercise s1 is assigned order 1
+    The exercise s2 is assigned order 1
+
+IF workout split is push-pull-leg AND
+    There are 2 different pull days AND
+    There is no exercise of the day1 assigned an order 1 AND
+    There is no exercise of the day2 assigned an order 1 AND
+    The exercise s1 of day1 is not assigned an order AND 
+    The exercise s1 is a back exercise AND
+    The exercise s2 of day2 is not assigned an order AND
+    The exercise s2 is a back exercise
+THEN
+    The exercise s1 is assigned order 1
+    The exercise s2 is assigned order 1
+
+IF workout split is push-pull-leg AND
+    There are 2 different leg days AND
+    There is no exercise of the day1 assigned an order 1 AND
+    There is no exercise of the day2 assigned an order 1 AND
+    The exercise s1 of day1 is not assigned an order AND 
+    The exercise s1 is a quads exercise AND
+    The exercise s2 of day2 is not assigned an order AND
+    The exercise s2 is a hamstring exercise
+THEN
+    The exercise s1 is assigned order 1
+    The exercise s2 is assigned order 1
+
+# For pull day, we have a special ordering
+
+IF a day focus is pull AND
+    An exercise slot s-highest has the highest order AND
+    An exercise slot s-unassigned is not assigned AND
+    s-highest is a back exercise AND
+    s-unassigned is a back exercise
+THEN
+    The next order is the order of s-highest plus 1
+    The next order is assigned to s-unassigned

@@ -1,0 +1,60 @@
+% This is a sample LaTeX input file.  (Version of 12 August 2004.)
+%
+% A '%' character causes TeX to ignore all remaining text on the line,
+% and is used for comments like this one.
+
+\documentclass{article}      % Specifies the document class
+
+                             % The preamble begins here.
+\title{Deliverable 1}  % Declares the document's title.
+\author{Hoang Thuan Pham (40022992) \\ Minh Huy Tran (40263743)}      % Declares the author's name.
+
+\begin{document}             % End of preamble and beginning of text.
+
+\maketitle                   % Produces the title.
+
+\section{Knowledge domain}
+
+Our expert system is an exercise recommander. Many people would like to do strength training and obtain observable results. However, many beginners lack the proper knowledge to create an effective training program. There are so many sources of information on the Internet, to the point that it can be overwhelming and confusing. Our expert system aims to recommend users a science-based, customized training program that can help them achieve their fitness goal.
+
+The knowledge domain of the system consists of the following:
+
+\begin{itemize}
+    \item User information: In order for the system to make good recommendations, it needs to know about the user. Information such as fitness goals, exercise preferences, schedule, etc. plays an important role in designing a fitness program.
+    \item Exercise knowledge: Details about each exercise such as its target muscle, whether the exercise is an isolated or compound movement, as well as alternatives.
+    \item Training guidelines: Information about best practices and training principles, such as progressive overload (progressively increasing weight), training repetitions and sets, recovery, etc.
+    \item Fitness programming knowledge: Knowledge on how to build an effective program that matches the user goal. This includes training volume, frequency, muscle prioritization, programming for strength and hypertrophy, and workout splits.
+\end{itemize}
+
+A member of our team is a fitness enthusiast and has been going to the gym for 3 years. He has experience working with fitness coaches. The knowledge domain is well-researched. There are many research papers on the latter 3 components of the domain. Through this project, we hope to use our fitness expertise to help new gym-goers choose exercises that are proven to be effective and actually produce results.
+
+\section{Goal}
+
+The goal of our expert system is to recommend a weekly workout program for beginners. After taking in user information, the system should output a routine that follows scientific training principles and matches the user goals and constraints. To ensure the completion of the project, the system only recommends a routine to improve strength or muscle mass (hypertrophy). The system does not concern about advanced lifters, as the requirements are different from beginners. Our system is relevant because many people lack proper knowledge in exercise and others don't know how and where to start. We expect to complete the project within the duration of this course.
+
+\section{Potential User}
+
+U is a potential user of our system. U wants to start exercising seriously and consistently. U has constraints: they can only exercise 4 times a week. U also has preferences: they prefer free-weight exercises. U also have a goal of building more muscle in their chest. U wants a workout routine that is backed by science, that is proven to provide results.
+
+Our expert system targets beginner gym-goers like U, who live a busy life with many constraints and who want to start exercising seriously but don't know where to start. They would need clear and easy-to-follow exercise plans to guide their workouts. Even if you know your goal for the workout, it is often hard to find what to do and where to start.  Our expert system can take user's input for their preferences and conditions and generate a workout plan that would match their needs.
+
+\section{Github link}
+
+The full project can be found here: https://github.com/joshpham97/expert-system
+
+\section{Design}
+
+The design is based on scientific research. For our fact-base, we gather exercise-related information (such as targeted muscles, etc.) from Strength Training Anatomy by Frederic Delavier \cite{delavier2005strength}. For exercise priority, we prioritize large muscle groups (chest, back, shoulder, quads, hamstrings, or glutes) as this translates to more gain in strength as recommended by \cite{exercise-priority}. 
+
+Our system focuses on the most common workout splits: full-body, upper-lower and push-pull-leg \cite{workout-split}. It has been shown that there are advantages between the splits in terms of muscle and strength gains \cite{split-effect}, so the split depends on the user's preference.
+
+For each session, we start with the user's weak point first when applicable according to \cite{exercise-priority}, else we alternate between the large muscle groups between days to focus on all large muscle groups evenly. We also alternate muscle groups for each consecutive exercise, as it is proven to reduce the duration of the session and increase recovery between exercises \cite{alternating-exercise}.
+
+Finally, we need to assign a number of sets and repetitions for each exercise. We follow the general recommended repetition range between 5-12 repetitions, depending on the user's goal of strength or hypertrophy \cite{reps-per-set}. We aim for a minimum of 8 sets per muscle group throughout the routine \cite{sets-per-exercise}. For each set of an exercise that primarily targets a muscle group, we add one to the total number of sets. For secondarily targeted muscle groups, we add 0.5 to the total number of sets as suggested in \cite{set-count}.
+
+The full design in Structured English can be found on GitHub or in the zip file submitted through Moodle.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}               % End of document.

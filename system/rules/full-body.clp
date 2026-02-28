@@ -27,23 +27,25 @@
    (workout-split (name "Full-body"))
    (day (name "Day 1") (focus full-body))
    (not (exercise-slot (day "Day 1") (order 1)))
-   ?s <- (exercise-slot (day "Day 1") (order nil))
+   ?s <- (exercise-slot (day "Day 1") (primary-muscle-group chest) (order nil))
    =>
-   (modify ?s (primary-muscle-group chest) (order 1))
+   (modify ?s (order 1))
 )
-(defrule assign-first-fullbody-day21
+
+(defrule assign-first-fullbody-day2
    (workout-split (name "Full-body"))
    (day (name "Day 2") (focus full-body))
    (not (exercise-slot (day "Day 2") (order 1)))
-   ?s <- (exercise-slot (day "Day 2") (order nil))
+   ?s <- (exercise-slot (day "Day 2") (primary-muscle-group back) (order nil))
    =>
-   (modify ?s (primary-muscle-group back) (order 1))
+   (modify ?s (order 1))
 )
+
 (defrule assign-first-fullbody-day3
    (workout-split (name "Full-body"))
    (day (name "Day 3") (focus full-body))
    (not (exercise-slot (day "Day 3") (order 1)))
-   ?s <- (exercise-slot (day "Day 3") (order nil))
+   ?s <- (exercise-slot (day "Day 3") (primary-muscle-group quads) (order nil))
    =>
-   (modify ?s (primary-muscle-group quads) (order 1))
+   (modify ?s (order 1))
 )

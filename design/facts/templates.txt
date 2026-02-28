@@ -1,0 +1,76 @@
+# Muscle group 
+
+A muscle group has a priority.
+The priority 1 is high.
+The priority 2 is medium.
+The priority 3 is low.
+
+A muscle group has a region.
+A muscle group region can be upper.
+A muscle group region can be lower.
+
+A mucsle group has a type.
+A muscle group can be push.
+A muscle group can be pull.
+A muscle group can be leg.
+
+# Sub-muscle group template
+
+A sub-muscle group has a primary muscle group.
+A sub-muscle group has a name.
+
+A sub-muscle group has a priority.
+The priority 1 is high.
+The priority 2 is medium.
+The priority 3 is low.
+
+# Exercise template
+
+An exercise has an id.
+An exercise has a name.
+An exercise has a primary muscle group.
+An exercise has a targeted sub muscle group.
+An exercise can have multiple secondary muscle groups.
+
+An exercise has a movement.
+The movement can be compound.
+The movement can be isolation.
+
+An exercise has an equipment.
+The equipment can be free-weight.
+The equipment can be machine.
+
+An exercise has a set.
+
+# Workout split template
+
+A workout split has a name.
+
+# Day template
+
+A day has a name.
+A day has a focus.
+A day has can be initialized.
+
+# Exercise slot template for day
+
+An exercise slot has an id.
+An exercise slot has a day.
+An exercise slot has a primary muscle group.
+An exercise slot has an exercise.
+An exercise slot has a minimum number of reps.
+The default minimum number of reps is 0.
+An exercise slot has a maximum number of reps.
+The default maximum number of reps is 0.
+An exercise slot has sets.
+The default number of sets is 0.
+An exercise slot has an order.
+An exercise slot has a muscle priority.
+
+# User input template
+
+User-input has a goal.
+User-input has a frequency.
+User-input has a muscle group.
+User-input has a time.
+User-input has an exercise type.
