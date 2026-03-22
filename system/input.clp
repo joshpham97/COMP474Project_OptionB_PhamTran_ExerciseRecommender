@@ -147,9 +147,9 @@
    else
       (if (= ?input 1)
          then
-         (set-exercise-type "Free weight")
+         (set-exercise-type free-weight)
       else
-         (set-exercise-type "Machine"))))
+         (set-exercise-type machine))))
 
 (deffunction input-all ()
    (printout t "Getting all the user inputs" crlf)
