@@ -1,4 +1,4 @@
-(defmodule MAIN (export deftemplate workout-split day exercise-slot user-input muscle-group exercise))
+(defmodule MAIN (export deftemplate workout-split day exercise-slot user-input muscle-group sub-muscle-group exercise))
 
 ; Facts
 
@@ -15,7 +15,7 @@
 (deftemplate sub-muscle-group
    (slot main-muscle-group)
    (slot name)
-   (slot priority (allowed-values 1 2 3)) ; 1 = high, 2 = medium, 3 = low
+   (slot priority (allowed-values 1 2 3 4)) ; 1 = high, 2 = medium, 3 = low
 )
 
 

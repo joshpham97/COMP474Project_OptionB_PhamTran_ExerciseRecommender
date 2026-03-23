@@ -3,33 +3,34 @@
    (user-input (frequency 6))
    (not (day))
    =>
-   (assert (day (name "Push 1") (focus push)))
-   (assert (day (name "Pull 1") (focus pull)))
-   (assert (day (name "Leg 1") (focus leg)))
-   (assert (day (name "Push 2") (focus push)))
-   (assert (day (name "Pull 2") (focus pull)))
-   (assert (day (name "Leg 2") (focus leg))))
+   (assert (day (id 1) (name "Push 1") (focus push)))
+   (assert (day (id 2) (name "Pull 1") (focus pull)))
+   (assert (day (id 3) (name "Leg 1") (focus leg)))
+   (assert (day (id 4) (name "Push 2") (focus push)))
+   (assert (day (id 5) (name "Pull 2") (focus pull)))
+   (assert (day (id 6) (name "Leg 2") (focus leg)))
+)
 
 ; Initialize template for each day 
 (defrule initialize-push-day-exercise
     ?day <- (day (name ?dname) (focus push) (is-initialized nil))
     =>
-    (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
-    (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group chest)))
-    (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group shoulder)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group shoulder)))
-    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
+    (assert (exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
+    (assert (exercise-slot (id 2) (day ?dname) (primary-muscle-group chest)))
+    (assert (exercise-slot (id 3) (day ?dname) (primary-muscle-group shoulder)))
+    (assert (exercise-slot (id 4) (day ?dname) (primary-muscle-group shoulder)))
+    (assert (exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
 
 (defrule initialize-pull-day-exercise
     ?day <- (day (name ?dname) (focus pull) (is-initialized nil))
     =>
-    (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
+    (assert (exercise-slot (id 1) (day ?dname) (primary-muscle-group back)))
+    (assert (exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
+    (assert (exercise-slot (id 3) (day ?dname) (primary-muscle-group back)))
+    (assert (exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
+    (assert (exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
     (modify ?day (is-initialized TRUE))
 )
 
