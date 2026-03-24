@@ -1,282 +1,95 @@
-; global queue position
-(defglobal ?*queue-position* = 0)
+; Sub muscle group selection
 
-(deffunction select-exercise-by-slot (?day ?slot-id)
-   (bind ?*queue-position* (+ ?*queue-position* 1))
-   (assert (to-be-processed (day ?day) (id ?slot-id) (queue-position ?*queue-position*)))
-)
-
-(deffunction process-exercise-by-order (?day)
-   (bind ?max 0)
-   (do-for-all-facts ((?f exercise-slot))
-      (eq ?f:day ?day)
-
-      (if (> ?f:order ?max)
-          then (bind ?max ?f:order))
-   )
-   (bind ?i 1)
-   (while (<= ?i ?max) do
-      (do-for-all-facts ((?f exercise-slot))
-         (and (eq ?f:day ?day)
-              (= ?f:order ?i))
-         (select-exercise-by-slot ?f:day ?f:id)
-      )
-      (bind ?i (+ ?i 1))
-   )
-)
-
-(deffunction select-exercises-for-day ()
-   (do-for-all-facts ((?d day)) 
-      TRUE
-      (process-exercise-by-order ?d:name)
-   )
-)
-
-(deffunction has-multiple-candidates (?day ?slot)
-   (> (length$
-        (find-all-facts
-           ((?c candidate-exercise))
-           (and (eq ?c:day ?day)
-                (eq ?c:slot-id ?slot))))
-1))
-
-(defrule dequeue
-   ?item <- (to-be-processed (day ?day) (id ?slot-id) (queue-position ?pos1))
-   (not (to-be-processed (queue-position ?pos2&:(> ?pos1 ?pos2))))
-   (not (currently-processing))
+(defrule assign-sub-muscle-group-for-first-exercise-by-muscle-group
+   (muscle-group (name ?main-mg))
+   (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority 1))
+   ?s <- (exercise-slot (global-order ?g-order&~nil)
+                        (primary-muscle-group ?main-mg) (targeted-sub-muscle-group nil))
+   (not (exercise-slot (primary-muscle-group ?main-mg)
+                    (global-order ?g2&~nil&:(< ?g2 ?g-order))))
    =>
-   (assert (currently-processing (day ?day) (id ?slot-id)))
-   (retract ?item)
+   (modify ?s (targeted-sub-muscle-group ?sub-mg))
 )
 
-(defrule generate-candidate
-   (currently-processing (day ?dname) (id ?slot-id))
-   (not (candidate-initialized (day ?dname) (slot-id ?slot-id)))
-   ?slot <- (exercise-slot 
-               (id ?slot-id)
-               (day ?dname)
-               (primary-muscle-group ?muscle-group)
-               (exercise nil))
-   ?ex <- (exercise 
-               (id ?ex-id) 
-               (primary-muscle-group ?muscle-group) 
-               (targeted-sub-muscle-group ?sub))
-   ?subm <- (sub-muscle-group 
-               (main-muscle-group ?muscle-group) 
-               (name ?sub) 
-               (priority ?priority))
+(defrule assign-sub-muscle-group-for-next-exercise-by-muscle-group
+   (exercise-slot (global-order ?g-prev&~nil) (primary-muscle-group ?main-mg)
+                  (targeted-sub-muscle-group ?prev-smg&~nil))
+   (sub-muscle-group (main-muscle-group ?main-mg) (name ?prev-smg) (priority ?prev-p))
+   (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority ?p&:(= ?p (+ ?prev-p 1))))
+   ?s <- (exercise-slot (global-order ?g-order&:(> ?g-order ?g-prev))
+                        (primary-muscle-group ?main-mg) (targeted-sub-muscle-group nil))
+   (not (exercise-slot (primary-muscle-group ?main-mg)
+                       (targeted-sub-muscle-group nil)
+                       (global-order ?g2&~nil&:(and (> ?g2 ?g-prev) (< ?g2 ?g-order)))))
    =>
-   (assert (candidate-exercise
-               (day ?dname)
-               (slot-id ?slot-id)
-               (muscle-group ?muscle-group)
-               (exercise-id ?ex-id)
-               (priority ?priority)))
+   (modify ?s (targeted-sub-muscle-group ?sub-mg))
 )
 
-(defrule all-candidates-generated-per-slot
-   (currently-processing (day ?day) (id ?slot-id))
-   ; the slot we are working on
-   (exercise-slot 
-      (id ?slot-id) 
-      (day ?day) 
-      (primary-muscle-group ?mg)
-      (exercise nil))
-
-   ; make sure there is NO exercise of that muscle group
-   ; for which a candidate-exercise does NOT exist
-   (not 
-      (and
-         (exercise (primary-muscle-group ?mg) (id ?ex-id))
-         (not (candidate-exercise 
-                  (day ?day)
-                  (slot-id ?slot-id)
-                  (exercise-id ?ex-id)))))
+(defrule assign-sub-muscle-group-loop-back
+   (exercise-slot (global-order ?g-prev&~nil) (primary-muscle-group ?main-mg)
+                  (targeted-sub-muscle-group ?prev-smg&~nil))
+   (sub-muscle-group (main-muscle-group ?main-mg) (name ?prev-smg) (priority ?prev-p))
+   ; no sub-muscle-group exists with a higher priority number (i.e. we're at the lowest)
+   (not (sub-muscle-group (main-muscle-group ?main-mg) (priority ?next-p&:(= ?next-p (+ ?prev-p 1)))))
+   ; loop back to priority 1
+   (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority 1))
+   ?s <- (exercise-slot (global-order ?g-order&:(> ?g-order ?g-prev))
+                        (primary-muscle-group ?main-mg) (targeted-sub-muscle-group nil))
+   (not (exercise-slot (primary-muscle-group ?main-mg)
+                       (targeted-sub-muscle-group nil)
+                       (global-order ?g2&~nil&:(and (> ?g2 ?g-prev) (< ?g2 ?g-order)))))
    =>
-   (assert (candidate-initialized (day ?day) (slot-id ?slot-id)))
+   (modify ?s (targeted-sub-muscle-group ?sub-mg))
 )
 
-(defrule filter-assigned-candidate
-   (declare (salience 52))
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (test (has-multiple-candidates ?d ?slot-id))
-   ?c <- (candidate-exercise 
-            (day ?d)
-            (slot-id ?slot-id)
-            (exercise-id ?id))
-   (exercise-slot 
-      (day ?d)
-      (id ?other-slot&~?slot-id)
-      (exercise ?id&~nil))
-
+(defrule swap-sub-muscle-group-based-on-day-order
+   ?s1 <- (exercise-slot (day-order ?day-order) (primary-muscle-group ?main-mg) (targeted-sub-muscle-group ?sub-mg1))
+   ?s2 <- (exercise-slot (day-order ?day-order) (primary-muscle-group ?main-mg) (targeted-sub-muscle-group ?sub-mg2))
+   (sub-muscle-group (name ?sub-mg1) (priority ?priority1))
+   (sub-muscle-group (name ?sub-mg2) (priority ?priority2))
+   (test (> ?priority1 ?priority2))
+   (test (< (fact-index ?s1) (fact-index ?s2))) ; Making sure that the facts are matched only once. AI prompt: How can I prevent the facts from matching infinitely (22/3/2026)
    =>
-   (retract ?c)
+   (modify ?s1 (targeted-sub-muscle-group ?sub-mg2))
+   (modify ?s2 (targeted-sub-muscle-group ?sub-mg1))
 )
 
-(defrule filter-assigned-candidate-by-sub-muscle-group
-   (declare (salience 51))
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (test (has-multiple-candidates ?d ?slot-id))
-   ; Candidate for this slot
-   ?c <- (candidate-exercise 
-            (day ?d)
-            (slot-id ?slot-id)
-            (exercise-id ?id))
-   (exercise (id ?id) (targeted-sub-muscle-group ?sub))
-   (and 
-      (exercise-slot 
-         (day ?d)
-         (id ?other-slot&~?slot-id)
-         (exercise ?other-id))
-      (exercise (id ?other-id) (targeted-sub-muscle-group ?sub))
-   )
+; Exercise selection based on user equipment preference and movement type
+
+(defrule assign-exercise-by-user-preference-compound
+   (declare (salience 3))
+   ?s <- (exercise-slot (targeted-sub-muscle-group ?sub-mg&~nil) (exercise nil))
+   (exercise (id ?execise-id) (targeted-sub-muscle-group ?sub-mg) (equipment ?equipment) (movement compound)) ; prioritizing compound movements
+   (user-input (exercise-type ?equipment))
+   (not (exercise-slot (exercise ?execise-id)))
    =>
-   (retract ?c)
+   (modify ?s (exercise ?execise-id))
 )
 
-
-(defrule filter-candidate-by-priority
-   (declare (salience 49))
-   
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-
-   (test (has-multiple-candidates ?d ?slot-id))
-
-   ?c1 <- (candidate-exercise 
-              (day ?d)
-              (slot-id ?slot-id)
-              (exercise-id ?id1)
-              (priority ?p1))
-
-   ?c2 <- (candidate-exercise
-              (day ?d)
-              (slot-id ?slot-id)
-              (exercise-id ?id2&~?id1)
-              (priority ?p2&:(> ?p2 ?p1)))
-
-   =>
-   (retract ?c2)
-)
-
-(defrule filter-by-user-preference 
-   (declare (salience 48))
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (test (has-multiple-candidates ?d ?slot-id))
-   (user-input (exercise-type ?user-type))
-   ?c1 <- (candidate-exercise
-            (day ?d)
-            (slot-id ?slot-id)
-            (exercise-id ?ex-id1)
-            (priority ?p))
-   (exercise (id ?ex-id1) (equipment ?user-type))
-   ?c2 <- (candidate-exercise
-            (day ?d)
-            (slot-id ?slot-id)
-            (exercise-id ?ex-id2)
-            (priority ?p))
-   (exercise (id ?ex-id2) (equipment ?other-type&~?user-type))
+(defrule assign-exercise-by-user-preference-isolation
+   (declare (salience 2))
+   ?s <- (exercise-slot (targeted-sub-muscle-group ?sub-mg&~nil) (exercise nil))
+   (exercise (id ?execise-id) (targeted-sub-muscle-group ?sub-mg) (equipment ?equipment) (movement isolation)) ; prioritizing compound movements
+   (user-input (exercise-type ?equipment))
+   (not (exercise-slot (exercise ?execise-id)))
    => 
-   (retract ?c2)
+   (modify ?s (exercise ?execise-id))
 )
 
-(defrule filter-candidate-by-movement
-   ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (test (has-multiple-candidates ?d ?slot-id))
-   ?iso <- (candidate-exercise 
-               (day ?d)
-               (slot-id ?slot-id)
-               (muscle-group ?m)
-               (exercise-id ?iso-id)
-               (priority ?p))
-
-   (exercise (id ?iso-id) (movement isolation))
-   (exists
-      (and
-         (candidate-exercise
-            (day ?d)
-            (slot-id ?slot-id)
-            (muscle-group ?m)
-            (exercise-id ?comp-id&~?iso-id)
-            (priority ?p))
-         (exercise (id ?comp-id) (movement compound))
-      )
-   )
-
-   =>
-   (retract ?iso)
+(defrule assign-exercise-by-compound
+   (declare (salience 1))
+   ?s <- (exercise-slot (targeted-sub-muscle-group ?sub-mg&~nil) (exercise nil))
+   (exercise (id ?execise-id) (targeted-sub-muscle-group ?sub-mg) (movement compound)) ; prioritizing compound movements
+   (not (exercise-slot (exercise ?execise-id)))
+   => 
+   (modify ?s (exercise ?execise-id))
 )
 
-(defrule filter-candidate-random
-   ?to-be-processed <- (to-be-processed (day ?d) (id ?slot-id))
-   (candidate-initialized (day ?d) (slot-id ?slot-id))
-   (test (has-multiple-candidates ?d ?slot-id))
-   ?c1 <- (candidate-exercise
-              (day ?d)
-              (slot-id ?slot-id)
-              (exercise-id ?id1)
-              (priority ?p))
-   (exercise (id ?id1) (movement ?move))
-   ?c2 <- (candidate-exercise
-              (day ?d)
-              (slot-id ?slot-id)
-              (exercise-id ?id2&~?id1)
-              (priority ?p))
-   (exercise (id ?id2) (movement ?move))
-   (not
-      (and
-         (candidate-exercise
-            (day ?d)
-            (slot-id ?slot-id)
-            (exercise-id ?other-id&~?id1&~?id2)
-         )
-         (exercise (id ?other-id) (movement ?other-move&~?move))
-      )
-   )
-   (not
-      (candidate-exercise
-         (day ?d)
-         (slot-id ?slot-id)
-         (exercise-id ?other-id&~?id1&~?id2)
-         (priority ?other-priority&~?p)
-      )
-   )
-
-   =>
-   (retract ?c2)
-)
-
-(defrule select-exercise
-   (declare (salience 50))
-   ?processing <- (currently-processing (day ?day) (id ?slot-id)) 
-   (candidate-initialized (day ?day) (slot-id ?slot-id))
-   ?candidate <- (candidate-exercise
-            (day ?day)
-            (slot-id ?slot-id)
-            (exercise-id ?id)
-            (priority ?p)
-         )
-   ?s <- (exercise-slot (day ?day) (id ?slot-id) (order ?current-order))
-   ;; There must NOT exist another candidate for the same slot & day
-   (not
-      (and
-         (candidate-exercise
-            (day ?day)
-            (slot-id ?slot-id)
-            (exercise-id ?other-id))
-         (eq ?other-id ?id)
-      )  
-   )
-   =>
-   (modify ?s (exercise ?id))
-   (retract ?candidate)
-   (retract ?processing)
-)
-
-(defrule all-exercises-ready
-   (not (exercise-slot (order nil)))
-   (not (exercise-slot (priority nil)))
-   (not (exercise-slot (primary-muscle-group nil)))
-   =>
-   (select-exercises-for-day)
+(defrule assign-exercise-by-isolation
+   (declare (salience 0))
+   ?s <- (exercise-slot (targeted-sub-muscle-group ?sub-mg&~nil) (exercise nil))
+   (exercise (id ?execise-id) (targeted-sub-muscle-group ?sub-mg) (movement isolation)) ; prioritizing compound movements
+   (not (exercise-slot (exercise ?execise-id)))
+   => 
+   (modify ?s (exercise ?execise-id))
 )

@@ -3,12 +3,9 @@
    ?split <- (workout-split (name "Full-body"))
    (not (day))
    =>
-   (assert (day (name "Day 1") 
-                (focus full-body)))
-   (assert (day (name "Day 2")
-                (focus full-body)))
-   (assert (day (name "Day 3")
-                (focus full-body)))
+   (assert (day (id 1) (name "Day 1") (focus full-body)))
+   (assert (day (id 2) (name "Day 2") (focus full-body)))
+   (assert (day (id 3) (name "Day 3") (focus full-body)))
 )
 
 (defrule initialize-full-body-day-exercise
