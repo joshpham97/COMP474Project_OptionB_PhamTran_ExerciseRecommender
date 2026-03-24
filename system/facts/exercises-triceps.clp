@@ -1,0 +1,30 @@
+(deffacts triceps-exercises-data
+    (exercise
+        (id triceps-pushdown)
+        (name "Triceps Pushdown")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group lateral-and-medial-head)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id single-arm-triceps-extension)
+        (name "Single Arm Triceps Extension")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group lateral-and-medial-head)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id overhead-triceps-extension)
+        (name "Overhead Triceps Extension")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group long-head)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id jm-press)
+        (name "JM Press")
+        (primary-muscle-group triceps)
+        (targeted-sub-muscle-group long-head)
+        (movement compound)
+        (equipment free-weight))
+)

@@ -1,0 +1,32 @@
+(deffacts quads-exercises-data
+    (exercise
+        (id barbell-squat)
+        (name "Barbell Squat")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group quads)
+        (secondary-muscle-groups glutes)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id leg-press)
+        (name "Leg Press")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group quads)
+        (secondary-muscle-groups hamstring glutes)
+        (movement compound)
+        (equipment machine))
+    (exercise
+        (id sissy-squat)
+        (name "Sissy Squat")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group quads)
+        (movement isolation)
+        (equipment free-weight))
+    (exercise
+        (id leg-extension)
+        (name "Leg Extension")
+        (primary-muscle-group quads)
+        (targeted-sub-muscle-group quads)
+        (movement isolation)
+        (equipment machine))
+)

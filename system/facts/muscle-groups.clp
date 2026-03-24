@@ -1,0 +1,11 @@
+(deffacts muscle-groups-data
+    (muscle-group (name chest) (priority 1) (region upper) (type push))
+    (muscle-group (name back) (priority 1) (region upper) (type pull))
+    (muscle-group (name shoulder) (priority 1) (region upper) (type push))
+    (muscle-group (name quads) (priority 1) (region lower) (type leg))
+    (muscle-group (name hamstring) (priority 1) (region lower) (type leg))
+    (muscle-group (name glutes) (priority 1) (region lower) (type leg))
+    (muscle-group (name biceps) (priority 3) (region upper) (type pull))
+    (muscle-group (name triceps) (priority 3) (region upper) (type push))
+    (muscle-group (name calves) (priority 3) (region lower) (type leg))
+)

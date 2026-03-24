@@ -1,0 +1,35 @@
+
+(deffacts hamstring-exercises-data
+    (exercise
+        (id romanian-deadlift)
+        (name "Romanian Deadlift")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group lengthened)
+        (secondary-muscle-groups glutes)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id stiff-leg-deadlift)
+        (name "Stiff leg Deadlift")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group lengthened)
+        (secondary-muscle-groups glutes)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id seated-hamstring-curl)
+        (name "Seated Hamstring Curl")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group shortened)
+        (secondary-muscle-groups calves)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id lying-hamstring-curl)
+        (name "Lying Hamstring Curl")
+        (primary-muscle-group hamstring)
+        (targeted-sub-muscle-group shortened)
+        (secondary-muscle-groups calves)
+        (movement isolation)
+        (equipment machine))
+)
