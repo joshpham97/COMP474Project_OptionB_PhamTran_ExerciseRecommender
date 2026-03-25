@@ -2,6 +2,7 @@
 (load "templates.clp")
 (batch "all-facts.clp")
 (load "input.clp")
+(load "tests.clp")
 (load "output.clp")
 (batch "all-rules.clp")
 (reset)
