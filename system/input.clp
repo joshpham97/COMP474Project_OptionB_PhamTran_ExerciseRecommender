@@ -3,7 +3,6 @@
 ;- Goal: Strength or Hypertrophy
 ;- Frequency: 3,4,6
 ;- Primary muscle group: Chest, Back, Shoulder, Legs
-;- Time: Under 1 hour, 1-2 hour
 ;- Exercise type preference: Free weight, Machine
 
 ; Initial rule to set up the user-input fact
@@ -12,7 +11,6 @@
       (goal nil)
       (frequency 0)
       (muscle-group nil)
-      (time nil)
       (exercise-type nil))
 )
 
@@ -37,13 +35,7 @@
       (modify ?ui (muscle-group ?m))
    )
 )
-(deffunction set-time (?t)
-   (do-for-all-facts
-      ((?ui user-input))
-      TRUE
-      (modify ?ui (time ?t))
-   )
-)
+
 (deffunction set-exercise-type (?e)
    (do-for-all-facts
       ((?ui user-input))
@@ -113,25 +105,7 @@
                (set-muscle-group shoulder)
             else
                (set-muscle-group legs))))))
-   
 
-(deffunction input-time ()
-   (printout t "Please enter your preferred workout time number: " crlf)
-   (printout t "1. Under 1 hour" crlf)
-   (printout t "2. 1-2 hours" crlf)
-
-   (bind ?input (read))
-
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
-      then
-      (printout t "Invalid input. Please enter 1 or 2." crlf)
-      (input-time)
-   else
-      (if (= ?input 1)
-         then
-         (set-time "Under 1 hour")
-      else
-         (set-time "1-2 hours"))))
 
 (deffunction input-exercise-type ()
    (printout t "Please enter your preferred exercise type number: " crlf)

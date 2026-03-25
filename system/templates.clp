@@ -61,7 +61,6 @@
    (slot goal)
    (slot frequency)
    (slot muscle-group)
-   (slot time)
    (slot exercise-type)
 )
 
