@@ -1,48 +1,117 @@
+(defmodule FULL-BODY (import MAIN deftemplate workout-split day exercise-slot user-input muscle-group))
+
+
 ; Initial full body workout split
 (defrule initialize-full-body
-   ?split <- (workout-split (name "Full-body"))
+   (workout-split (name "Full-body"))
    (not (day))
    =>
-   (assert (day (id 1) (name "Day 1") (focus full-body)))
-   (assert (day (id 2) (name "Day 2") (focus full-body)))
-   (assert (day (id 3) (name "Day 3") (focus full-body)))
+   (assert (day (order 1) (name "Day 1") (focus full-body)))
+   (assert (day (order 2) (name "Day 2") (focus full-body)))
+   (assert (day (order 3) (name "Day 3") (focus full-body)))
 )
 
-(defrule initialize-full-body-day-exercise
-    ?day <- (day (name ?dname) (focus full-body) (is-initialized nil))
+(defrule initialize-exercise-slots-full-body
+   (day (order ?day-order) (focus full-body))
     =>
-    (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
-    (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group shoulder)))
-    (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
-    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group quads)))
-    (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group hamstring)))
-    (modify ?day (is-initialized TRUE))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 2) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 3) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 4) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 6) (primary-muscle-group triceps)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 7) (primary-muscle-group biceps)))
 )
 
-(defrule assign-first-fullbody-day1
-   (workout-split (name "Full-body"))
-   (day (name "Day 1") (focus full-body))
-   (not (exercise-slot (day "Day 1") (order 1)))
-   ?s <- (exercise-slot (day "Day 1") (primary-muscle-group chest) (order nil))
+(defrule compute-global-order
+   ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order))
    =>
-   (modify ?s (order 1))
+   (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
 )
 
-(defrule assign-first-fullbody-day2
-   (workout-split (name "Full-body"))
-   (day (name "Day 2") (focus full-body))
-   (not (exercise-slot (day "Day 2") (order 1)))
-   ?s <- (exercise-slot (day "Day 2") (primary-muscle-group back) (order nil))
+;  Make the first exercise user preference, leg is set to quads by default if leg is chosen, and if the user preference is not leg, then we assign that muscle group to the first slot
+
+(defrule assign-first-slot-full-body-leg
+   (day (order ?d) (focus full-body))
+   (user-input (muscle-group legs)) 
+   ?s <- (exercise-slot (day-order ?d) (exercise-order 1) (primary-muscle-group nil))
    =>
-   (modify ?s (order 1))
+   (modify ?s (primary-muscle-group quads))
 )
 
-(defrule assign-first-fullbody-day3
-   (workout-split (name "Full-body"))
-   (day (name "Day 3") (focus full-body))
-   (not (exercise-slot (day "Day 3") (order 1)))
-   ?s <- (exercise-slot (day "Day 3") (primary-muscle-group quads) (order nil))
+(defrule assign-first-slot-full-body
+   (day (order ?d) (focus full-body))
+   (user-input (muscle-group ?mg&~leg))
+   ?s <- (exercise-slot (day-order ?d) (exercise-order 1) (primary-muscle-group nil))
    =>
-   (modify ?s (order 1))
+   (modify ?s (primary-muscle-group ?mg))
+)
+
+; For the remaining slots, we assign muscle groups based on the first exercise, and it follows a cycle 
+; chest → calves
+; calves → back
+; back → hamstring
+; hamstring → shoulder
+; shoulder → glutes
+; glutes → chest
+; quads → back
+
+(defrule assign-slot-after-chest-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group chest))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group calves))
+)
+
+(defrule assign-slot-after-calves-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group calves))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group back))
+)
+
+(defrule assign-slot-after-back-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group back))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group hamstring))
+)
+
+(defrule assign-slot-after-hamstring-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group hamstring))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group shoulder))
+)
+
+(defrule assign-slot-after-shoulder-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group shoulder))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group quads))
+)
+
+(defrule assign-slot-after-quads-full-body
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group quads))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus full-body))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   (test (< ?ex-order2 6))
+   =>
+   (modify ?s2 (primary-muscle-group chest))
 )
