@@ -1,0 +1,21 @@
+# Triceps Exercises
+
+Triceps Pushdown (Bar) primarily targets triceps.
+Triceps Pushdown (Bar) primarily sub-muscle group is lateral and medial head.
+Triceps Pushdown (Bar) is an isolation exercise.
+Triceps Pushdown (Bar) is a machine exercise.
+
+Single-Arm Triceps Extension primarily targets triceps.
+Single-Arm Triceps Extension primarily sub-muscle group is lateral and medial head.
+Single-Arm Triceps Extension is an isolation exercise.
+Single-Arm Triceps Extension is a machine exercise.
+
+Overhead Triceps Extension primarily targets triceps.
+Overhead Triceps Extension primarily sub-muscle group is long head.
+Overhead Triceps Extension is an isolation exercise.
+Overhead Triceps Extension is a free weight exercise.
+
+JM Press primarily targets triceps.
+JM Press primarily sub-muscle group is long head.
+JM Press is a compound exercise.
+JM Press is a free weight exercise.

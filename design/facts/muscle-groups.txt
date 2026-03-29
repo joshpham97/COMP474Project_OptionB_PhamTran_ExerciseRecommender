@@ -1,0 +1,38 @@
+# Muscle groups
+
+Chest has priority high.
+Back has priority high.
+Shoulder has priority high.
+Quads has priority high.
+Hamstring has priority high.
+Glutes has priority high.
+Biceps has priority low.
+Triceps has priority low.
+Calves has priority low.
+Abs has priority low.
+
+# Muscle group properties
+
+## An exercise can be upper or lower body
+
+Chest exercises are upper body.
+Back exercises are upper body.
+Biceps exercises are upper body.
+Triceps exercises are upper body.
+Shoulder exercises are upper body.
+Hamstring exercises are lower body.
+Quads exercises are lower body.
+Glutes exercises are lower body.
+Calves exercises are lower body.
+
+## An exercise can be push, pull or leg
+
+Chest exercises are push exercises.
+Triceps exercises are push exercises.
+Shoulder exercises are push exercises.
+Back exercises are pull exercises.
+Biceps exercises are pull exercises.
+Hamstring exercises are legs exercise.
+Quads exercises are legs exercise.
+Glutes exercises are legs exercise.
+Calves exercises are legs exercise.

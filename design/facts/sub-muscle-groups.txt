@@ -1,0 +1,30 @@
+# Sub-muscle groups
+# A muscle group can be divided into smaller groups
+
+Middle chest has high priority.
+Upper chest has medium priority.
+Lower chest has low priority.
+
+Frontal-plane lats has high priority.
+Upper back has high priority.
+Sagittal-plane lats has medium priority.
+Traps has low priority.
+
+Front delt has high priority.
+Side delt has medium priority.
+Rear delt has low priority.
+
+Biceps long and short head has high priority.
+Biceps branchialis has low priority.
+
+Triceps lateral and medial head has high priority.
+Triceps long head has low priority.
+
+Hamstring (lengthened) exercises has high priority.
+Hamstring (shortened) exercises has low priority.
+
+Gluteus maximus exercises have high priority.
+Gluteus medius exercises have low priority.
+Gluteus minimus exercises have low priority.
+
+Calves has high priority.

@@ -93,3 +93,12 @@
    => 
    (modify ?s (exercise ?execise-id))
 )
+
+; If there is no exercise that matches the rules above, fire fallback rules
+(defrule assign-exercise-fallback
+   (declare (salience -1))
+   ?s <- (exercise-slot (targeted-sub-muscle-group ?sub-mg&~nil) (exercise nil))
+   (exercise (id ?execise-id) (targeted-sub-muscle-group ?sub-mg)) ; prioritizing compound movements
+   => 
+   (modify ?s (exercise ?execise-id))
+)

@@ -18,6 +18,13 @@
    (assert (workout-split 
             (name "Push-Pull-Leg"))))
 
+(defrule activate-split
+   (workout-split (name ?name))
+   =>
+   (if (eq ?name "Full-body") then (focus FULL-BODY))
+   (if (eq ?name "Upper-Lower") then (focus UPPER-LOWER))
+   (if (eq ?name "Push-Pull-Leg") then (focus PUSH-PULL-LEG))
+)
 
 ; Reps determination
 

@@ -1,0 +1,21 @@
+# Biceps Exercises
+
+Preacher Curl primarily targets biceps.
+Preacher Curl primarily sub-muscle group is long and short head.
+Preacher Curl is an isolation exercise.
+Preacher Curl is a free weight exercise.
+
+Cable Curl primarily targets biceps.
+Cable Curl primarily sub-muscle group is long and short head.
+Cable Curl is an isolation exercise.
+Cable Curl is a machine exercise.
+
+Hammer Dumbbell Curl primarily targets biceps.
+Hammer Dumbbell Curl primarily sub-muscle group is brachialis.
+Hammer Dumbbell Curl is an isolation exercise.
+Hammer Dumbbell Curl is a free weight exercise.
+
+Machine Hammer Curl primarily targets biceps.
+Machine Hammer Curl primarily sub-muscle group is brachialis.
+Machine Hammer Curl is an isolation exercise.
+Machine Hammer Curl is a machine exercise.

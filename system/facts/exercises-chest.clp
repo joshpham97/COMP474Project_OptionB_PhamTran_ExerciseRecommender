@@ -1,0 +1,48 @@
+
+(deffacts chest-exercises-data
+    (exercise 
+        (id dumb-bell-bench-press) 
+        (name "Dumbbell Bench Press") 
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group middle-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id pec-deck)
+        (name "Pec Deck")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group middle-chest)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id incline-dumb-bell-press)
+        (name "Incline Dumbbell Press")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group upper-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id low-to-high-cable-fly)
+        (name "Low to High Cable Fly")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group upper-chest)
+        (movement isolation)
+        (equipment machine))
+    (exercise
+        (id chest-dip)
+        (name "Chest Dip")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group lower-chest)
+        (secondary-muscle-groups shoulder triceps)
+        (movement compound)
+        (equipment free-weight))
+    (exercise
+        (id high-to-low-cable-fly)
+        (name "High to Low Cable Fly")
+        (primary-muscle-group chest)
+        (targeted-sub-muscle-group lower-chest)
+        (movement isolation)
+        (equipment machine))
+)

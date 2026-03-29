@@ -36,7 +36,7 @@ IF exercise ex is a candidate for exercise-slot s of day d AND
 THEN 
     ex2 is no longer a candidate for s
 
-# Prioritizing  compount movement
+# Prioritizing compound movement
 IF exercise ex is a candidate for exercise-slot s of day d AND
     exercise ex2 is a candidate for exercise-slot s of day d AND
     ex1 is an compound movement AND

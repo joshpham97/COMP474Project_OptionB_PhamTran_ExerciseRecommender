@@ -1,0 +1,37 @@
+# Chest Exercises
+
+Dumbbell Bench Press primarily targets chest.
+Dumbbell Bench Press primarily sub-muscle group is middle chest.
+Dumbbell Bench Press secondarily targets shoulder.
+Dumbbell Bench Press secondarily targets triceps.
+Dumbbell Bench Press is a compound exercise.
+Dumbbell Bench Press is a free weight exercise.
+
+Pec Deck primarily targets chest.
+Pec Deck primarily sub-muscle group is middle chest.
+Pec Deck is an isolation exercise.
+Pec Deck is a machine exercise.
+
+Incline Dumbbell Bench Press primarily targets chest.
+Incline Dumbbell Bench Press primarily sub-muscle group is upper chest.
+Incline Dumbbell Bench Press secondarily targets shoulder.
+Incline Dumbbell Bench Press secondarily targets triceps.
+Incline Dumbbell Bench Press is a compound exercise.
+Incline Dumbbell Bench Press is a free weight exercise.
+
+Low-to-High Cable Chest Fly primarily targets chest.
+Low-to-High Cable Chest Fly primarily sub-muscle group is upper chest.
+Low-to-High Cable Chest Fly is an isolation exercise.
+Low-to-High Cable Chest Fly is a machine exercise.
+
+Chest Dip primarily targets chest.
+Chest Dip primarily sub-muscle group is lower chest.
+Chest Dip secondarily targets shoulder.
+Chest Dip secondarily targets triceps.
+Chest Dip is a compound exercise.
+Chest Dip is a free weight exercise.
+
+High-to-Low Cable Chest Fly primarily targets chest.
+High-to-Low Cable Chest Fly primarily sub-muscle group is lower chest.
+High-to-Low Cable Chest Fly is an isolation exercise.
+High-to-Low Cable Chest Fly is a machine exercise.

@@ -1,108 +1,110 @@
+(defmodule PUSH-PULL-LEG (import MAIN deftemplate workout-split day exercise-slot user-input muscle-group))
+
 (defrule initialize-push-pull-leg
    (workout-split (name "Push-Pull-Leg"))
-   (user-input (frequency 6))
    (not (day))
    =>
-   (assert (day (id 1) (name "Push 1") (focus push)))
-   (assert (day (id 2) (name "Pull 1") (focus pull)))
-   (assert (day (id 3) (name "Leg 1") (focus leg)))
-   (assert (day (id 4) (name "Push 2") (focus push)))
-   (assert (day (id 5) (name "Pull 2") (focus pull)))
-   (assert (day (id 6) (name "Leg 2") (focus leg)))
+   (assert (day (order 1) (name "Push 1") (focus push)))
+   (assert (day (order 2) (name "Pull 1") (focus pull)))
+   (assert (day (order 3) (name "Leg 1") (focus leg)))
+   (assert (day (order 4) (name "Push 2") (focus push)))
+   (assert (day (order 5) (name "Pull 2") (focus pull)))
+   (assert (day (order 6) (name "Leg 2") (focus leg)))
 )
 
 ; Initialize template for each day 
-(defrule initialize-push-day-exercise
-    ?day <- (day (name ?dname) (focus push) (is-initialized nil))
+(defrule initialize-exercise-slot-push
+   (day (order ?day-order) (focus push))
     =>
-    (assert (exercise-slot (id 1) (day ?dname) (primary-muscle-group chest)))
-    (assert (exercise-slot (id 2) (day ?dname) (primary-muscle-group chest)))
-    (assert (exercise-slot (id 3) (day ?dname) (primary-muscle-group shoulder)))
-    (assert (exercise-slot (id 4) (day ?dname) (primary-muscle-group shoulder)))
-    (assert (exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
-    (modify ?day (is-initialized TRUE))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 2) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 3) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 4) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group nil)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 6) (primary-muscle-group triceps)))
 )
 
-(defrule initialize-pull-day-exercise
-    ?day <- (day (name ?dname) (focus pull) (is-initialized nil))
+(defrule initialize-exercise-slot-pull
+   (day (order ?day-order) (focus pull))
     =>
-    (assert (exercise-slot (id 1) (day ?dname) (primary-muscle-group back)))
-    (assert (exercise-slot (id 2) (day ?dname) (primary-muscle-group back)))
-    (assert (exercise-slot (id 3) (day ?dname) (primary-muscle-group back)))
-    (assert (exercise-slot (id 4) (day ?dname) (primary-muscle-group back)))
-    (assert (exercise-slot (id 5) (day ?dname) (primary-muscle-group triceps)))
-    (modify ?day (is-initialized TRUE))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group back)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 2) (primary-muscle-group back)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 3) (primary-muscle-group back)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 4) (primary-muscle-group back)))
+   (assert (exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group biceps)))
 )
 
-(defrule initialize-leg-day-exercise
-    ?day <- (day (name ?dname) (focus leg) (is-initialized nil))
+(defrule initialize-exercise-slot-leg
+   (day (order ?day-order) (focus leg))
     =>
-    (assert(exercise-slot (id 1) (day ?dname) (primary-muscle-group quads)))
-    (assert(exercise-slot (id 2) (day ?dname) (primary-muscle-group quads)))
-    (assert(exercise-slot (id 3) (day ?dname) (primary-muscle-group hamstring)))
-    (assert(exercise-slot (id 4) (day ?dname) (primary-muscle-group hamstring)))
-    (assert(exercise-slot (id 5) (day ?dname) (primary-muscle-group glutes)))
-    (assert(exercise-slot (id 6) (day ?dname) (primary-muscle-group calves)))
-    (modify ?day (is-initialized TRUE))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil)))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 2) (primary-muscle-group nil)))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 3) (primary-muscle-group nil)))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 4) (primary-muscle-group nil)))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group glutes)))
+    (assert(exercise-slot (day-order ?day-order) (exercise-order 6) (primary-muscle-group calves)))
 )
 
-(defrule assign-first-exercise-push
-   (day (name ?d2name) (focus ?f))
-   (day (name ?d1name) (focus ?f))
-   (test (neq ?d1name ?d2name))
-   (test (eq ?f push))
-   (not (exercise-slot (day ?d1name) (order 1)))
-   (not (exercise-slot (day ?d2name) (order 1)))
-   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group chest) (order nil))
-   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group shoulder) (order nil))
+(defrule compute-global-order
+   ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order))
    =>
-   (modify ?exercise1 (order 1))
-   (modify ?exercise2 (order 1))
+   (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
 )
 
-(defrule assign-first-exercise-pull
-   (day (name ?d2name) (focus ?f))
-   (day (name ?d1name) (focus ?f))
-   (test (neq ?d1name ?d2name))
-   (test (eq ?f pull))
-   (not (exercise-slot (day ?d1name) (order 1)))
-   (not (exercise-slot (day ?d2name) (order 1)))
-   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group back) (order nil))
-   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group back) (order nil))
+(defrule assign-first-slot-push1
+   ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
+   ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
+   (day (order ?order1) (focus push))
+   (day (order ?order2) (focus push))
+   (test (< ?order1 ?order2))
    =>
-   (modify ?exercise1 (order 1))
-   (modify ?exercise2 (order 1))
+   (modify ?s1 (primary-muscle-group chest))
+   (modify ?s2 (primary-muscle-group shoulder))
 )
 
-(defrule assign-first-exercise-leg
-   (day (name ?d2name) (focus ?f))
-   (day (name ?d1name) (focus ?f))
-   (test (neq ?d1name ?d2name))
-   (test (eq ?f leg))
-   (not (exercise-slot (day ?d1name) (order 1)))
-   (not (exercise-slot (day ?d2name) (order 1)))
-   ?exercise1 <- (exercise-slot (day ?d1name) (primary-muscle-group quads) (order nil))
-   ?exercise2 <- (exercise-slot (day ?d2name) (primary-muscle-group hamstring) (order nil))
+(defrule assign-first-slot-leg
+   ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
+   ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
+   (day (order ?order1) (focus leg))
+   (day (order ?order2) (focus leg))
+   (test (< ?order1 ?order2))
    =>
-   (modify ?exercise1 (order 1))
-   (modify ?exercise2 (order 1))
+   (modify ?s1 (primary-muscle-group quads))
+   (modify ?s2 (primary-muscle-group hamstring))
 )
 
-; Pull day has a special order assignment 
-(defrule assign-next-order-pull-day
-   ;; Match a day
-   ?day <- (day (name ?dname) (focus pull))
-
-   ;; Find the last assigned back exercise for this day (highest order)
-   ?last <- (exercise-slot (day ?dname) (primary-muscle-group back) (order ?last-order&~nil) (priority ?last-priority&~nil))
-   (not (exercise-slot (day ?dname) (order ?o2&~nil&:(> ?o2 ?last-order))))
-   
-   ;; Find an unassigned back exercise for this day
-   ?unassigned-slot <- (exercise-slot (day ?dname) (order nil) (primary-muscle-group back))
+(defrule assign-slot-after-chest-push
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group chest))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus push))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
    =>
-   ;; Compute next order number
-   (bind ?next-order (+ ?last-order 1))
-   
-   ;; Assign the exercise
-   (modify ?unassigned-slot (order ?next-order))
+   (modify ?s2 (primary-muscle-group shoulder))
+)
+
+(defrule assign-slot-after-shoulder-push
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group shoulder))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus push))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   =>
+   (modify ?s2 (primary-muscle-group chest))
+)
+
+(defrule assign-slot-after-quads-leg
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group quads))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus leg))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   =>
+   (modify ?s2 (primary-muscle-group hamstring))
+)
+
+(defrule assign-slot-after-hamstring-leg
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group hamstring))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus leg))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   =>
+   (modify ?s2 (primary-muscle-group quads))
 )
