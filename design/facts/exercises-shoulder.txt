@@ -1,0 +1,39 @@
+# Shoulder Exercises
+
+Machine Shoulder Press primarily targets shoulders.
+Machine Shoulder Press primarily sub-muscle group is front delts.
+Machine Shoulder Press secondarily targets triceps.
+Machine Shoulder Press secondarily targets chests.
+Machine Shoulder Press is a compound exercise.
+Machine Shoulder Press is a machine exercise.
+
+Dumbbell Shoulder Press primarily targets shoulders.
+Dumbbell Shoulder Press primarily sub-muscle group is front delts.
+Dumbbell Shoulder Press secondarily targets triceps.
+Dumbbell Shoulder Press secondarily targets chests.
+Dumbbell Shoulder Press is a compound exercise.
+Dumbbell Shoulder Press is a free weight exercise.
+
+Cable Lateral Raise primarily targets shoulders.
+Cable Lateral Raise primarily sub-muscle group is side delts.
+Cable Lateral Raise secondarily targets back.
+Cable Lateral Raise is an isolation exercise.
+Cable Lateral Raise is a machine exercise.
+
+Dumbbell Lateral Raise primarily targets shoulders.
+Dumbbell Lateral Raise primarily sub-muscle group is side delts.
+Dumbbell Lateral Raise secondarily targets back.
+Dumbbell Lateral Raise is an isolation exercise.
+Dumbbell Lateral Raise is a free weight exercise.
+
+Rear Delt Fly primarily targets shoulders.
+Rear Delt Fly primarily sub-muscle group is rear delts.
+Rear Delt Fly secondarily targets back.
+Rear Delt Fly is an isolation exercise.
+Rear Delt Fly is a machine exercise.
+
+Reverse Pec Deck primarily targets shoulders.
+Reverse Pec Deck primarily sub-muscle group is rear delts.
+Reverse Pec Deck secondarily targets back.
+Reverse Pec Deck is an isolation exercise.
+Reverse Pec Deck is a machine exercise.

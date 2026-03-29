@@ -1,3 +1,4 @@
+(load "facts/templates.clp")
 (load "facts/muscle-groups.clp")
 (load "facts/sub-muscle-groups.clp")
 (load "facts/exercises-chest.clp")

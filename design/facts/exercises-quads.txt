@@ -1,0 +1,18 @@
+# Quadriceps Exercises
+
+Barbell Squat primarily targets quadriceps.
+Barbell Squat primarily sub-muscle group is quadriceps.
+Barbell Squat secondarily targets glutes.
+Barbell Squat is a compound exercise.
+Barbell Squat is a free weight exercise.
+
+Leg Press primarily targets quadriceps.
+Leg Press primarily sub-muscle group is quadriceps.
+Leg Press secondarily targets glutes.
+Leg Press is a compound exercise.
+Leg Press is a machine exercise.
+
+Leg Extension primarily targets quadriceps.
+Leg Extension primarily sub-muscle group is quadriceps.
+Leg Extension is an isolation exercise.
+Leg Extension is a machine exercise.

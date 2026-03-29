@@ -83,11 +83,12 @@
    (printout t "1. Chest" crlf)
    (printout t "2. Back" crlf)
    (printout t "3. Shoulders" crlf)
-   (printout t "4. Legs" crlf)
+   (printout t "4. Quads" crlf)
+   (printout t "5. Hamstring" crlf)
 
    (bind ?input (read))
 
-   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4))))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2 3 4 5))))
       then
       (printout t "Invalid input. Please enter a number between 1 and 5." crlf)
       (input-muscle-group)
@@ -104,8 +105,11 @@
                then
                (set-muscle-group shoulder)
             else
-               (set-muscle-group legs))))))
-
+               (if (= ?input 4)
+                  then
+                  (set-muscle-group quads)
+               else
+                  (set-muscle-group hamstring)))))))
 
 (deffunction input-exercise-type ()
    (printout t "Please enter your preferred exercise type number: " crlf)

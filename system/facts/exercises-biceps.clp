@@ -8,7 +8,7 @@
         (movement isolation)
         (equipment free-weight))
     (exercise
-        (id cacle-curl)
+        (id cable-curl)
         (name "Cable Curl")
         (primary-muscle-group biceps)
         (targeted-sub-muscle-group long-and-short-head)

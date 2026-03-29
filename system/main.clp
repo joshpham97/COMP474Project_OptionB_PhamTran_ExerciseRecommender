@@ -1,5 +1,4 @@
 (clear)
-(load "templates.clp")
 (batch "all-facts.clp")
 (load "input.clp")
 (load "tests.clp")

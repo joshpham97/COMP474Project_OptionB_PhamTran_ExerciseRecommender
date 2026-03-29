@@ -1,0 +1,44 @@
+# Back Exercises
+
+Lat Pulldown primarily targets back.
+Lat Pulldown primarily sub-muscle group is frontal plane lats.
+Lat Pulldown secondarily targets biceps.
+Lat Pulldown is a compound exercise.
+Lat Pulldown is a machine exercise.
+
+Pull-Up primarily targets back.
+Pull-Up primarily sub-muscle group is frontal plane lats.
+Pull-Up secondarily targets biceps.
+Pull-Up is a compound exercise.
+Pull-Up is a free weight exercise.
+
+Wide-Grip Row primarily targets back.
+Wide-Grip Row primarily sub-muscle group is upper back.
+Wide-Grip Row secondarily targets shoulders.
+Wide-Grip Row is a compound exercise.
+Wide-Grip Row is a machine exercise.
+
+Chest-Supported Row primarily targets back.
+Chest-Supported Row primarily sub-muscle group is upper back.
+Chest-Supported Row secondarily targets shoulders.
+Chest-Supported Row is a compound exercise.
+Chest-Supported Row is a machine exercise.
+
+One-Arm Dumbbell Row primarily targets back.
+One-Arm Dumbbell Row primarily sub-muscle group is sagittal plane lats.
+One-Arm Dumbbell Row secondarily targets shoulders.
+One-Arm Dumbbell Row secondarily targets biceps.
+One-Arm Dumbbell Row is a compound exercise.
+One-Arm Dumbbell Row is a free weight exercise.
+
+V-Bar Row primarily targets back.
+V-Bar Row primarily sub-muscle group is sagittal plane lats.
+V-Bar Row secondarily targets shoulders.
+V-Bar Row secondarily targets biceps.
+V-Bar Row is a compound exercise.
+V-Bar Row is a machine exercise.
+
+Dumbell shrugs primarily targets back.
+Dumbell shrugs primarily sub-muscle group is traps.
+Dumbell shrugs is a isolation exercise.
+Dumbell shrugs is a free weight exercise.
