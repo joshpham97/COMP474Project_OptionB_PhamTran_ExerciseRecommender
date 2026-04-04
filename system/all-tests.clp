@@ -1,0 +1,6 @@
+(focus MAIN)
+(load "tests/routine-generator.clp")
+(test-routine-generator)
+(load "tests/injury-prediction.clp")
+(test-injury-prediction)
+(focus MAIN)

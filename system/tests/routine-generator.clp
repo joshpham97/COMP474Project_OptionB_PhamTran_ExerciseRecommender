@@ -43,16 +43,14 @@
     (printout t "===========================================================================================================" crlf)
     (printout t "Running test with Goal: " ?goal ", Frequency: " ?frequency ", Muscle Group: " ?muscle-group ", Exercise Type: " ?exercise-type crlf)
     (reset)
-    (set-goal ?goal)
-    (set-frequency ?frequency)
-    (set-muscle-group ?muscle-group)
-    (set-exercise-type ?exercise-type)
+    (do-for-all-facts ((?ui user-input)) TRUE
+        (modify ?ui (goal ?goal) (frequency ?frequency) (muscle-group ?muscle-group) (exercise-type ?exercise-type)))
     (run)
     (run-tests)
 )
 
 ; TODO: Add mote test cases
-(deffunction test-all ()
+(deffunction test-routine-generator ()
     (test-function strength 3 chest free-weight)
     (test-function strength 4 back machine)
     (test-function strength 6 shoulder free-weight)

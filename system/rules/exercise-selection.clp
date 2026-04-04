@@ -16,7 +16,7 @@
                   (targeted-sub-muscle-group ?prev-smg&~nil))
    (sub-muscle-group (main-muscle-group ?main-mg) (name ?prev-smg) (priority ?prev-p))
    (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority ?p&:(= ?p (+ ?prev-p 1))))
-   ?s <- (exercise-slot (global-order ?g-order&:(> ?g-order ?g-prev))
+   ?s <- (exercise-slot (global-order ?g-order&~nil&:(> ?g-order ?g-prev))
                         (primary-muscle-group ?main-mg) (targeted-sub-muscle-group nil))
    (not (exercise-slot (primary-muscle-group ?main-mg)
                        (targeted-sub-muscle-group nil)
@@ -33,7 +33,7 @@
    (not (sub-muscle-group (main-muscle-group ?main-mg) (priority ?next-p&:(= ?next-p (+ ?prev-p 1)))))
    ; loop back to priority 1
    (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority 1))
-   ?s <- (exercise-slot (global-order ?g-order&:(> ?g-order ?g-prev))
+   ?s <- (exercise-slot (global-order ?g-order&~nil&:(> ?g-order ?g-prev))
                         (primary-muscle-group ?main-mg) (targeted-sub-muscle-group nil))
    (not (exercise-slot (primary-muscle-group ?main-mg)
                        (targeted-sub-muscle-group nil)
