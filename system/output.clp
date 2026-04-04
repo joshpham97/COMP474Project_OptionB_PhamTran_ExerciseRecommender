@@ -7,19 +7,22 @@
                 " x " (fact-slot-value ?e min-reps) "~" (fact-slot-value ?e max-reps) " reps"
                 crlf)
     )
+
 (deffunction print-plan (?name ?day-order)
    (printout t crlf "=== "?name" ===" crlf)
-   ;; assume max 10 exercises (adjust if needed)
    (loop-for-count (?i 1 10)
-
-      (do-for-all-facts ((?e exercise-slot))
-        (and
-            (eq (fact-slot-value ?e day-order) ?day-order)
-            (eq (fact-slot-value ?e exercise-order) ?i)
-        )
-        (print-exercise ?i ?e)))
+      (bind ?matches (find-fact ((?e exercise-slot))
+            (and
+                (eq (fact-slot-value ?e day-order) ?day-order)
+                (eq (fact-slot-value ?e exercise-order) ?i)
+            )))
+      (if (> (length$ ?matches) 0)
+         then
+         (print-exercise ?i (nth$ 1 ?matches)))
+   )
    (printout t crlf)
 )
+
 ; Full-body
 (deffunction print-full-body-plan ()
     (print-plan "Day 1" 1)
@@ -39,35 +42,55 @@
     (print-plan "Push 1" 1)
     (print-plan "Pull 1" 2)
     (print-plan "Leg 1" 3)
-    (do-for-all-facts ((?u user-input))
-        (eq (fact-slot-value ?u frequency) 6)
-        => 
-        ;; print second round if frequency = 6
+    (bind ?ui (nth$ 1 (find-fact ((?f user-input)) TRUE)))
+    (if (= (fact-slot-value ?ui frequency) 6)
+        then
         (print-plan "Push 2" 4)
         (print-plan "Pull 2" 5)
-        (print-plan "Leg 2" 6)
-    )
+        (print-plan "Leg 2" 6))
 )
+
+; Claude AI (4/3) - Prompt: Add code to the assess-injury-risk function to print out the recommendations
+(deffunction assess-injury-risk ()
+    (focus INJURY-PREDICTION)
+    (run)
+    (bind ?recs (find-all-facts ((?r recommendation)) TRUE))
+    (if (> (length$ ?recs) 0)
+      then
+        (printout t crlf "=== Injury Risk Recommendations ===" crlf)
+        (progn$ (?r ?recs)
+            (printout t "  [" (fact-slot-value ?r reason) "] " (fact-slot-value ?r description) crlf))
+        (bind ?explanations (fact-slot-value (nth$ 1 (find-all-facts ((?e injury-explanation)) TRUE)) explanations))
+        (if (> (length$ ?explanations) 0)
+          then
+            (printout t crlf "  Reasons:" crlf)
+            (progn$ (?exp ?explanations)
+                (printout t "    - " ?exp crlf)))
+        (printout t crlf)
+      else
+        (printout t crlf "=== Injury Risk Assessment ===" crlf)
+        (printout t "  No elevated injury risk was detected based on your profile. That said, even with a clean history," crlf)
+        (printout t "  injuries can happen to anyone — especially those new to strength training. Follow the program" crlf)
+        (printout t "  progressively, prioritize form over weight, and listen to your body." crlf crlf))
+    (focus MAIN)
+)
+
 (deffunction output ()
     (run)
-    (do-for-all-facts ((?ws workout-split))
-        TRUE
-        =>
-
-        (bind ?sn (fact-slot-value ?ws name))
-        (if (eq ?sn "Full-body")
+    (bind ?ws (nth$ 1 (find-fact ((?f workout-split)) TRUE)))
+    (bind ?sn (fact-slot-value ?ws name))
+    (if (eq ?sn "Full-body")
+        then
+        (print-full-body-plan)
+        else
+        (if (eq ?sn "Upper-Lower")
             then
-            (print-full-body-plan)
+            (print-upper-lower)
             else
-            (if (eq ?sn "Upper-Lower")
+            (if (eq ?sn "Push-Pull-Leg")
                 then
-                (print-upper-lower)
-                else 
-                (if (eq ?sn "Push-Pull-Leg")
-                    then
-                    (print-push-pull-leg))
-            )
+                (print-push-pull-leg))
         )
-    
     )
+    (assess-injury-risk)
 )

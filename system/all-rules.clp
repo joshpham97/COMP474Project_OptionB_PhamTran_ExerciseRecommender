@@ -3,3 +3,4 @@
 (load "rules/full-body.clp")
 (load "rules/upper-lower.clp")
 (load "rules/push-pull-leg.clp")
+(load "rules/injury-prediction.clp")

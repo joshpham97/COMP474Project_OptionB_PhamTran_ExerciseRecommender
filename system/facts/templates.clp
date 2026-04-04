@@ -1,4 +1,15 @@
-(defmodule MAIN (export deftemplate workout-split day exercise-slot user-input muscle-group sub-muscle-group exercise))
+(defmodule MAIN (export deftemplate 
+   workout-split 
+   day exercise-slot 
+   user-input 
+   muscle-group 
+   sub-muscle-group 
+   exercise
+   consultation-required 
+   recommendation 
+   injury-evidence
+   injury-explanation
+))
 
 ; Facts
 
@@ -62,5 +73,8 @@
    (slot frequency)
    (slot muscle-group)
    (slot exercise-type)
+   (slot age)
+   (slot experience)
+   (slot has-previous-injury)
 )
 

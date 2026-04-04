@@ -23,12 +23,6 @@
    (assert (exercise-slot (day-order ?day-order) (exercise-order 7) (primary-muscle-group biceps)))
 )
 
-(defrule compute-global-order
-   ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order))
-   =>
-   (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
-)
-
 ;  Make the first exercise user preference, leg is set to quads by default if leg is chosen, and if the user preference is not leg, then we assign that muscle group to the first slot
 
 (defrule assign-first-slot-full-body-leg

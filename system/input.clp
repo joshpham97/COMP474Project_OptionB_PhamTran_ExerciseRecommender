@@ -11,7 +11,10 @@
       (goal nil)
       (frequency 0)
       (muscle-group nil)
-      (exercise-type nil))
+      (exercise-type nil)
+      (age 0)
+      (experience nil)
+      (has-previous-injury nil))
 )
 
 (deffunction set-goal (?g)
@@ -21,6 +24,7 @@
       (modify ?ui (goal ?g))
    )
 )
+
 (deffunction set-frequency (?f)
    (do-for-all-facts
       ((?ui user-input))
@@ -28,6 +32,7 @@
       (modify ?ui (frequency ?f))
    )
 )
+
 (deffunction set-muscle-group (?m)
    (do-for-all-facts
       ((?ui user-input))
@@ -41,6 +46,30 @@
       ((?ui user-input))
       TRUE
       (modify ?ui (exercise-type ?e))
+   )
+)
+
+(deffunction set-age (?a)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (age ?a))
+   )
+)
+
+(deffunction set-experience (?e)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (experience ?e))
+   )
+)
+
+(deffunction set-has-previous-injury (?p)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (has-previous-injury ?p))
    )
 )
 
@@ -129,6 +158,57 @@
       else
          (set-exercise-type machine))))
 
+(deffunction input-age ()
+   (printout t "Please enter your age (1-99): " crlf)
+
+   (bind ?input (read))
+
+   (if (or (not (integerp ?input)) (< ?input 1) (> ?input 99))
+      then
+      (printout t "Invalid input. Please enter a number between 1 and 99." crlf)
+      (input-age)
+   else
+      (set-age ?input))
+)
+
+(deffunction input-experience ()
+   (printout t "Do you have previous strength training experience? " crlf)
+   (printout t "1. Yes" crlf)
+   (printout t "2. No" crlf)
+
+   (bind ?input (read))
+
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
+      then
+      (printout t "Invalid input. Please enter 1 or 2." crlf)
+      (input-experience)
+   else
+      (if (= ?input 1)
+         then
+         (set-experience yes)
+      else
+         (set-experience no)))
+)
+
+(deffunction input-previous-injury ()
+   (printout t "Do you have a previous injury? " crlf)
+   (printout t "1. Yes" crlf)
+   (printout t "2. No" crlf)
+
+   (bind ?input (read))
+
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
+      then
+      (printout t "Invalid input. Please enter 1 or 2." crlf)
+      (input-previous-injury)
+   else
+      (if (= ?input 1)
+         then
+         (set-has-previous-injury yes)
+      else
+         (set-has-previous-injury no)))
+)
+
 (deffunction input-all ()
    (printout t "Getting all the user inputs" crlf)
    (printout t "Please select each option by entering the corresponding number" crlf)
@@ -136,5 +216,7 @@
    (input-frequency)
    (input-muscle-group)
    ;(input-time)
-   (input-exercise-type))
-
+   (input-exercise-type)
+   (input-age)
+   (input-experience)
+   (input-previous-injury))

@@ -45,12 +45,6 @@
     (assert(exercise-slot (day-order ?day-order) (exercise-order 6) (primary-muscle-group calves)))
 )
 
-(defrule compute-global-order
-   ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order))
-   =>
-   (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
-)
-
 (defrule assign-first-slot-push1
    ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
    ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
