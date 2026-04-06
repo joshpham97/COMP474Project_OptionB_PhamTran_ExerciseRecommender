@@ -56,3 +56,9 @@
    (muscle-group (name ?m) (priority ?p&~1))
    =>
    (modify ?e (sets 2))) 
+
+(defrule compute-global-order
+   ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order) (global-order nil))
+   =>
+   (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
+)

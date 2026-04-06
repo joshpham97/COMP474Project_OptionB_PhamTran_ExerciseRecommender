@@ -1,3 +1,4 @@
+(load "facts/injury-prediction.clp")
 (load "facts/templates.clp")
 (load "facts/muscle-groups.clp")
 (load "facts/sub-muscle-groups.clp")

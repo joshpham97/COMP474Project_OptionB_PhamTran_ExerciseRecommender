@@ -4,4 +4,5 @@
 (load "tests.clp")
 (load "output.clp")
 (batch "all-rules.clp")
+(batch "all-tests.clp")
 (reset)
