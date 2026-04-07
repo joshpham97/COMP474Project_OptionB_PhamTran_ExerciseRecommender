@@ -14,7 +14,11 @@
       (exercise-type nil)
       (age 0)
       (experience nil)
-      (has-previous-injury nil))
+      (has-previous-injury nil)
+      (gender nil)
+      (height 0)
+      (weight 0)
+   )
 )
 
 (deffunction set-goal (?g)
@@ -70,6 +74,28 @@
       ((?ui user-input))
       TRUE
       (modify ?ui (has-previous-injury ?p))
+   )
+)
+
+(deffunction set-gender (?g)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (gender ?g))
+   )
+)
+(deffunction set-height (?h)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (height ?h))
+   )
+)
+(deffunction set-weight (?w)
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (modify ?ui (weight ?w))
    )
 )
 
@@ -209,6 +235,72 @@
          (set-has-previous-injury no)))
 )
 
+(deffunction input-gender ()
+   (printout t "Please enter your gender: " crlf)
+   (printout t "1. Male" crlf)
+   (printout t "2. Female" crlf)
+   (bind ?input (read))
+   (if (or (not (integerp ?input)) (not (member$ ?input (create$ 1 2))))
+      then
+      (printout t "Invalid input. Please enter 1 or 2." crlf)
+      (input-gender)
+   else
+      (if (= ?input 1)
+         then
+         (set-gender male)
+      else
+         (set-gender female)))
+)
+
+(deffunction input-height ()
+   (printout t "Please enter your height in cm: " crlf)
+   (bind ?input (read))
+   (if (or (not (integerp ?input)) (< ?input 50) (> ?input 250))
+      then
+      (printout t "Invalid input. Please enter a number between 50 and 250." crlf)
+      (input-height)
+   else
+      (set-height ?input)))
+
+
+(deffunction input-weight ()
+   (printout t "Please enter your weight in kg: " crlf)
+   (bind ?input (read))
+   (if (or (not (integerp ?input)) (< ?input 20) (> ?input 500))
+      then
+      (printout t "Invalid input. Please enter a number between 20 and 500." crlf)
+      (input-weight)
+   else
+      (set-weight ?input)))
+
+; Fuzzy template don't work in another template so these value are kept seperate from user-input
+(deffunction input-activity-level ()
+   (printout t "Please enter your average weekly activity level in minutes: " crlf)
+   (bind ?input (read))
+   (if (or (not (integerp ?input)) (< ?input 0) (> ?input 10000))
+      then
+      (printout t "Invalid input. Please enter a number between 0 and 10000." crlf)
+      (input-activity-level)
+   else
+      (assert (activity-level (?input 1.0) (?input 1.0))))
+)
+
+(deffunction calculate-bmi ()
+   (do-for-all-facts
+      ((?ui user-input))
+      TRUE
+      (bind ?height (fact-slot-value ?ui height))
+      (bind ?weight (fact-slot-value ?ui weight))
+      (if (and (> ?height 0) (> ?weight 0))
+         then
+         (bind ?height-m (/ ?height 100)) ; Get height in meters
+         (bind ?bmi (/ ?weight (* ?height-m ?height-m))) ; BMI formula: weight (kg) / height (m)^2
+         (assert (bmi (?bmi 1.0) (?bmi 1.0)))
+      )
+   )
+)
+
+
 (deffunction input-all ()
    (printout t "Getting all the user inputs" crlf)
    (printout t "Please select each option by entering the corresponding number" crlf)
@@ -219,4 +311,10 @@
    (input-exercise-type)
    (input-age)
    (input-experience)
-   (input-previous-injury))
+   (input-previous-injury)
+   (input-gender)
+   (input-height)
+   (input-weight)
+   (input-activity-level)
+   (calculate-bmi)
+   )

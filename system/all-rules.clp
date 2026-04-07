@@ -4,3 +4,4 @@
 (load "rules/upper-lower.clp")
 (load "rules/push-pull-leg.clp")
 (load "rules/injury-prediction.clp")
+(load "rules/fitness-level.clp")

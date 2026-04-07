@@ -9,6 +9,10 @@
    recommendation 
    injury-evidence
    injury-explanation
+   activity-level
+   bmi
+   fitness-level
+   exercise-modifier
 ))
 
 ; Facts
@@ -67,6 +71,41 @@
    (slot sets (default 0))
 )
 
+(deftemplate exercise-modifier
+   (slot name)
+   (slot modifier)
+   (slot gender)
+)
+
+; https://iris.who.int/server/api/core/bitstreams/faa83413-d89e-4be9-bb01-b24671aef7ca/content
+(deftemplate activity-level
+   0 10000 minutes/week
+   (
+      (sedentary (0 1) (60 1) (150 0))
+      (moderate  (60 0) (180 1) (300 0))
+      (active    (300 0) (600 1) (10000 1))
+   )
+)
+; https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html#:~:text=BMI%20categories%20for%20adults%20BMI%20is%20a,BMI%20regardless%20of%20age%2C%20sex%2C%20or%20race
+(deftemplate bmi
+  10 45 kg/m2
+  (
+    (underweight (10 1) (18.5 1) (24.9 0))
+    (normal      (18.5 0) (21.7 1) (24.9 0))
+    (overweight  (24.9 0) (30.0 1) (40 1))
+  )
+)
+
+; https://pmc.ncbi.nlm.nih.gov/articles/PMC4643425/
+; https://link.springer.com/article/10.1186/s12889-020-08517-8
+(deftemplate fitness-level
+  0 10 score
+  (
+    (low    (0 1) (3.0 1) (5.0 0))
+    (medium (3.0 0) (5.0 1) (7.0 0))
+    (high   (5.0 0) (8.0 1) (10 1))
+  )
+)
 ; User input template
 (deftemplate user-input
    (slot goal)
@@ -76,5 +115,8 @@
    (slot age)
    (slot experience)
    (slot has-previous-injury)
+   (slot gender)
+   (slot height)
+   (slot weight)
 )
 
