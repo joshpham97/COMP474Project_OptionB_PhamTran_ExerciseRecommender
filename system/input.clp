@@ -282,7 +282,10 @@
       (printout t "Invalid input. Please enter a number between 0 and 10000." crlf)
       (input-activity-level)
    else
-      (assert (activity-level (?input 1.0) (?input 1.0))))
+      ; Add the above/below to ensure exact value input, still fuzzy in the system
+      (bind ?above (+ ?input 1.0))
+      (bind ?below (- ?input 1.0))
+      (assert (activity-level (?below 0.0) (?input 1.0) (?above 0.0))))
 )
 
 (deffunction calculate-bmi ()
@@ -295,7 +298,11 @@
          then
          (bind ?height-m (/ ?height 100)) ; Get height in meters
          (bind ?bmi (/ ?weight (* ?height-m ?height-m))) ; BMI formula: weight (kg) / height (m)^2
-         (assert (bmi (?bmi 1.0) (?bmi 1.0)))
+         
+         ; Add the above/below to ensure exact value input, still fuzzy in the system
+         (bind ?above (+ ?bmi 1.0))
+         (bind ?below (- ?bmi 1.0))
+         (assert (bmi (?below 0.0) (?bmi 1.0) (?above 0.0)))
       )
    )
 )

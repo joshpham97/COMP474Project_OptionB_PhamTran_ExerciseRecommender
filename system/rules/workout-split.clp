@@ -63,10 +63,3 @@
    (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
 )
 
-(defrule start-fitness-assessment
-   (declare (salience 100))
-   (bmi ?)
-   (activity-level ?)
-   =>
-   (focus FITNESS-LEVEL)
-)

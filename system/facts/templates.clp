@@ -13,6 +13,8 @@
    bmi
    fitness-level
    exercise-modifier
+   exercise-type
+   fitness-level-adjustment
 ))
 
 ; Facts
@@ -69,8 +71,10 @@
    (slot min-reps (default 0))
    (slot max-reps (default 0))
    (slot sets (default 0))
+   (slot recommended-weight (default -1))
 )
 
+; https://pubmed.ncbi.nlm.nih.gov/39060209/
 (deftemplate exercise-modifier
    (slot name)
    (slot modifier)
@@ -81,7 +85,7 @@
 (deftemplate activity-level
    0 10000 minutes/week
    (
-      (sedentary (0 1) (60 1) (150 0))
+      (sedentary (0 1) (40 0) (60 0))
       (moderate  (60 0) (180 1) (300 0))
       (active    (300 0) (600 1) (10000 1))
    )
@@ -90,8 +94,8 @@
 (deftemplate bmi
   10 45 kg/m2
   (
-    (underweight (10 1) (18.5 1) (24.9 0))
-    (normal      (18.5 0) (21.7 1) (24.9 0))
+    (underweight (10 1) (17 1) (18.5 0))
+    (normal      (18.5 0) (21.7 1) (23 0) (24.9 0))
     (overweight  (24.9 0) (30.0 1) (40 1))
   )
 )
@@ -120,3 +124,11 @@
    (slot weight)
 )
 
+(deftemplate exercise-type
+   (slot name)
+   (slot type)
+)
+
+(deftemplate fitness-level-adjustment
+   (slot value)
+)

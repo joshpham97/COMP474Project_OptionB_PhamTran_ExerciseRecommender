@@ -1,5 +1,6 @@
 (defmodule FITNESS-LEVEL 
-    (import MAIN deftemplate injury-evidence user-input recommendation consultation-required injury-explanation activity-level bmi fitness-level exercise-modifier)
+    (import MAIN deftemplate injury-evidence user-input recommendation consultation-required injury-explanation activity-level 
+    bmi fitness-level exercise-modifier fitness-level-adjustment exercise-type)
 )
 
 (defrule underweight-sedentary-low
@@ -57,26 +58,23 @@
   (assert (fitness-level medium))
 )
 
-
-(defrule calculate-recommended-weight
+(defrule calculate-recommended-weight-percentage
     (declare (salience -10))
-   ?fl <- (fitness-level ?)
-   =>
-    (bind ?fs (get-fs ?fl))
-    (bind ?fitness-score (moment-defuzzify ?fl)) ; Get the defuzzified value, the middle
-    (printout t "Fitness score: " ?fs crlf)
-    (printout t "Fitness score: " ?fitness-score crlf)
+    ?fl <- (fitness-level ?)
+     =>
+    (bind ?fitness-score (moment-defuzzify ?fl)) ; Get the defuzzified value, the center-of-gravity
+
+    ; Claude AI - prompt: How should I calculate percentage based on fitness score in CLIPS?
     (bind ?percentage
       (if (<= ?fitness-score 3.0)
-         then (+ 45 (* (/ ?fitness-score 3.0) 15))
-         else (if (<= ?fitness-score 7.0)
-            then (+ 60 (* (/ (- ?fitness-score 3.0) 4.0) 15))
-            else (+ 80 (* (/ (- ?fitness-score 7.0) 3.0) 20))
-         )
-      )
-   )
-
-   (assert (recommended-weight ?percentage))
+          then (+ 45 (* (/ ?fitness-score 3.0) 15))           ; 45% to 60%  (score 0-3)
+      else (if (<= ?fitness-score 7.0)
+          then (+ 60 (* (/ (- ?fitness-score 3.0) 4.0) 15))   ; 60% to 75%  (score 3-7)
+      else
+          (+ 80 (* (/ (- ?fitness-score 7.0) 3.0) 20))        ; 80% to 100% (score 7-10)
+      ))
+    )
+   (assert (fitness-level-adjustment (value ?percentage)))
 )
 
 ; A low priority rule to focus back on MAIN after fitness level is assessed
