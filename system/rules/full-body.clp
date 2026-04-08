@@ -42,12 +42,10 @@
 )
 
 ; For the remaining slots, we assign muscle groups based on the first exercise, and it follows a cycle 
-; chest → calves
-; calves → back
+; chest → back
 ; back → hamstring
 ; hamstring → shoulder
-; shoulder → glutes
-; glutes → chest
+; shoulder → chest
 ; quads → back
 
 (defrule assign-slot-after-chest-full-body
@@ -57,18 +55,9 @@
    (test (= (- ?ex-order2 ?ex-order1) 1))
    (test (< ?ex-order2 6))
    =>
-   (modify ?s2 (primary-muscle-group calves))
-)
-
-(defrule assign-slot-after-calves-full-body
-   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group calves))
-   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
-   (day (order ?day-order) (focus full-body))
-   (test (= (- ?ex-order2 ?ex-order1) 1))
-   (test (< ?ex-order2 6))
-   =>
    (modify ?s2 (primary-muscle-group back))
 )
+
 
 (defrule assign-slot-after-back-full-body
    ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group back))

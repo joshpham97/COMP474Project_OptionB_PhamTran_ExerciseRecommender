@@ -33,10 +33,124 @@
     )
 )
 
+(deffunction check-exercise-selection ()
+   (do-for-all-facts ((?f exercise-slot))
+      (= (fact-slot-value ?f exercise-order) 1)
+      
+      (bind ?user-input (nth$ 1 (find-all-facts ((?ui user-input)) TRUE)))
+      (bind ?muscle-group (fact-slot-value ?user-input muscle-group))
+      (bind ?exercise (fact-slot-value ?f exercise))
+      (bind ?day (fact-slot-value ?f day-order))
+
+      (printout t "Checking first exercise selection for Day " ?day crlf)
+
+      (if (not (eq (fact-slot-value ?f primary-muscle-group) ?muscle-group))
+         then (printout t "Error: Exercise " ?exercise " does not target the selected muscle group " ?muscle-group crlf)
+      )
+   )
+)
+(deffunction is-small-muscle-group (?muscle)
+   (member$ ?muscle (create$ biceps triceps glutes calves))
+)
+
+(deffunction check-small-muscle-group-ordering ()
+   (do-for-all-facts ((?f exercise-slot)) TRUE
+      (bind ?current-muscle (fact-slot-value ?f primary-muscle-group))
+      (bind ?current-order  (fact-slot-value ?f exercise-order))
+      (bind ?current-day    (fact-slot-value ?f day-order))
+
+      (if (is-small-muscle-group ?current-muscle)
+         then
+         ; Check if there is a next exercise slot on the same day
+         (bind ?next (find-all-facts ((?n exercise-slot))
+            (and (= (fact-slot-value ?n day-order) ?current-day)
+                 (= (fact-slot-value ?n exercise-order) (+ ?current-order 1)))
+         ))
+
+         (if (> (length$ ?next) 0)
+            then
+            (bind ?next-fact   (nth$ 1 ?next))
+            (bind ?next-muscle (fact-slot-value ?next-fact primary-muscle-group))
+
+            (if (not (is-small-muscle-group ?next-muscle))
+               then
+               (printout t "Error: " ?current-muscle " on Day " ?current-day 
+                           " (slot " ?current-order ") should come after " ?next-muscle crlf)
+               else
+               (printout t "OK: " ?current-muscle " and " ?next-muscle 
+                           " are both small muscle groups, ordering is fine." crlf)
+            )
+         )
+      )
+   )
+)
+;If a non-preferred equipment exercise is assigned, check that NO unassigned exercises with preferred equipment exist for that muscle group.
+(deffunction check-equipment-priority ()
+   (bind ?user-input (nth$ 1 (find-all-facts ((?ui user-input)) TRUE)))
+   (bind ?preferred-equipment (fact-slot-value ?user-input exercise-type))
+   (bind ?found-non-preferred FALSE)
+
+    ; Go through all assigned exercises and check if any of them use non-preferred equipment
+   (do-for-all-facts ((?es exercise-slot)) TRUE
+      (bind ?exercise-name (fact-slot-value ?es exercise))
+      (bind ?muscle        (fact-slot-value ?es primary-muscle-group))
+
+      (do-for-fact ((?e exercise))
+         (eq (fact-slot-value ?e name) ?exercise-name)
+
+         (bind ?equipment (fact-slot-value ?e equipment))
+
+         (if (neq ?equipment ?preferred-equipment) ; If the assigned exercise uses non-preferred equipment
+            then
+            (bind ?found-non-preferred TRUE)
+
+            ; Collect all the exercises that use the preferred equipment for the same muscle group
+            (bind ?preferred-names (create$))
+            (do-for-all-facts ((?pe exercise))
+               (and (eq (fact-slot-value ?pe equipment) ?preferred-equipment)
+                    (eq (fact-slot-value ?pe primary-muscle-group) ?muscle))
+               (bind ?preferred-names (insert$ ?preferred-names 1 (fact-slot-value ?pe name)))
+            )
+
+            ; Collect all assigned exercise names
+            (bind ?assigned-names (create$))
+            (do-for-all-facts ((?as exercise-slot)) TRUE
+               (bind ?assigned-names (insert$ ?assigned-names 1 (fact-slot-value ?as exercise)))
+            )
+
+            ; Check if all the preferred exercises is used up in assigned exercises
+            (bind ?exhausted TRUE)
+            (progn$ (?pn ?preferred-names)
+               (if (not (member$ ?pn ?assigned-names))
+                  then (bind ?exhausted FALSE)
+               )
+            )
+
+            ; Print out the result for this non-preferred exercise
+            (if ?exhausted
+               then (printout t "OK: " ?exercise-name " | " ?equipment
+                               " (all " ?preferred-equipment " exhausted for " ?muscle ")" crlf)
+               else (printout t "FAIL: " ?exercise-name " | " ?equipment
+                               " (" ?preferred-equipment " still available for " ?muscle ")" crlf)
+            )
+         )
+      )
+   )
+   ; If we never found a non-preferred exercise, then all exercises use preferred equipment, so print OK
+   (if (not ?found-non-preferred)
+      then
+      (printout t "OK: All exercises use preferred equipment (" ?preferred-equipment ")" crlf)
+   )
+)
+
+
 (deffunction run-tests ()
     (check-exercise-slots)
     (check-muscle-groups)
     (check-exercises)
+    (check-exercise-selection)
+    (check-small-muscle-group-ordering)
+    (check-equipment-priority)
 )
 
 (deffunction test-function (?goal ?frequency ?muscle-group ?exercise-type)
