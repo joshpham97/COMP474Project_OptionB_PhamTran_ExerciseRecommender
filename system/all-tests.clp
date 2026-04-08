@@ -3,4 +3,6 @@
 (test-routine-generator)
 (load "tests/injury-prediction.clp")
 (test-injury-prediction)
+(load "tests/weight-recommendation.clp")
+(test-weight-recommendation)
 (focus MAIN)

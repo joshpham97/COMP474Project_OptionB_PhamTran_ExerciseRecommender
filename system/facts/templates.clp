@@ -90,9 +90,10 @@
       (active    (300 0) (600 1) (10000 1))
    )
 )
+; Upper-lower limit taken from https://www.calculator.net/bmi-calculator.html
 ; https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html#:~:text=BMI%20categories%20for%20adults%20BMI%20is%20a,BMI%20regardless%20of%20age%2C%20sex%2C%20or%20race
 (deftemplate bmi
-  10 45 kg/m2
+  10 55 kg/m2
   (
     (underweight (10 1) (17 1) (18.5 0))
     (normal      (18.5 0) (21.7 1) (23 0) (24.9 0))
@@ -124,11 +125,13 @@
    (slot weight)
 )
 
+; Mappping for exercise that have weight recommendation to its type
 (deftemplate exercise-type
    (slot name)
    (slot type)
 )
 
+; Value of fitness level adjustment based on the formula, will be used in weight recommendation
 (deftemplate fitness-level-adjustment
    (slot value)
 )
