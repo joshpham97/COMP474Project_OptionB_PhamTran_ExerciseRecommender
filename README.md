@@ -16,7 +16,7 @@ Members:
 First you need to load the facts and rules:
 
 ```
-(batch main.clp)
+(batch "main.clp")
 ```
 
 To input user parameters, run:
