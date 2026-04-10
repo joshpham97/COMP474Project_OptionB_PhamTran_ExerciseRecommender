@@ -62,3 +62,4 @@
    =>
    (modify ?s (global-order (+ (* ?day-order 100) ?exercise-order)))
 )
+

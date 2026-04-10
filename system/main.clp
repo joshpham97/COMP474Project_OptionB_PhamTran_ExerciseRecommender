@@ -1,7 +1,6 @@
 (clear)
 (batch "all-facts.clp")
 (load "input.clp")
-(load "tests.clp")
 (load "output.clp")
 (batch "all-rules.clp")
 (batch "all-tests.clp")

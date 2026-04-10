@@ -11,3 +11,5 @@
 (load "facts/exercises-biceps.clp")
 (load "facts/exercises-triceps.clp")
 (load "facts/exercises-calves.clp")
+(load "facts/exercises-type.clp")
+(load "facts/exercises-modifier.clp")

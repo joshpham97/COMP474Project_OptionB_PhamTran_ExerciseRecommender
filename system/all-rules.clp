@@ -1,6 +1,8 @@
 (load "rules/workout-split.clp")
 (load "rules/exercise-selection.clp")
+(load "rules/weight-recommendation.clp")
 (load "rules/full-body.clp")
 (load "rules/upper-lower.clp")
 (load "rules/push-pull-leg.clp")
 (load "rules/injury-prediction.clp")
+(load "rules/fitness-level.clp")
