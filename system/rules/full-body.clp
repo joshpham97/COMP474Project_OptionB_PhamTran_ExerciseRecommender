@@ -25,17 +25,9 @@
 
 ;  Make the first exercise user preference, leg is set to quads by default if leg is chosen, and if the user preference is not leg, then we assign that muscle group to the first slot
 
-(defrule assign-first-slot-full-body-leg
-   (day (order ?d) (focus full-body))
-   (user-input (muscle-group legs)) 
-   ?s <- (exercise-slot (day-order ?d) (exercise-order 1) (primary-muscle-group nil))
-   =>
-   (modify ?s (primary-muscle-group quads))
-)
-
 (defrule assign-first-slot-full-body
    (day (order ?d) (focus full-body))
-   (user-input (muscle-group ?mg&~leg))
+   (user-input (muscle-group ?mg))
    ?s <- (exercise-slot (day-order ?d) (exercise-order 1) (primary-muscle-group nil))
    =>
    (modify ?s (primary-muscle-group ?mg))
