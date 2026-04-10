@@ -13,7 +13,7 @@
                 )
     (if (> (fact-slot-value ?e recommended-weight) 0)
         then
-        (printout t "|Recommended weight: " (format nil "%.2f" (fact-slot-value ?e recommended-weight)) " kg" crlf)
+        (printout t "| Recommended weight: " (format nil "%.2f" (fact-slot-value ?e recommended-weight)) " kg")
     )
     (printout t crlf) ; Go down to the next line after printing exercise details
 )
@@ -80,7 +80,7 @@
       else
         (printout t crlf "=== Injury Risk Assessment ===" crlf)
         (printout t "  No elevated injury risk was detected based on your profile. That said, even with a clean history," crlf)
-        (printout t "  injuries can happen to anyone — especially those new to strength training. Follow the program" crlf)
+        (printout t "  injuries can happen to anyone, especially those new to strength training. Follow the program" crlf)
         (printout t "  progressively, prioritize form over weight, and listen to your body." crlf crlf))
     (focus MAIN)
 )
