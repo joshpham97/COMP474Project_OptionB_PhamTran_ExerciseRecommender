@@ -1,11 +1,4 @@
 ; Start assessing fitness level by focus to FITNESS-LEVEL module first
-(defrule start-fitness-assessment
-   (declare (salience 100))
-   (bmi ?)
-   (activity-level ?)
-   =>
-   (focus FITNESS-LEVEL)
-)
 
 ; Calculate recommended weight for each exercise based on user input and fitness level, and assign it to the exercise slot
 (deffunction calculate-weight-for-type (?exercise ?modifier-type)

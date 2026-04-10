@@ -77,10 +77,3 @@
    (assert (fitness-level-adjustment (value ?percentage)))
 )
 
-; A low priority rule to focus back on MAIN after fitness level is assessed
-(defrule fitness-assessment-done
-   (declare (salience -100))
-   (fitness-level ?)
-   =>
-   (focus MAIN)
-)
