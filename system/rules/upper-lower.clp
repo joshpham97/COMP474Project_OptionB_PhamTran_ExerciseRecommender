@@ -56,6 +56,24 @@
    (modify ?s2 (primary-muscle-group back)) ; chest is pressing like shoulder so we assign a back exercise
 )
 
+
+(defrule assign-first-slot-muscle-group-by-user-preference-quads
+   ?s <- (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil))
+   (day (order ?day-order) (focus ?f))
+   (user-input (muscle-group quads))
+   (muscle-group (name quads) (region ?f))
+   =>
+   (modify ?s (primary-muscle-group quads))
+)
+(defrule assign-first-slot-muscle-group-by-user-preference-hamstring
+   ?s <- (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil))
+   (day (order ?day-order) (focus ?f))
+   (user-input (muscle-group hamstring))
+   (muscle-group (name hamstring) (region ?f))
+   =>
+   (modify ?s (primary-muscle-group hamstring))
+)
+
 (defrule assign-first-slot-muscle-group-upper
    ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
    ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
@@ -63,7 +81,6 @@
    (day (order ?order2) (focus upper))
    (test (< ?order1 ?order2))
    (muscle-group (name ?mg) (region ?f))
-   (user-input (muscle-group nil))
    (and
       (user-input (muscle-group ?mg))
       (muscle-group (name ?mg) (region ?f&~upper))
