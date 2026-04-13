@@ -1,6 +1,5 @@
 (defmodule FULL-BODY (import MAIN deftemplate workout-split day exercise-slot user-input muscle-group))
 
-
 ; Initial full body workout split
 (defrule initialize-full-body
    (workout-split (name "Full-body"))

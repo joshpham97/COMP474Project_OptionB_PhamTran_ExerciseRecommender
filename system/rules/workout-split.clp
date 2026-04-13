@@ -27,7 +27,6 @@
 )
 
 ; Reps determination
-
 (defrule assign-rep-strength
    (user-input (goal strength))
    ?e <- (exercise-slot (min-reps ?r&~1) (max-reps ?r&~5))
@@ -57,6 +56,7 @@
    =>
    (modify ?e (sets 2))) 
 
+; Determine the global order for each exercises
 (defrule compute-global-order
    ?s <- (exercise-slot (day-order ?day-order) (exercise-order ?exercise-order) (global-order nil))
    =>

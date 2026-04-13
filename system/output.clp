@@ -1,5 +1,7 @@
-(deffunction assess-weigth-recommendation ()
+(deffunction assess-weight-recommendation ()
     (focus FITNESS-LEVEL)
+    (run)
+    (focus WEIGHT-RECOMMENDATION)
     (run)
     (focus MAIN)
 )
@@ -174,7 +176,7 @@
 
 
 (deffunction output ()
-    (assess-weigth-recommendation)
+    (assess-weight-recommendation)
     (run)
     (bind ?ws (nth$ 1 (find-fact ((?f workout-split)) TRUE)))
     (bind ?sn (fact-slot-value ?ws name))

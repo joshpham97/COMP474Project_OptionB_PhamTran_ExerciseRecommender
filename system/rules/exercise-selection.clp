@@ -1,5 +1,4 @@
 ; Sub muscle group selection
-
 (defrule assign-sub-muscle-group-for-first-exercise-by-muscle-group
    (muscle-group (name ?main-mg))
    (sub-muscle-group (main-muscle-group ?main-mg) (name ?sub-mg) (priority 1))
