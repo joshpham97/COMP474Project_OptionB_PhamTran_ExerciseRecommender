@@ -1,0 +1,13 @@
+
+# recommendation for injury risk
+Recommendation has a reason
+Recommendation has a description
+
+# Injury-evidence template
+Injury-evidence has a name
+
+# Consultiation required template
+Consulatation-required is a true/false fact
+
+# Injury explanation template
+Injury-explanation has multiple explanations

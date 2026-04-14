@@ -1,0 +1,5 @@
+Dumb bell bench press is a bench type
+Barbell squat is a squat type
+Sissy squat is a squat type
+Romaninan deadlift is a deadlift type
+Stiff leg deadlift is a deadlift type

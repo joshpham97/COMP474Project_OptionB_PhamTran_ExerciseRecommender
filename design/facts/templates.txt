@@ -10,9 +10,9 @@ A muscle group region can be upper.
 A muscle group region can be lower.
 
 A mucsle group has a type.
-A muscle group can be push.
-A muscle group can be pull.
-A muscle group can be leg.
+A muscle group type can be push.
+A muscle group type can be pull.
+A muscle group type can be leg.
 
 # Sub-muscle group template
 
@@ -23,6 +23,7 @@ A sub-muscle group has a priority.
 The priority 1 is high.
 The priority 2 is medium.
 The priority 3 is low.
+The priority 4 is very low.
 
 # Exercise template
 
@@ -48,15 +49,18 @@ A workout split has a name.
 
 # Day template
 
+A day has an order
 A day has a name.
-A day has a focus.
-A day has can be initialized.
+A day has a focus
+
 
 # Exercise slot template for day
 
-An exercise slot has an id.
-An exercise slot has a day.
+An exercise slot has a day order.
+An exercise slot has a order within the same day.
+An exercise slot has a global order.
 An exercise slot has a primary muscle group.
+An exercise slot has a targeted sub-mucle group
 An exercise slot has an exercise.
 An exercise slot has a minimum number of reps.
 The default minimum number of reps is 0.
@@ -64,8 +68,8 @@ An exercise slot has a maximum number of reps.
 The default maximum number of reps is 0.
 An exercise slot has sets.
 The default number of sets is 0.
-An exercise slot has an order.
-An exercise slot has a muscle priority.
+An exercise slot has a recommended weight
+The default value of recommended weight is -1
 
 # User input template
 
@@ -74,3 +78,53 @@ User-input has a frequency.
 User-input has a muscle group.
 User-input has a time.
 User-input has an exercise type.
+
+
+# Exercise modifier for recommended weight
+Exercise-modifier has a name
+Exercise-modifier has a modifier
+Exercise-modifier has a gender
+
+# Activity level template
+
+Activity-level is a fuzzy template
+Activity-level has the unit of minutes per week
+Activity-level has a minimum limit of 0
+Activity-level has a maximum limit of 10000
+Activity-level has a fuzzy set called sedentary
+sedentary is a left-sided right trapezoidal membership function with flat top from 0 to 40, and a slope down from 40 to 60
+Activity-level has a fuzzy set called moderate
+moderate is a triangle membership function with a peak at 180 and a width of 120
+Activity-level has a fuzzy set called active
+sedentary is a right-sided right trapezoidal membership function with slope up from 300 to 600 and a flat top from 600 to 10000
+
+# BMI template
+BMI is a fuzzy template
+BMI has the unit of kilogram per meter square
+BMI has a minimum limit of 10
+BMI has a maximum limit of 55
+BMI has a fuzzy set called underweight
+underweight is a left-sided right trapezoidal membership function with a flat top from 10 to 17, and a slope down from 17 to 18.5
+BMI has a fuzzy set called normal
+normal is a triangle membership function with a peak at 21.7 and a width of 3.2
+BMI has a fuzzy set called overweight
+overweight is a right-sided right trapezoidal membership funciton with a slope up from 24 to 27, and a flat top from 27 to 55
+
+# Fitness-level template
+Fitness-level is a fuzzy template
+Fitness-level has the unit of score
+Fitness-level has a minimum limit of 0
+Fitness-level has a maximum limit of 10
+Fitness-level has a fuzzy set called low
+low is a left-sided right trapezoidal membership function with a flat top from 0 to 3, and a slope down from 3 to 4
+Fitness-level has a fuzzy set called medium
+medium is a triangle membership function with a peak at 5 and a width of 2
+Fitness-level has a fuzzy set called high
+high is a right-sided right trapezoidal membership function with a slope up from 6 to 7, and a flat top from 7 to 10
+
+# Exercise-type template
+Exercise-type has a exercise name
+Exercise-type has a type
+
+# Fitness-level-adjustment template
+Fitness-level-adjustment has a value

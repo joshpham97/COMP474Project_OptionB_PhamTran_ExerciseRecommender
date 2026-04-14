@@ -6,9 +6,9 @@ Upper chest has medium priority.
 Lower chest has low priority.
 
 Frontal-plane lats has high priority.
-Upper back has high priority.
-Sagittal-plane lats has medium priority.
-Traps has low priority.
+Upper back has medium priority.
+Sagittal-plane lats has low priority.
+Traps has very low priority.
 
 Front delt has high priority.
 Side delt has medium priority.
@@ -21,10 +21,11 @@ Triceps lateral and medial head has high priority.
 Triceps long head has low priority.
 
 Hamstring (lengthened) exercises has high priority.
-Hamstring (shortened) exercises has low priority.
+Hamstring (shortened) exercises has medium priority.
 
 Gluteus maximus exercises have high priority.
-Gluteus medius exercises have low priority.
-Gluteus minimus exercises have low priority.
+Gluteus medius exercises have medium priority.
+
+Quads exercises have high priority
 
 Calves has high priority.
