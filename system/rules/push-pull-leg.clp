@@ -45,27 +45,43 @@
     (assert(exercise-slot (day-order ?day-order) (exercise-order 6) (primary-muscle-group calves)))
 )
 
-(defrule assign-first-slot-push1
+
+
+(defrule assign-first-slot-user-preference
+   ?s <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
+   (day (order ?order1) (focus ?f))
+   (user-input (muscle-group ?mg))
+   (muscle-group (name ?mg) (type ?f))
+   =>
+   (modify ?s (primary-muscle-group ?mg))
+)
+
+; Special assignment if user-input muscle is not push
+(defrule assign-first-slot-push
    ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
    ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
    (day (order ?order1) (focus push))
    (day (order ?order2) (focus push))
+   (user-input (muscle-group ?mg))
+   (not (muscle-group (name ?mg) (type push)))
    (test (< ?order1 ?order2))
    =>
    (modify ?s1 (primary-muscle-group chest))
    (modify ?s2 (primary-muscle-group shoulder))
 )
-
 (defrule assign-first-slot-leg
    ?s1 <- (exercise-slot (day-order ?order1) (exercise-order 1) (primary-muscle-group nil))
    ?s2 <- (exercise-slot (day-order ?order2) (exercise-order 1) (primary-muscle-group nil))
    (day (order ?order1) (focus leg))
    (day (order ?order2) (focus leg))
+   (user-input (muscle-group ?mg))
+   (not (muscle-group (name ?mg) (type leg)))
    (test (< ?order1 ?order2))
    =>
    (modify ?s1 (primary-muscle-group quads))
    (modify ?s2 (primary-muscle-group hamstring))
 )
+
 
 (defrule assign-slot-after-chest-push
    ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group chest))
@@ -101,4 +117,13 @@
    (test (= (- ?ex-order2 ?ex-order1) 1))
    =>
    (modify ?s2 (primary-muscle-group quads))
+)
+
+(defrule assign-slot-after-back-push
+   ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order1) (primary-muscle-group back))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order ?ex-order2) (primary-muscle-group nil))
+   (day (order ?day-order) (focus push))
+   (test (= (- ?ex-order2 ?ex-order1) 1))
+   =>
+   (modify ?s2 (primary-muscle-group chest))  ; or shoulder, your choice
 )

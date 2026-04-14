@@ -28,7 +28,7 @@
                 )
     (if (> (fact-slot-value ?e recommended-weight) 0)
         then
-        (printout t "|Recommended weight: " (format nil "%.2f" (fact-slot-value ?e recommended-weight)) " kg" crlf)
+        (printout t "|Recommended weight: " (format nil "%.2f" (fact-slot-value ?e recommended-weight)) " kg")
     )
     (printout t crlf) ; Go down to the next line after printing exercise details
 )
