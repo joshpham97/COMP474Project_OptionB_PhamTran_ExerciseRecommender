@@ -324,7 +324,7 @@
    (input-weight)
    (input-activity-level)
    (calculate-bmi)
-   )
+)
 
 (deffunction run-all-tests ()
    (focus MAIN)
