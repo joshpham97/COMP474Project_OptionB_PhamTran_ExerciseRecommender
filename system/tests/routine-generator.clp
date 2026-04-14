@@ -394,7 +394,7 @@
     (check-full-body-ordering)
 )
 
-(deffunction test-function (?goal ?frequency ?muscle-group ?exercise-type)
+(deffunction run-test-case-routine-generator (?goal ?frequency ?muscle-group ?exercise-type)
     (printout t "===========================================================================================================" crlf)
     (printout t "Running test with Goal: " ?goal ", Frequency: " ?frequency ", Muscle Group: " ?muscle-group ", Exercise Type: " ?exercise-type crlf)
     (reset)
@@ -409,11 +409,11 @@
 
 ; TODO: Add mote test cases
 (deffunction test-routine-generator ()
-    (test-function strength 3 chest free-weight)
-    (test-function strength 4 back machine)
-    (test-function strength 6 shoulder free-weight)
-    (test-function hypertrophy 3 quads machine)
-    (test-function hypertrophy 3 hamstring machine)
-    (test-function hypertrophy 4 chest free-weight)
-    (test-function hypertrophy 6 back machine)
+    (run-test-case-routine-generator strength 3 chest free-weight)
+    (run-test-case-routine-generator strength 4 back machine)
+    (run-test-case-routine-generator strength 6 shoulder free-weight)
+    (run-test-case-routine-generator hypertrophy 3 quads machine)
+    (run-test-case-routine-generator hypertrophy 3 hamstring machine)
+    (run-test-case-routine-generator hypertrophy 4 chest free-weight)
+    (run-test-case-routine-generator hypertrophy 6 back machine)
 )
