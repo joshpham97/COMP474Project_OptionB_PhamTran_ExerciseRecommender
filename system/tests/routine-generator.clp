@@ -364,6 +364,9 @@
     (do-for-all-facts ((?ui user-input)) TRUE
         (modify ?ui (goal ?goal) (frequency ?frequency) (muscle-group ?muscle-group) (exercise-type ?exercise-type)))
     (run)
+    (focus ROUTINE-GENERATOR)
+    (run)
+    (focus MAIN)
     (run-tests)
 )
 

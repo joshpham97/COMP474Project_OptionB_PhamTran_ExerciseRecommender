@@ -1,5 +1,4 @@
-(load "rules/workout-split.clp")
-(load "rules/exercise-selection.clp")
+(load "rules/routine-generator.clp")
 (load "rules/weight-recommendation.clp")
 (load "rules/full-body.clp")
 (load "rules/upper-lower.clp")

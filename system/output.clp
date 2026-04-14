@@ -1,5 +1,20 @@
-(deffunction assess-weigth-recommendation ()
+(deffunction assess-weight-recommendation ()
     (focus FITNESS-LEVEL)
+    (run)
+    (focus WEIGHT-RECOMMENDATION)
+    (run)
+    (focus MAIN)
+)
+
+(deffunction generate-routine()
+   (focus ROUTINE-GENERATOR)
+   (run)
+   (focus MAIN)
+)
+
+; Claude AI (4/3) - Prompt: Add code to the assess-injury-risk function to print out the recommendations
+(deffunction assess-injury-risk ()
+    (focus INJURY-PREDICTION)
     (run)
     (focus MAIN)
 )
@@ -59,32 +74,6 @@
         (print-plan "Pull 2" 5)
         (print-plan "Leg 2" 6))
 )
-
-; Claude AI (4/3) - Prompt: Add code to the assess-injury-risk function to print out the recommendations
-(deffunction assess-injury-risk ()
-    (focus INJURY-PREDICTION)
-    (run)
-    (bind ?recs (find-all-facts ((?r recommendation)) TRUE))
-    (if (> (length$ ?recs) 0)
-      then
-        (printout t crlf "=== Injury Risk Recommendations ===" crlf)
-        (progn$ (?r ?recs)
-            (printout t "  [" (fact-slot-value ?r reason) "] " (fact-slot-value ?r description) crlf))
-        (bind ?explanations (fact-slot-value (nth$ 1 (find-all-facts ((?e injury-explanation)) TRUE)) explanations))
-        (if (> (length$ ?explanations) 0)
-          then
-            (printout t crlf "  Reasons:" crlf)
-            (progn$ (?exp ?explanations)
-                (printout t "    - " ?exp crlf)))
-        (printout t crlf)
-      else
-        (printout t crlf "=== Injury Risk Assessment ===" crlf)
-        (printout t "  No elevated injury risk was detected based on your profile. That said, even with a clean history," crlf)
-        (printout t "  injuries can happen to anyone — especially those new to strength training. Follow the program" crlf)
-        (printout t "  progressively, prioritize form over weight, and listen to your body." crlf crlf))
-    (focus MAIN)
-)
-
 
 (deffunction print-weight-reccomendation-explanation ()
     
@@ -166,15 +155,37 @@
     (if (eq ?fitness-label "low")
         then (printout t "You should start with a conservative weight to build strength and reduce injury risk." crlf)
     else (if (eq ?fitness-label "medium")
-        then (printout t "You can start with a moderate weight that balances challenge and safety." crlf)
+        then (printout t "You can start with a moderate weight that balances challenge and safety (the recommended weight is based on gender, BMI and fitness level)." crlf)
     else
         (printout t "You can start with a more aggressive weight to maximize strength gains." crlf)
     ))
 )
 
+(deffunction print-injury-assessment()
+    (bind ?recs (find-all-facts ((?r recommendation)) TRUE))
+    (if (> (length$ ?recs) 0)
+      then
+        (printout t crlf "=== Injury Risk Recommendations ===" crlf)
+        (progn$ (?r ?recs)
+            (printout t "  [" (fact-slot-value ?r reason) "] " (fact-slot-value ?r description) crlf))
+        (bind ?explanations (fact-slot-value (nth$ 1 (find-all-facts ((?e injury-explanation)) TRUE)) explanations))
+        (if (> (length$ ?explanations) 0)
+          then
+            (printout t crlf "  Reasons:" crlf)
+            (progn$ (?exp ?explanations)
+                (printout t "    - " ?exp crlf)))
+        (printout t crlf)
+      else
+        (printout t crlf "=== Injury Risk Assessment ===" crlf)
+        (printout t "  No elevated injury risk was detected based on your profile. That said, even with a clean history," crlf)
+        (printout t "  injuries can happen to anyone — especially those new to strength training. Follow the program" crlf)
+        (printout t "  progressively, prioritize form over weight, and listen to your body." crlf crlf))
+)
 
 (deffunction output ()
-    (assess-weigth-recommendation)
+    (generate-routine)
+    (assess-injury-risk)
+    (assess-weight-recommendation)
     (run)
     (bind ?ws (nth$ 1 (find-fact ((?f workout-split)) TRUE)))
     (bind ?sn (fact-slot-value ?ws name))
@@ -191,6 +202,6 @@
                 (print-push-pull-leg))
         )
     )
-    (assess-injury-risk)
     (print-weight-reccomendation-explanation)
+    (print-injury-assessment)
 )

@@ -1,3 +1,7 @@
+(defmodule WEIGHT-RECOMMENDATION
+    (import MAIN deftemplate user-input exercise-modifier fitness-level-adjustment exercise-type exercise-slot)
+)
+
 ; Start assessing fitness level by focus to FITNESS-LEVEL module first
 
 ; Calculate recommended weight for each exercise based on user input and fitness level, and assign it to the exercise slot
@@ -7,22 +11,22 @@
    (bind ?modifier 1.0)
    (bind ?fitness-adjustment 1.0)
 
-    ; Get user weight and gender
+   ; Get user weight and gender
    (do-for-fact ((?ui user-input)) TRUE
       (bind ?weight (fact-slot-value ?ui weight))
       (bind ?gender (fact-slot-value ?ui gender))
    )
-    ; Get exercise modifier based on type
+   ; Get exercise modifier based on type
    (do-for-fact ((?em exercise-modifier))
       (and (eq (fact-slot-value ?em name) ?modifier-type)
            (eq (fact-slot-value ?em gender) ?gender))
       (bind ?modifier (fact-slot-value ?em modifier))
    )
-    ; Get fitness level adjustment calculated beforehand
+   ; Get fitness level adjustment calculated beforehand
    (do-for-fact ((?fla fitness-level-adjustment)) TRUE
         (bind ?fitness-adjustment (/ (fact-slot-value ?fla value) 100.0)); Convert to percentage
     )
-    ; Recommended Weight = Exercise_Gender_Modifier × Fitness_Level × BW
+   ; Recommended Weight = Exercise_Gender_Modifier × Fitness_Level × BW
    (bind ?recommended-weight (* ?weight ?modifier ?fitness-adjustment))
 
    (return ?recommended-weight)

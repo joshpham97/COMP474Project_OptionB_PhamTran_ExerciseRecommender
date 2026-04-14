@@ -324,4 +324,11 @@
    (input-weight)
    (input-activity-level)
    (calculate-bmi)
-   )
+)
+
+(deffunction run-all-tests ()
+   (focus MAIN)
+   (test-routine-generator)
+   (test-injury-prediction)
+   (test-weight-recommendation)
+)
