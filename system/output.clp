@@ -155,7 +155,7 @@
     (if (eq ?fitness-label "low")
         then (printout t "You should start with a conservative weight to build strength and reduce injury risk." crlf)
     else (if (eq ?fitness-label "medium")
-        then (printout t "You can start with a moderate weight that balances challenge and safety." crlf)
+        then (printout t "You can start with a moderate weight that balances challenge and safety (the recommended weight is based on gender, BMI and fitness level)." crlf)
     else
         (printout t "You can start with a more aggressive weight to maximize strength gains." crlf)
     ))
