@@ -314,7 +314,7 @@
                   )
                )
 
-            else (if (eq ?day-focus legs)
+            else (if (eq ?day-focus leg)
                then
                ; Legs day - quads/hamstring/glutes/calves, should alternate
                (if (not (is-leg-muscle-group ?current-muscle))
