@@ -33,19 +33,76 @@
     )
 )
 
-(deffunction check-exercise-selection ()
+; Helper functions 
+(deffunction is-push-muscle-group (?muscle)
+   (member$ ?muscle (create$ chest shoulder triceps))
+)
+
+(deffunction is-leg-muscle-group (?muscle)
+   (member$ ?muscle (create$ quads hamstring glutes calves))
+)
+
+(deffunction is-pull-muscle-group (?muscle)
+   (member$ ?muscle (create$ back biceps))
+)
+
+(deffunction is-upper-muscle-group (?muscle)
+   (member$ ?muscle (create$ chest back shoulder biceps triceps))
+)
+
+(deffunction is-lower-muscle-group (?muscle)
+   (member$ ?muscle (create$ quads hamstring glutes calves))
+)
+
+(deffunction check-exercise-selection-first-muscle-group ()
    (do-for-all-facts ((?f exercise-slot))
       (= (fact-slot-value ?f exercise-order) 1)
       
       (bind ?user-input (nth$ 1 (find-all-facts ((?ui user-input)) TRUE)))
-      (bind ?muscle-group (fact-slot-value ?user-input muscle-group))
+      (bind ?user-input-muscle-group (fact-slot-value ?user-input muscle-group))
+      (bind ?exercise-muscle-group (fact-slot-value ?f primary-muscle-group))
       (bind ?exercise (fact-slot-value ?f exercise))
+
       (bind ?day (fact-slot-value ?f day-order))
+      (bind ?day-fact (nth$ 1 (find-all-facts ((?d day)) (= (fact-slot-value ?d order) ?day))))
+      (bind ?focus (fact-slot-value ?day-fact focus))
 
-      (printout t "Checking first exercise selection for Day " ?day crlf)
 
-      (if (not (eq (fact-slot-value ?f primary-muscle-group) ?muscle-group))
-         then (printout t "Error: Exercise " ?exercise " does not target the selected muscle group " ?muscle-group crlf)
+      ; Special case for PPL, pull and leg day
+      (if (eq ?focus push)
+         then
+         (if (not (is-push-muscle-group ?exercise-muscle-group))
+            then     
+               (printout t "Error: Day " ?day " Exercise " ?exercise " does not target the selected muscle group chest, shoulder, or triceps on push day" crlf)
+               (return FALSE)
+               )
+         
+         else (return TRUE)
+      )
+
+      (if (eq ?focus leg)
+         then
+         (if (not (is-leg-muscle-group ?exercise-muscle-group))
+            then     
+               (printout t "Error: Day " ?day " Exercise " ?exercise " does not target the selected muscle group quads or hamstring on leg day" crlf)
+               (return FALSE)
+         )
+         
+         else (return TRUE)
+      )
+      
+      (if (eq ?focus pull)
+         then
+         (if (not (is-pull-muscle-group ?exercise-muscle-group))
+            then     
+         (printout t "Error: Day " ?day " Exercise " ?exercise " does not target the muscle group back on pull day" crlf)
+               (return FALSE)
+         )
+         else (return TRUE)
+      )
+      ; General case: exercise muscle group should match user input muscle group
+      (if (not (eq ?exercise-muscle-group ?user-input-muscle-group))
+         then (printout t "Error: Day " ?day " Exercise " ?exercise " does not target the selected muscle group " ?user-input-muscle-group crlf)
       )
    )
 )
@@ -142,13 +199,6 @@
     )
 )
 
-(deffunction is-upper-muscle-group (?muscle)
-   (member$ ?muscle (create$ chest back shoulder biceps triceps))
-)
-
-(deffunction is-lower-muscle-group (?muscle)
-   (member$ ?muscle (create$ quads hamstring glutes calves))
-)
 ; Upper-Lower: Exercises should alternate between muscle groups of the same region (1 test for upper and 1 test for lower).
 ; TODO: Doesn't cehck for alternating, but does check that it's in the right region
 (deffunction check-upper-lower-ordering ()
@@ -191,7 +241,7 @@
                else
                   (if (and (neq ?previous-muscle nil) (eq ?current-muscle ?previous-muscle)) ; Check that it's not the same muscle group as previous exercise
                      then (printout t "FAIL: Slot " ?i " - consecutive same muscle " ?current-muscle crlf)
-                     else (printout t "OK: Slot " ?i " - " ?current-muscle crlf)
+                     else (printout t "OK: Slot " ?i " - " ?current-muscle " is upper body and not repeating" crlf)
                   )
                )
             else
@@ -200,7 +250,7 @@
                else
                   (if (and (neq ?previous-muscle nil) (eq ?current-muscle ?previous-muscle))
                      then (printout t "FAIL: Slot " ?i " - consecutive same muscle " ?current-muscle crlf)
-                     else (printout t "OK: Slot " ?i " - " ?current-muscle crlf)
+                     else (printout t "OK: Slot " ?i " - " ?current-muscle " is lower body and not repeating" crlf)
                   )
                )
             )
@@ -210,19 +260,6 @@
       )
    )
 )
-
-(deffunction is-push-muscle-group (?muscle)
-   (member$ ?muscle (create$ chest shoulder triceps))
-)
-
-(deffunction is-leg-muscle-group (?muscle)
-   (member$ ?muscle (create$ quads hamstring glutes calves))
-)
-
-(deffunction is-pull-muscle-group (?muscle)
-   (member$ ?muscle (create$ back biceps))
-)
-
 (deffunction check-ppl-ordering ()
    (bind ?workout-split (nth$ 1 (find-all-facts ((?ws workout-split)) TRUE)))
    (if (not (eq (fact-slot-value ?workout-split name) "Push-Pull-Leg"))
@@ -277,7 +314,7 @@
                   )
                )
 
-            else (if (eq ?day-focus legs)
+            else (if (eq ?day-focus leg)
                then
                ; Legs day - quads/hamstring/glutes/calves, should alternate
                (if (not (is-leg-muscle-group ?current-muscle))
@@ -349,7 +386,7 @@
     (check-exercise-slots)
     (check-muscle-groups)
     (check-exercises)
-    (check-exercise-selection)
+    (check-exercise-selection-first-muscle-group)
     (check-small-muscle-group-ordering)
     (check-equipment-priority)
     (check-upper-lower-ordering)
@@ -357,7 +394,7 @@
     (check-full-body-ordering)
 )
 
-(deffunction test-function (?goal ?frequency ?muscle-group ?exercise-type)
+(deffunction run-test-case-routine-generator (?goal ?frequency ?muscle-group ?exercise-type)
     (printout t "===========================================================================================================" crlf)
     (printout t "Running test with Goal: " ?goal ", Frequency: " ?frequency ", Muscle Group: " ?muscle-group ", Exercise Type: " ?exercise-type crlf)
     (reset)
@@ -372,11 +409,11 @@
 
 ; TODO: Add mote test cases
 (deffunction test-routine-generator ()
-    (test-function strength 3 chest free-weight)
-    (test-function strength 4 back machine)
-    (test-function strength 6 shoulder free-weight)
-    (test-function hypertrophy 3 quads machine)
-    (test-function hypertrophy 3 hamstring machine)
-    (test-function hypertrophy 4 chest free-weight)
-    (test-function hypertrophy 6 back machine)
+    (run-test-case-routine-generator strength 3 chest free-weight)
+    (run-test-case-routine-generator strength 4 back machine)
+    (run-test-case-routine-generator strength 6 shoulder free-weight)
+    (run-test-case-routine-generator hypertrophy 3 quads machine)
+    (run-test-case-routine-generator hypertrophy 3 hamstring machine)
+    (run-test-case-routine-generator hypertrophy 4 chest free-weight)
+    (run-test-case-routine-generator hypertrophy 6 back machine)
 )
