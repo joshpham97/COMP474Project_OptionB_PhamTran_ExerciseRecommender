@@ -32,7 +32,7 @@
 (deftemplate sub-muscle-group
    (slot main-muscle-group)
    (slot name)
-   (slot priority (allowed-values 1 2 3 4)) ; 1 = high, 2 = medium, 3 = low
+   (slot priority (allowed-values 1 2 3 4)) ; 1 = high, 2 = medium, 3 = low ; 4 = very low)
 )
 
 
@@ -44,7 +44,7 @@
    (slot targeted-sub-muscle-group)
    (multislot secondary-muscle-groups)
    (slot movement (allowed-values compound isolation))
-   (slot equipment (allowed-values free-weight machine bodyweight))
+   (slot equipment (allowed-values free-weight machine))
    (slot set)
 )
 
