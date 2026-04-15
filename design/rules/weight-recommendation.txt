@@ -1,0 +1,4 @@
+IF there is an exercise slot with an assigned exercise and recommended weight of -1
+THEN
+    Calculate the recommended weight based on the assigned exercise type
+    Modify the exercise slot's recommended weight to the calculated value

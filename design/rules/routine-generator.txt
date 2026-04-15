@@ -1,0 +1,118 @@
+IF user input has a frequency of 3 AND workout split is not assigned
+THEN
+    Set workout split to full body
+
+IF user input has a frequency of 4 AND workout split is not assigned
+THEN
+    Set workout split to upper lower
+
+IF user input has a frequency of 6 AND workout split is not assigned
+THEN
+    Set workout split to push pull leg
+
+
+; Reps determination
+FOR EACH exercise slot with min reps AND max reps
+    IF user input has goal of strength AND exercise slot has min reps not 1 or max reps not 5
+    THEN
+        Modify exercise slot to have min reps of 1 AND max reps of 5
+
+    IF user input has goal of hypertrophy AND exercise slot has min reps not 8 or max reps not 12
+    THEN
+        Modify exercise slot to have min reps of 8 AND max reps of 12
+
+    IF user input has goal of endurance AND exercise slot has min reps not 15 or max reps not 100
+    THEN
+        Modify exercise slot to have min reps of 15 AND max reps of 100
+
+; Set assignment
+FOR EACH exercise slot with primary muscle group AND sets of 0
+    IF muscle group with name of primary muscle group has high priority (priority 1)
+    THEN
+        Modify exercise slot to have sets of 3
+
+    IF muscle group with name of primary muscle group does not have high priority (priority 2, 3, 4)
+    THEN
+        Modify exercise slot to have sets of 2
+
+; Determine global order
+FOR EACH exercise slot with primary muscle group
+    Modify exercise slot to have global order equal to (day order * 100 + exercise order)
+
+; Exercise selection
+; Sub muscle group assignment for first exercise
+IF there is a muscle group with name main mg AND
+    there is a sub muscle group with name sub mg AND sub mg is a sub muscle group of main mg AND sub mg has high priority AND
+    there is an exercise slot s with global order g AND s has primary muscle group with same name as main mg AND s does not have a targeted sub muscle group assigned AND
+    there is no exercise slot s2 with global order less than g AND s2 has primary muscle group with same name as main mg
+THEN
+    Modify exercise slot s to have targeted sub muscle group with same name as sub mg
+
+; Sub muscle group assignment for next exercise
+IF there is an exercise slot with global order g prev AND primary muscle group main mg AND targeted sub muscle group prev smg already assigned AND
+    there is a sub muscle group prev smg belonging to main mg with priority prev p AND
+    there is a sub muscle group sub mg belonging to main mg with priority exactly one greater than prev p AND
+    there is an exercise slot s with global order g order greater than g prev AND primary muscle group main mg AND no targeted sub muscle group assigned AND
+    there is no other exercise slot with primary muscle group main mg AND no targeted sub muscle group assigned whose global order falls between g prev AND g order
+THEN
+    Modify exercise slot s to have targeted sub muscle group of sub mg
+
+; Sub muscle group loopback
+IF there is an exercise slot with global order g prev AND primary muscle group main mg AND targeted sub muscle group prev smg already assigned AND
+    there is a sub muscle group prev smg belonging to main mg with priority prev p AND
+    there is no sub muscle group belonging to main mg with priority one greater than prev p AND
+    there is a sub muscle group sub mg belonging to main mg with high priority AND
+    there is an exercise slot s with global order g order greater than g prev AND primary muscle group main mg AND no targeted sub muscle group assigned AND
+    there is no other exercise slot with primary muscle group main mg AND no targeted sub muscle group assigned whose global order falls between g prev AND g order
+THEN
+    Modify exercise slot s to have targeted sub muscle group of sub mg
+
+; Swap sub muscle group based on day order
+IF there is an exercise slot s1 with day order of day order, primary muscle group main mg, targeted sub muscle group sub mg1 AND
+    there is an exercise slot s2 with the same day order AND same primary muscle group main mg AND targeted sub muscle group sub mg2 AND
+    sub mg1 has priority of priority1 AND
+    sub mg2 has priority of priority2 AND
+    priority1 is greater than priority2 AND
+    the fact index of s1 is less than the fact index of s2
+THEN
+    Modify exercise slot s1 to have targeted sub muscle group of sub mg2 AND
+    Modify exercise slot s2 to have targeted sub muscle group of sub mg1
+
+; Exercise selection
+
+; User prefers compound (Salience 3)
+IF there is an exercise slot s with a targeted sub muscle group sub mg already assigned AND exercise not assigned AND
+    there is an exercise with id exercise id that targets sub mg AND equipment eq AND is a compound movement AND
+    there is a user input with equipment type that matches eq AND
+    there is no other exercise slot that has already been assigned exercise id
+THEN
+    Assign exercise id as the exercise of exercise slot s
+
+; User prefers isolation (Salience 2)
+IF there is an exercise slot s with a targeted sub muscle group sub mg already assigned AND exercise not assigned AND
+    there is an exercise with id exercise id that targets sub mg AND equipment eq AND is an isolation movement AND
+    there is a user input with equipment type that matches eq AND
+    there is no other exercise slot that has already been assigned exercise id
+THEN
+    Assign exercise id as the exercise of exercise slot s
+
+; Assign exercise without user preference, compound (Salience 1)
+IF there is an exercise slot s with a targeted sub muscle group sub mg already assigned AND exercise not assigned AND
+    there is an exercise with id exercise id that targets sub mg AND is a compound movement AND
+    there is no other exercise slot that has already been assigned exercise id
+THEN
+    Assign exercise id as the exercise of exercise slot s
+
+; Assign exercise without user preference, isolation (Salience 0)
+IF there is an exercise slot s with a targeted sub muscle group sub mg already assigned AND exercise not assigned AND
+    there is an exercise with id exercise id that targets sub mg AND is an isolation movement AND
+    there is no other exercise slot that has already been assigned exercise id
+THEN
+    Assign exercise id as the exercise of exercise slot s
+
+; Assign exercise without user preference, fallback (Salience -1)
+IF there is an exercise slot s with a targeted sub muscle group sub mg already assigned AND exercise not assigned AND
+    there is an exercise with id exercise id that targets sub mg AND
+    there is no other exercise slot that has already been assigned exercise id
+THEN
+    Assign exercise id as the exercise of exercise slot s

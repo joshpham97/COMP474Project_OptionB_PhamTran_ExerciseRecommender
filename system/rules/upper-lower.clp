@@ -35,14 +35,14 @@
 
 (defrule assign-first-slot-muscle-group-by-user-preference-chest-or-back
    ?s1 <- (exercise-slot (day-order ?day-order) (exercise-order 1) (primary-muscle-group nil))
-   ?s5 <- (exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group nil))
+   ?s2 <- (exercise-slot (day-order ?day-order) (exercise-order 5) (primary-muscle-group nil))
    (day (order ?day-order) (focus ?f))
    (user-input (muscle-group ?mg))
    (muscle-group (name ?mg) (region ?f))
    (test (or (eq ?mg chest) (eq ?mg back)))
    =>
    (modify ?s1 (primary-muscle-group ?mg))
-   (modify ?s5 (primary-muscle-group shoulder))
+   (modify ?s2 (primary-muscle-group shoulder))
 )
 
 (defrule assign-first-slot-muscle-group-by-user-preference-shoulder
