@@ -1,62 +1,62 @@
 ; Initialize workout split
-IF workout-split is full-body AND
+IF workout split is full body AND
     there is no day
 THEN
-    Create a day with order 1, name "Day 1", focus of full-body
-    Create a day with order 2, name "Day 2", focus of full-body
-    Create a day with order 3, name "Day 3", focus of full-body
+    Create a day with order 1, name "Day 1", focus of full body
+    Create a day with order 2, name "Day 2", focus of full body
+    Create a day with order 3, name "Day 3", focus of full body
 
-IF there is a day with order of day-order, focus of full-body
+IF there is a day with order of day order, focus of full body
 THEN
-    Create an exercise-slot with same day-order, exercise-order of 1, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 2, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 3, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 4, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 5, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 6, primary-muscle-group of triceps
-    Create an exercise-slot with same day-order, exercise-order of 7, primary-muscle-group of biceps
+    Create an exercise slot with same day order, exercise order of 1, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 2, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 3, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 4, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 5, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 6, primary muscle group of triceps
+    Create an exercise slot with same day order, exercise order of 7, primary muscle group of biceps
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group chest, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    do1 and do2 has focus of full-body AND
-    ex-order2 minus ex-order1 is 1 AND
-    ex-order2 is less than 6
-THEN 
-    Modify s2's primary-muscle-group to be back
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group chest, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    do1 and do2 has focus of full body AND
+    ex order 2 minus ex order 1 is 1 AND
+    ex order 2 is less than 6
+THEN
+    Modify s2's primary muscle group to be back
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group back, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    do1 and do2 has focus of full-body AND
-    ex-order2 minus ex-order1 is 1 AND
-    ex-order2 is less than 6
-THEN 
-    Modify s2's primary-muscle-group to be hamstring
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group back, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    do1 and do2 has focus of full body AND
+    ex order 2 minus ex order 1 is 1 AND
+    ex order 2 is less than 6
+THEN
+    Modify s2's primary muscle group to be hamstring
 
-    IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group hamstring, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    do1 and do2 has focus of full-body AND
-    ex-order2 minus ex-order1 is 1 AND
-    ex-order2 is less than 6
-THEN 
-    Modify s2's primary-muscle-group to be shoulder
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group hamstring, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    do1 and do2 has focus of full body AND
+    ex order 2 minus ex order 1 is 1 AND
+    ex order 2 is less than 6
+THEN
+    Modify s2's primary muscle group to be shoulder
 
-    IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group shoulder, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    do1 and do2 has focus of full-body AND
-    ex-order2 minus ex-order1 is 1 AND
-    ex-order2 is less than 6
-THEN 
-    Modify s2's primary-muscle-group to be quads
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group shoulder, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    do1 and do2 has focus of full body AND
+    ex order 2 minus ex order 1 is 1 AND
+    ex order 2 is less than 6
+THEN
+    Modify s2's primary muscle group to be quads
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group quads, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    do1 and do2 has focus of full-body AND
-    ex-order2 minus ex-order1 is 1 AND
-    ex-order2 is less than 6
-THEN 
-    Modify s2's primary-muscle-group to be chest
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group quads, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    do1 and do2 has focus of full body AND
+    ex order 2 minus ex order 1 is 1 AND
+    ex order 2 is less than 6
+THEN
+    Modify s2's primary muscle group to be chest

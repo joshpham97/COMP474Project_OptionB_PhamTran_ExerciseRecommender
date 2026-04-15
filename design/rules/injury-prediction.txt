@@ -1,73 +1,66 @@
 IF the user has indicated they have a previous injury AND
-    there is no existing injury-evidence fact for previous-injury AND
-    there is an injury-explanation fact ex with a list of explanations exp
+    there is no existing injury evidence fact for previous injury AND
+    there is an injury explanation fact ex with a list of explanations exp
 THEN
-    assert an injury-evidence fact for previous-injury with a certainty factor of 0.8 AND
-    append "Previous injury is linked with higher future injury rate." to ex
+    Assert an injury evidence fact for previous injury with a certainty factor of 0.8 AND
+    Append "Previous injury is linked with higher future injury rate." to ex
 
 IF the user has indicated they have no previous injury AND
-    there is no existing injury-evidence fact for previous-injury
+    there is no existing injury evidence fact for previous injury
 THEN
-    assert an injury-evidence fact for previous-injury with a certainty factor of 0.1
+    Assert an injury evidence fact for previous injury with a certainty factor of 0.1
 
 IF the user's age is between 26 and 35 (inclusive) AND
-    there is no existing injury-evidence fact for age
+    there is no existing injury evidence fact for age
 THEN
-    assert an injury-evidence fact for age with a certainty factor of 0.1
+    Assert an injury evidence fact for age with a certainty factor of 0.1
 
 IF the user's age is under 26 AND
-    there is an injury-explanation fact ex with a list of explanations exp,AND
-    there is no existing injury-evidence fact for age
+    there is an injury explanation fact ex with a list of explanations exp AND
+    there is no existing injury evidence fact for age
 THEN
-    assert an injury-evidence fact for age with a certainty factor of 0.6 AND
-    append "Young adults statistically account for a large proportion of gym injuries." to ex
+    Assert an injury evidence fact for age with a certainty factor of 0.6 AND
+    Append "Young adults statistically account for a large proportion of gym injuries." to ex
 
-
-Rule: User Is Elder
-
-IF the user's age is over 35 AND 
-    there is an injury-explanation fact ex with a list of explanations exp AND 
-    there is no existing injury-evidence fact for age
-THEN 
-    assert an injury-evidence fact for age with a certainty factor of 0.4, AND append "Older adults are more likely to injure themselves due to losing muscle mass and reduced strength." to ex
-
+IF the user's age is over 35 AND
+    there is an injury explanation fact ex with a list of explanations exp AND
+    there is no existing injury evidence fact for age
+THEN
+    Assert an injury evidence fact for age with a certainty factor of 0.4 AND
+    Append "Older adults are more likely to injure themselves due to losing muscle mass and reduced strength." to ex
 
 IF the user has no strength training experience AND
-    there is no existing injury-evidence fact for experience AND
-    there is an injury-explanation fact ex with a list of explanations exp
+    there is no existing injury evidence fact for experience AND
+    there is an injury explanation fact ex with a list of explanations exp
 THEN
-    assert an injury-evidence fact for experience with a certainty factor of 0.4, AND
-    append "Beginners with no experience are more likely to injure themselves due to poor techniques and forms." to the list of explanations in ex
+    Assert an injury evidence fact for experience with a certainty factor of 0.4 AND
+    Append "Beginners with no experience are more likely to injure themselves due to poor techniques and forms." to ex
 
 IF the user has strength training experience AND
-    there is no existing injury-evidence fact for experience
+    there is no existing injury evidence fact for experience
 THEN
-    assert an injury-evidence fact for experience with a certainty factor of 0.1
+    Assert an injury evidence fact for experience with a certainty factor of 0.1
 
-IF the user prefer free weight exercises AND
-    there is no existing injury-evidence fact for exercise-type
+IF the user prefers free weight exercises AND
+    there is no existing injury evidence fact for exercise type
 THEN
-    assert an injury-evidence fact for exercise-type with a certainty factor of 0.4
+    Assert an injury evidence fact for exercise type with a certainty factor of 0.4
 
-IF the user has indicated they prefer machine exercises AND
-    there is no existing injury-evidence fact for exercise-type
+IF the user prefers machine exercises AND
+    there is no existing injury evidence fact for exercise type
 THEN
-    assert an injury-evidence fact for exercise-type with a certainty factor of 0.1
+    Assert an injury evidence fact for exercise type with a certainty factor of 0.1
 
-
-
-IF there is an injury-evidence fact for previous-injury p1 AND
-    there is an injury-evidence fact for age p2 AND
-    there is an injury-evidence fact for experience p3 AND
-    there is an injury-evidence fact for exercise-type p4
+IF there is an injury evidence fact for previous injury p1 AND
+    there is an injury evidence fact for age p2 AND
+    there is an injury evidence fact for experience p3 AND
+    there is an injury evidence fact for exercise type p4
 THEN
-    retrieve the certainty factor of each injury-evidence fact as cf1, cf2, cf3, cf4
-    combine all four certainty factors sequentially into a single combined certainty factor combined 
-    disable certainty factor calculation
-    assert a consultation-required fact with the combined certainty factor combined
-    disable certainty factor calculation
+    Retrieve the certainty factor of each injury evidence fact as cf1, cf2, cf3, cf4
+    Combine all four certainty factors sequentially into a single combined certainty factor combined
+    Assert a consultation required fact with the combined certainty factor combined
 
-IF there is a consultation-required r AND
+IF there is a consultation required fact r AND
     the certainty factor of r is 0.8 or above
 THEN
-    assert a recommendation with reason "High injury risk", description "Consult a physician or personal trainer before starting the program due to high injury risk"
+    Assert a recommendation with reason "High injury risk", description "Consult a physician or personal trainer before starting the program due to high injury risk"

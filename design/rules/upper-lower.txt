@@ -1,5 +1,4 @@
-
-IF workout-split is full-body AND
+IF workout split is upper lower AND
     there is no day
 THEN
     Create a day with order 1, name "Upper 1", focus of upper
@@ -7,120 +6,108 @@ THEN
     Create a day with order 3, name "Upper 2", focus of upper
     Create a day with order 4, name "Lower 2", focus of lower
 
-
-IF there is a day with order of day-order, focus of upper
+IF there is a day with order of day order, focus of upper
 THEN
-    Create an exercise-slot with same day-order, exercise-order of 1, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 2, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 3, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 4, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 5, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 6, primary-muscle-group of triceps
-    Create an exercise-slot with same day-order, exercise-order of 7, primary-muscle-group of biceps
+    Create an exercise slot with same day order, exercise order of 1, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 2, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 3, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 4, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 5, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 6, primary muscle group of triceps
+    Create an exercise slot with same day order, exercise order of 7, primary muscle group of biceps
 
-
-IF there is a day with order of day-order, focus of lower
+IF there is a day with order of day order, focus of lower
 THEN
-    Create an exercise-slot with same day-order, exercise-order of 1, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 2, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 3, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 4, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 5, unassigned primary-muscle-group
-    Create an exercise-slot with same day-order, exercise-order of 6, primary-muscle-group of glutes
-    Create an exercise-slot with same day-order, exercise-order of 7, primary-muscle-group of calves
+    Create an exercise slot with same day order, exercise order of 1, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 2, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 3, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 4, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 5, unassigned primary muscle group
+    Create an exercise slot with same day order, exercise order of 6, primary muscle group of glutes
+    Create an exercise slot with same day order, exercise order of 7, primary muscle group of calves
 
-; Assign first exercise of the day
-IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group  AND
-    there is an exercise-slot s2 with day-order order2 and exercise-order 5 and unassigned primary-muscle-group  AND
-    do1 and do2 is the same, AND
-    the user's preferred muscle group mg is chest or back and
-    mg has same region as do1 focus
+; Assign first exercise when user prefers chest or back
+IF there is an exercise slot s1 with day order order1 and exercise order 1 and unassigned primary muscle group AND
+    there is an exercise slot s2 with day order order2 and exercise order 5 and unassigned primary muscle group AND
+    order1 and order2 is the same AND
+    the user's preferred muscle group mg is chest or back AND
+    mg has same region as the focus of the day with order order1
 THEN
-    assign mg as the primary-muscle-group of s1 AND
-    assign shoulder as the primary-muscle-group of s2
+    Assign mg as the primary muscle group of s1 AND
+    Assign shoulder as the primary muscle group of s2
 
-
-IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group  AND
-    there is an exercise-slot s2 with day-order order2 and exercise-order 5 and unassigned primary-muscle-group  AND
-    do1 and do2 is the same, AND
-    the user's preferred muscle group mg is chest or back and
-    mg has same region as do1 focus
+; Assign first exercise when user prefers shoulder
+IF there is an exercise slot s1 with day order order1 and exercise order 1 and unassigned primary muscle group AND
+    there is an exercise slot s2 with day order order2 and exercise order 5 and unassigned primary muscle group AND
+    order1 and order2 is the same AND
+    the user's preferred muscle group is shoulder AND
+    shoulder has same region as the focus of the day with order order1
 THEN
-    assign mg as the primary-muscle-group of s1 AND
-    assign shoulder as the primary-muscle-group of s2
+    Assign shoulder as the primary muscle group of s1 AND
+    Assign back as the primary muscle group of s2
 
-IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group  AND
-    there is an exercise-slot s2 with day-order order2 and exercise-order 5 and unassigned primary-muscle-group  AND
-    do1 and do2 is the same, AND
-    the user's preferred muscle group mg is shoulder and
-    mg has same region as do1 focus
-THEN
-    assign shoulder as the primary-muscle-group of s1 AND
-    assign back as the primary-muscle-group of s2
-
-IF there is an exercise-slot s with day-order order, exercise-order of 1, unassigned primary-muscle-group AND
+; Assign first exercise when user prefers quads
+IF there is an exercise slot s with day order of order, exercise order of 1, unassigned primary muscle group AND
     there is a day with same order with a focus f AND
-    there is an user-input has muscle-group quads AND
-    there is a muscle-group quads with same focus of f 
+    there is a user input with muscle group of quads AND
+    quads has same focus of f
 THEN
-    assign the quads to exercise-slot s primary-muscle-group
+    Assign quads as the primary muscle group of s
 
-IF there is an exercise-slot s with day-order order, exercise-order of 1, unassigned primary-muscle-group AND
+; Assign first exercise when user prefers hamstring
+IF there is an exercise slot s with day order of order, exercise order of 1, unassigned primary muscle group AND
     there is a day with same order with a focus f AND
-    there is an user-input has muscle-group hamstring AND
-    there is a muscle-group hamstring with same focus of f 
+    there is a user input with muscle group of hamstring AND
+    hamstring has same focus of f
 THEN
-    assign the hamstring to exercise-slot s primary-muscle-group
+    Assign hamstring as the primary muscle group of s
 
-; Assign first exercise when user input does not match the focus of the day
-IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group AND
-    there is an exercise-slot s2 with day-order order2 and exercise-order 1 and unassigned primary-muscle-group AND
+; Assign first exercise when user preference does not match the focus of the day
+IF there is an exercise slot s1 with day order order1 and exercise order 1 and unassigned primary muscle group AND
+    there is an exercise slot s2 with day order order2 and exercise order 1 and unassigned primary muscle group AND
     the day with order order1 is an upper day AND
     the day with order order2 is an upper day AND
     order1 is less than order2 AND
-    there is a muscle-group mg with region f AND
-    the user's preferred muscle group is mg does not belong to the upper region
+    the user's preferred muscle group does not belong to the upper region
 THEN
-    assign chest as the primary-muscle-group of s1 AND
-    assign back as the primary-muscle-group of s2
+    Assign chest as the primary muscle group of s1 AND
+    Assign back as the primary muscle group of s2
 
-IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group AND
-    there is an exercise-slot s2 with day-order order2 and exercise-order 1 and unassigned primary-muscle-group AND
-    the day with order order1 is an lower day AND
-    the day with order order2 is an lower day AND
+IF there is an exercise slot s1 with day order order1 and exercise order 1 and unassigned primary muscle group AND
+    there is an exercise slot s2 with day order order2 and exercise order 1 and unassigned primary muscle group AND
+    the day with order order1 is a lower day AND
+    the day with order order2 is a lower day AND
     order1 is less than order2 AND
-    there is a muscle-group mg with region f AND
-    the user's preferred muscle group is mg does not belong to the lower region
+    the user's preferred muscle group does not belong to the lower region
 THEN
-    assign quads as the primary-muscle-group of s1 AND
-    assign hamstring as the primary-muscle-group of s2
+    Assign quads as the primary muscle group of s1 AND
+    Assign hamstring as the primary muscle group of s2
 
-; Assign alternating muscle
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group chest, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    ex-order2 minus ex-order1 is 1
-THEN 
-    Modify s2's primary-muscle-group to be back
+; Assign alternating muscle groups
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group chest, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    ex order 2 minus ex order 1 is 1
+THEN
+    Modify s2's primary muscle group to be back
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group back, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    ex-order2 minus ex-order1 is 1
-THEN 
-    Modify s2's primary-muscle-group to be chest
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group back, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    ex order 2 minus ex order 1 is 1
+THEN
+    Modify s2's primary muscle group to be chest
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group quads, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    ex-order2 minus ex-order1 is 1
-THEN 
-    Modify s2's primary-muscle-group to be hamstring
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group quads, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    ex order 2 minus ex order 1 is 1
+THEN
+    Modify s2's primary muscle group to be hamstring
 
-IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group hamstring, day-order do1 AND
-    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
-    do1 and do2 is the same, AND
-    ex-order2 minus ex-order1 is 1
-THEN 
-    Modify s2's primary-muscle-group to be quads
-
+IF there is an exercise slot s1 with exercise order ex order 1, primary muscle group hamstring, day order do1 AND
+    there is an exercise slot s2 with exercise order ex order 2, unassigned primary muscle group, day order do2 AND
+    do1 and do2 is the same AND
+    ex order 2 minus ex order 1 is 1
+THEN
+    Modify s2's primary muscle group to be quads
