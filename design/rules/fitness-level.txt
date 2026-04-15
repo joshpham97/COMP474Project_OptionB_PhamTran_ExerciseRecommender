@@ -1,0 +1,62 @@
+IF bmi is underweight AND
+    activity-level is sedentary
+THEN 
+    fitness-level is low
+
+IF bmi is underweight AND
+    activity-level is moderate
+THEN 
+    fitness-level is low
+    
+IF bmi is underweight AND
+    activity-level is active
+THEN 
+    fitness-level is medium    
+IF bmi is normal AND
+    activity-level is sedentary
+THEN 
+    fitness-level is low    
+
+IF bmi is normal AND
+    activity-level is moderate
+THEN 
+    fitness-level is medium    
+
+IF bmi is normal AND
+    activity-level is active
+THEN 
+    fitness-level is high    
+    
+IF bmi is overweight AND
+    activity-level is sedentary
+THEN 
+    fitness-level is low    
+IF bmi is overweight AND
+    activity-level is moderate
+THEN 
+    fitness-level is medium    
+IF bmi is overweight AND
+    activity-level is active
+THEN 
+    fitness-level is medium
+
+IF there is a defuzzified fitness-level fact fl
+THEN
+    obtain the defuzzified value of fitness-level as fitness-score
+    IF fitness-score is between 0 and 3.0  
+        THEN percentage ranges from 45% to 60%
+    IF fitness-score is between 3.0 and 7.0 
+        THEN percentage ranges from 60% to 75%
+    IF fitness-score is between 7.0 and 10.0 
+        THEN percentage ranges from 80% to 100%
+    assert a fitness-level-adjustment fact with value percentage
+
+
+
+
+
+
+
+
+
+

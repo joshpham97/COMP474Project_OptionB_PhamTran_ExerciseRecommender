@@ -4,6 +4,7 @@
 
 (defrule assign-full-body
    (user-input (frequency ?f&:(and (neq ?f nil) (= ?f 3))))
+   (not  (workout-split))
    =>
    (assert (workout-split (name "Full-body")))
    (focus FULL-BODY)
@@ -19,6 +20,7 @@
 
 (defrule assign-push-pull-leg
    (user-input (frequency ?f&:(and (neq ?f nil) (= ?f 6))))
+   (not  (workout-split))
    =>
    (assert (workout-split (name "Push-Pull-Leg")))
    (focus PUSH-PULL-LEG)

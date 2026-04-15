@@ -1,78 +1,106 @@
-IF Workout split is Push-Pull-Leg THEN
-    Workout split has a day named Push1
-    Push1 focus is push
-    Workout split has a day named Pull1
-    Pull1 focus is pull
-    Workout split has a day named Leg1
-    Leg1 focus is pull
-    Workout split has a day named Push2
-    Push2 focus is push
-    Workout split has a day named Pull2
-    Pull2 focus is pull
-    Workout split has a day named Leg2
-    Leg2 focus is pull
 
-# Initialize template for each day 
-
-IF Day focus is Push THEN
-    Day requires 2 chest exercises
-    Day requires 2 shoulder exercise
-    Day requires 1 triceps exercise
-ELSE IF Day focus is Pull THEN
-    Day requires 3 back exercises
-    Day requires 1 trap exercise
-    Day requires 1 triceps exercise
-ELSE IF focus is Leg THEN
-    Day requires 2 quads exercises
-    Day requires 2 hamstring exercises
-    Day requires 1 glutes exercises
-    Day requires 1 calves exercises
-
-# Picking the first exercise for each day
-
-IF workout split is push-pull-leg AND
-    There are 2 different push days AND
-    There is no exercise of the day1 assigned an order 1 AND
-    There is no exercise of the day2 assigned an order 1 AND
-    The exercise s1 of day1 is not assigned an order AND 
-    The exercise s1 is a chest exercise AND
-    The exercise s2 of day2 is not assigned an order AND
-    The exercise s2 is a shoulder exercise
+IF workout-split is full-body AND
+    there is no day
 THEN
-    The exercise s1 is assigned order 1
-    The exercise s2 is assigned order 1
+    Create a day with order 1, name "Push 1", focus of push
+    Create a day with order 2, name "Pull 1", focus of pull
+    Create a day with order 3, name "Leg 1", focus of leg
+    Create a day with order 4, name "Push 2", focus of push
+    Create a day with order 5, name "Pull 2", focus of pull
+    Create a day with order 6, name "Leg 2", focus of leg
 
-IF workout split is push-pull-leg AND
-    There are 2 different pull days AND
-    There is no exercise of the day1 assigned an order 1 AND
-    There is no exercise of the day2 assigned an order 1 AND
-    The exercise s1 of day1 is not assigned an order AND 
-    The exercise s1 is a back exercise AND
-    The exercise s2 of day2 is not assigned an order AND
-    The exercise s2 is a back exercise
+
+IF there is a day with order of day-order, focus of push
 THEN
-    The exercise s1 is assigned order 1
-    The exercise s2 is assigned order 1
+    Create an exercise-slot with same day-order, exercise-order of 1, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 2, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 3, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 4, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 5, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 6, primary-muscle-group of triceps
 
-IF workout split is push-pull-leg AND
-    There are 2 different leg days AND
-    There is no exercise of the day1 assigned an order 1 AND
-    There is no exercise of the day2 assigned an order 1 AND
-    The exercise s1 of day1 is not assigned an order AND 
-    The exercise s1 is a quads exercise AND
-    The exercise s2 of day2 is not assigned an order AND
-    The exercise s2 is a hamstring exercise
+IF there is a day with order of day-order, focus of pull
 THEN
-    The exercise s1 is assigned order 1
-    The exercise s2 is assigned order 1
+    Create an exercise-slot with same day-order, exercise-order of 1, primary-muscle-group of back
+    Create an exercise-slot with same day-order, exercise-order of 2, primary-muscle-group of back
+    Create an exercise-slot with same day-order, exercise-order of 3, primary-muscle-group of back
+    Create an exercise-slot with same day-order, exercise-order of 4, primary-muscle-group of back
+    Create an exercise-slot with same day-order, exercise-order of 5, primary-muscle-group of biceps
 
-# For pull day, we have a special ordering
-
-IF a day focus is pull AND
-    An exercise slot s-highest has the highest order AND
-    An exercise slot s-unassigned is not assigned AND
-    s-highest is a back exercise AND
-    s-unassigned is a back exercise
+IF there is a day with order of day-order, focus of leg
 THEN
-    The next order is the order of s-highest plus 1
-    The next order is assigned to s-unassigned
+    Create an exercise-slot with same day-order, exercise-order of 1, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 2, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 3, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 4, unassigned primary-muscle-group
+    Create an exercise-slot with same day-order, exercise-order of 5, primary-muscle-group of glutes
+    Create an exercise-slot with same day-order, exercise-order of 6, primary-muscle-group of calves
+
+IF there is an exercise-slot s with day-order order, exercise-order of 1, unassigned primary-muscle-group AND
+    there is a day with same order with a focus f AND
+    there is an user-input with muscle-group mg AND
+    there is a muscle-group mg with same focus of f 
+THEN
+    assign the muscle mg to exercise-slot s primary-muscle-group
+
+
+IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group  AND
+    there is an exercise-slot s2 with day-order order2 and exercise-order 1 and unassigned primary-muscle-group  AND
+    the day with order order1 is a push day AND
+    the day with order order2 is a push day AND
+    the user's preferred muscle group mg is not a push muscle group AND
+    order1 is less than order2 
+THEN
+    assign chest as the primary-muscle-group of s1 AND
+    assign shoulder as the primary-muscle-group of s2
+
+
+
+IF there is an exercise-slot s1 with day-order order1 and exercise-order 1 and unassigned primary-muscle-group  AND
+    there is an exercise-slot s2 with day-order order2 and exercise-order 1 and unassigned primary-muscle-group  AND
+    the day with order order1 is a leg day AND
+    the day with order order2 is a leg day AND
+    the user's preferred muscle group mg is not a push muscle group AND
+    order1 is less than order2 
+THEN
+    assign quads as the primary-muscle-group of s1 AND
+    assign hamstring as the primary-muscle-group of s2
+
+
+IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group chest, day-order do1 AND
+    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
+    do1 and do2 is the same, AND
+    do1 and do2 has focus of push AND
+    ex-order2 minus ex-order1 is 1
+THEN 
+    Modify s2's primary-muscle-group to be shoulder
+
+
+IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group shoulder, day-order do1 AND
+    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
+    do1 and do2 is the same, AND
+    do1 and do2 has focus of push AND
+    ex-order2 minus ex-order1 is 1
+THEN 
+    Modify s2's primary-muscle-group to be chest
+    
+IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group quads, day-order do1 AND
+    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
+    do1 and do2 is the same, AND
+    do1 and do2 has focus of leg AND
+    ex-order2 minus ex-order1 is 1
+THEN 
+    Modify s2's primary-muscle-group to be hamstring
+
+
+IF there is an exercise slot s1 with exercise-order ex-order1, primary-muscle-group hamstring, day-order do1 AND
+    there is an exercise slot s2 with exercise-order ex-order2, unassigned primary-muscle-group, do2 AND
+    do1 and do2 is the same, AND
+    do1 and do2 has focus of leg AND
+    ex-order2 minus ex-order1 is 1
+THEN 
+    Modify s2's primary-muscle-group to be quads
+
+
+
+    
