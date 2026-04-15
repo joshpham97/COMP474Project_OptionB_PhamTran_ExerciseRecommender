@@ -1,15 +1,20 @@
-# expert-system
+# Exercise Recommender Expert System
 
 COMP 474/COMP 6721 Expert System project
 
-This is an expert system that recommends exercises to users.
+This is an expert system that recommends exercises to users based on the user inputs.
+
+In addtion, it supports uncertainty logic in the form of recommendations:
+
+- [Probabilistics Uncertainty] Recommendation if physician consultation is required
+- [Possibilistic Uncertainty] Recommendation for working weight for squats, bench press and deadlifts.
 
 ## Team Pham-Tran
 
 Members:
 
-- Hoang Thuan Pham
-- Minh Huy Tran
+- Hoang Thuan Pham (40022992)
+- Minh Huy Tran (40263743)
 
 ## How to run
 
