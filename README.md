@@ -11,6 +11,8 @@ In addtion, it supports uncertainty logic in the form of recommendations:
 
 ## Team Pham-Tran
 
+**Option B**
+
 Members:
 
 - Hoang Thuan Pham (40022992)
