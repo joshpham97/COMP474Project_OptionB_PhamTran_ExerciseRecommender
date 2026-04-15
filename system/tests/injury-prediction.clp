@@ -1,3 +1,4 @@
+; 8/4/2026 - Claude - Prompt: Generate unit tests and test cases for the injury-prediction module based on exisiting unit tests
 (deffunction check-consultation-required (?expects-recommendation ?expected-explanation-count)
     (bind ?facts (find-all-facts ((?f consultation-required)) TRUE))
     (if (= (length$ ?facts) 0)

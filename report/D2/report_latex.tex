@@ -1,0 +1,433 @@
+\documentclass{article}
+\usepackage[breaklinks=true, colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=blue]{hyperref}
+\usepackage{breakurl}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{xcolor}
+\bibliographystyle{IEEEtran}
+
+\title{
+ {\large COMP 474 - Expert System}
+ \\ Deliverable 2 - Exercise Recommender
+}
+\author{Option B - Team Pham-Tran\\ Hoang Thuan Pham (40022992) \\ Minh Huy Tran (40263743)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{General information}
+
+\subsection{Project description}
+
+Our project is an exercise routine recommender. The system asks the user for input, such as: Training goal, number of exercise days weekly, age, gender, etc. Based on the input, the system recommends an exercise routine that includes a list of exercises for each day, the number of repetitions, and sets for each exercise. 
+
+In deliverable 2, the system is enhanced to make further recommendations for users [1] on whether they should consult a physician before starting the program (using probabilistic uncertainty), and [2] suggest a weight to use for squats, deadlifts, and bench press (using possibilistic uncertainty).
+
+An assumption that our system makes is that all users are new to weight training, with either no or little experience. This limits the scope of the system for this project.
+
+\subsection{Sample output}
+
+This is a sample output of our program. Please note that the recommended weight is printed out next to the exercise where it is applicable and not in the weight recommendation section to help users track them more easily.
+
+\begin{verbatim}
+{FuzzyCLIPS> (output)
+=== Push 1 ===
+Order: 1 | Exercise: pec-deck | 3 sets x 1~5 reps
+Order: 2 | Exercise: dumb-bell-shoulder-press | 3 sets x 1~5 reps
+Order: 3 | Exercise: dumb-bell-bench-press | 3 sets x 1~5 reps | Recommended weight: 22.93 kg
+Order: 4 | Exercise: machine-shoulder-press | 3 sets x 1~5 reps
+Order: 5 | Exercise: pec-deck | 3 sets x 1~5 reps
+Order: 6 | Exercise: single-arm-triceps-extension | 2 sets x 1~5 reps
+
+
+=== Pull 1 ===
+Order: 1 | Exercise: pull-up | 3 sets x 1~5 reps
+Order: 2 | Exercise: pull-up | 3 sets x 1~5 reps
+Order: 3 | Exercise: pull-up | 3 sets x 1~5 reps
+Order: 4 | Exercise: lat-pulldown | 3 sets x 1~5 reps
+Order: 5 | Exercise: cable-curl | 2 sets x 1~5 reps
+
+
+=== Leg 1 ===
+Order: 1 | Exercise: sissy-squat | 3 sets x 1~5 reps| Recommended weight: 34.39 kg
+Order: 2 | Exercise: romanian-deadlift | 3 sets x 1~5 reps | Recommended weight: 45.86 kg
+Order: 3 | Exercise: leg-press | 3 sets x 1~5 reps
+Order: 4 | Exercise: stiff-leg-deadlift | 3 sets x 1~5 reps | Recommended weight: 45.86 kg
+Order: 5 | Exercise: hip-thrust | 3 sets x 1~5 reps
+Order: 6 | Exercise: seated-calf-raise | 2 sets x 1~5 reps
+
+
+=== Push 2 ===
+Order: 1 | Exercise: dumb-bell-lateral-raise | 3 sets x 1~5 reps
+Order: 2 | Exercise: incline-dumb-bell-press | 3 sets x 1~5 reps
+Order: 3 | Exercise: dumb-bell-lateral-raise | 3 sets x 1~5 reps
+Order: 4 | Exercise: low-to-high-cable-fly | 3 sets x 1~5 reps
+Order: 5 | Exercise: cable-lateral-raise | 3 sets x 1~5 reps
+Order: 6 | Exercise: triceps-pushdown | 2 sets x 1~5 reps
+
+
+=== Pull 2 ===
+Order: 1 | Exercise: chest-supported-row | 3 sets x 1~5 reps
+Order: 2 | Exercise: chest-supported-row | 3 sets x 1~5 reps
+Order: 3 | Exercise: wide-grip-row | 3 sets x 1~5 reps
+Order: 4 | Exercise: chest-supported-row | 3 sets x 1~5 reps
+Order: 5 | Exercise: preacher-curl | 2 sets x 1~5 reps
+
+
+=== Leg 2 ===
+Order: 1 | Exercise: seated-hamstring-curl | 3 sets x 1~5 reps
+Order: 2 | Exercise: barbell-squat | 3 sets x 1~5 reps | Recommended weight: 34.39 kg
+Order: 3 | Exercise: lying-hamstring-curl | 3 sets x 1~5 reps
+Order: 4 | Exercise: leg-extension | 3 sets x 1~5 reps
+Order: 5 | Exercise: abductor-hip-extension | 3 sets x 1~5 reps
+Order: 6 | Exercise: standing-calf-raise | 2 sets x 1~5 reps
+
+
+=== Weight Recommendation Assessment ===
+Debug: Fitness score is 5.81367210748455
+Your height: 178 cm
+Your weight: 65 kg
+Your BMI is: 20.52
+Based on your BMI, you are classified as normal weight.
+
+Your activity level is considered: active
+You engage in a lot of physical activity per week.
+
+Your fitness level is: medium
+You can start with a moderate weight that balances challenge and safety (the recommended 
+weight is based on gender, BMI and fitness level).
+
+=== Injury Risk Recommendations ===
+  [High injury risk] Consult a physician or personal trainer before starting 
+  the program due to high injury risk
+
+  Reasons:
+    - Previous injury is linked with higher future injury rate.
+    
+\end{verbatim}
+
+\subsection{How to run the project}
+
+See the README included in the GitHub section (below).
+
+\subsection{GitHub}
+
+The project can be viewed online at:
+
+\url{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender}
+
+\subsection{FuzzyCLIPS version}
+
+The project is done using FuzzyCLIPS 6.31.
+
+\subsection{Work division}
+
+Work is divided based on the to-dos in the project description. Tasks are assigned using GitHub issues. For more information, see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/issues?q=is%3Aissue}{GitHub issues}.
+
+\section{TODO 1: Feedback changes}
+
+Based on the feedback we obtained from D1 and peer discussion, we have made changes to improve the system. See Table \ref{tab:changelog} for more details.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2cm}|p{8cm}|p{3cm}|l|}
+\hline
+\textbf{Change} & \textbf{Description} & \textbf{Requested By} & \textbf{Link} \\
+\hline
+Make exercise selection logic simpler & The existing exercise selection logic uses loops to ensure the order of rule execution. This change removes such logic by imposing a global order for exercises. In addition, the change rewrites the exercise assignment logic to make it more understandable and easier to maintain. & Team & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/routine-generator.clp#L72-L175}{Location} \\
+\hline
+Modularize workout split logic & Each workout split shares some similar logic. Thus, the logic that is not common between the modules is separated into different modules. Each workout split is also converted into its own module. See \texttt{routine-generator.clp, push-pull-leg.clp, upper-lower.clp, full-body.clp.} & Team & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules}{Location} \\
+\hline
+Make design and system file structure the same & This change makes the file structure of the design in structured English and CLIPs implementation the same. Can be verified by browsing project structure. & TA & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender}{Location}  \\
+\hline
+Add unit tests for debugging & This change added unit tests to automate the testing and debugging process of the system. Tests are put in the \texttt{system/tests} folder. & TA & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/tree/main/system/tests}{Location}\\
+\hline
+Rename repo & The repo name needs to reflect what the expert system does and include the Group name and Group option. & TA & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender}{Location} \\
+\hline
+\end{tabular}
+\caption{Change Log}
+\label{tab:changelog}
+\end{table}
+
+
+\section{TODO 2: Probabilistic uncertainty}
+
+\subsection{Design}
+
+For probabilistic uncertainty, the system determines whether a user should consult a healthcare professional before starting the program. Based on user inputs — (1) \textbf{age}, (2) \textbf{training experience}, and (3) \textbf{injury history} — the system asserts the \textbf{(consultation-required)} fact.
+
+The system uses MYCIN Certainty Factor (CF) theory to evaluate each piece of evidence. See Table \ref{tab:factors} for CF values and references. Each evidence item is assigned a CF reflecting how strongly it indicates the need for a physician consultation. Items with no direct risk are assigned a CF of 0.1 rather than 0, since all physical activity carries some inherent risk. As evidence accumulates, the combined CF of the \textbf{(consultation-required)} fact increases. When it exceeds 0.8, the system is highly confident the user should consult a physician, and prints both a recommendation and its justification.
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{4cm}|p{3cm}|p{2cm}|p{5cm}|}
+\hline
+\textbf{Factor} & \textbf{Input} & \textbf{CF Value} & \textbf{Reason} \\
+\hline
+Age & Age $< 26$ & 0.6 & Young lifters tend to prioritize weight over form, increasing injury risk \cite{youngAdultInjuries}. \\
+\hline
+Age & $ 26 \leq$ Age $\leq 35$ & 0.1 & Lowest injury risk age group; however, no activity is entirely risk-free. \\
+\hline
+Age & Age $>35$ & 0.4 & Reduced physical capacity with age, though older adults tend to exercise more cautiously \cite{injuryFactors}. \\
+\hline
+Previous Injury & Yes & 0.8 & Prior injury significantly increases the risk of future injuries \cite{previousInjuries}. \\
+\hline
+Previous Injury & No & 0.1 & No clear indication of injury risk, but no activity is entirely risk-free. \\
+\hline
+Exercising Experience & Yes & 0.1 & Experience reduces injury risk, but no activity is entirely risk-free. \\
+\hline
+Exercising Experience & No & 0.4 & Inexperience increases injury risk through poor form and technique, though the effect is moderate \cite{injuryFactors}. \\
+\hline
+Equipment Type & Free weight & 0.4 & Free weights carry higher injury risk than machines \cite{freeweight-risks}. \\
+\hline
+Equipment Type & Machine & 0.1 & Machines carry lower injury risk than free weights, but are not risk-free \cite{freeweight-risks}. \\
+\hline
+\end{tabular}
+\caption{Factor Conditions}
+\label{tab:factors}
+\end{table}
+
+\subsection{Implementation}
+
+For the newly added facts, see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/facts/injury-prediction.clp}{\texttt{system/facts/injury-prediction.clp}}
+
+\noindent For the newly added rules, see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/injury-prediction.clp}{\texttt{system/rules/injury-prediction.clp}}
+
+\subsubsection{CF value calculation}
+
+FuzzyCLIPS does not support the CF value calculation required for our use case (multiple pieces of evidence increase the CF value of the hypothesis), so we disable the default CF value calculation and implement our own calculation instead (see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/injury-prediction.clp#L85-L108}{\texttt{system/rules/injury-prediction.clp}})
+
+\section{Possibilistic uncertainty (TODO 3)}
+
+\subsection{Design}
+
+For possibilistic uncertainty, the system recommends a working weight (in kg) for three exercises and their variations: Deadlift, Bench Press, and Squat. These exercises were chosen because they are the foundational "big three" in weight training, are well-studied in strength-benchmarking research \cite{exerciseModifier}, and carry the highest injury risk among common exercises \cite{injuryFactors}.
+
+The system takes the user's (1) \textbf{gender}, (2) \textbf{weekly activity level} (in minutes), (3) \textbf{height} (in meters), and (4) \textbf{weight} (in kg) as input. BMI is calculated from height and weight using the CDC formula \cite{bmi}, then combined with the user's activity level to derive a fitness level score \cite{fitnessLevel}. Table \ref{tab:bmi_activity_risk} shows how the fitness level is computed.
+
+The recommended weight for each exercise is then computed as:
+
+$ Recommended Weight = Exercise Gender Modifier
+                   \times Fitness Level
+                   \times Body Weight $
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{BMI / Activity} & \textbf{Sedentary} & \textbf{Moderate} & \textbf{Active} \\
+\hline
+Underweight & Low & Low & Medium \\
+\hline
+Normal & Low & Medium & High \\
+\hline
+Overweight & Low & Low & Medium \\
+\hline
+\end{tabular}
+\caption{Fitness Level by BMI Category and Activity Level based on \cite{fitnessLevel}}
+\label{tab:bmi_activity_risk}
+\end{table}
+
+\subsection{Fuzzy sets}
+
+According to WHO \cite{activityLevel} and CDC \cite{bmi}, we convert the user's BMI and activity level into the fuzzy sets described in Table \ref{tab:activity} and \ref{tab:bmi}. Then they are used to derive a fitness level score \cite{fitnessLevel}, see Table \ref{tab:fitness_membership}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{3.5cm}|p{3.5cm}|p{4cm}|}
+\hline
+\textbf{Category} & \textbf{BMI Threshold (kg/m\textsuperscript{2})} & \textbf{Membership Function} & \textbf{Justification} \\
+\hline
+Underweight & BMI $\leq$ 18.5 \newline (range: 10--18.5) & Left-sided trapezoidal \newline (flat top: 10--17, slope: 17--18.5) & Users are more underweight the lower their BMI is \\
+\hline
+Normal & BMI 18.5--24.9 & Triangle \newline (peak: 21.7, width: 3.2) & True normal BMI is at the middle of the set \\
+\hline
+Overweight & BMI $\geq$ 24 \newline (range: 24--55) & Right-sided trapezoidal \newline (slope: 24--27, flat top: 27--55) & Membership increases as the BMI increases, but at some point the membership no longer increases \\
+\hline
+\end{tabular}
+\caption{BMI Fuzzy Sets (domain: 10--55 kg/m\textsuperscript{2})}
+\label{tab:bmi}
+\end{table}
+                                                                                                            
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{3.5cm}|p{3.5cm}|p{4cm}|}
+\hline
+\textbf{Category} & \textbf{Time Exercising (mins/week)} & \textbf{Membership Function} & \textbf{Justification} \\
+\hline
+Sedentary & $<$ 60 \newline (range: 0--60) & Left-sided trapezoidal \newline (flat top: 0--40, slope: 40--60) & Users are the most sedentary when they do not exercise \\
+\hline
+Moderate & 60--300 & Triangle \newline (peak: 180, width: 120) & Membership peaks at the middle for true moderate activity level, and decreases as users exercise more or less \\
+\hline
+Active & $>$ 300 \newline (range: 300--10000) & Right-sided trapezoidal \newline (slope: 300--600, flat top: 600--10000) & Membership increases as the level of activity increases, but at some point the membership no longer increases because this is the highest level of activity \\
+\hline
+\end{tabular}
+\caption{Activity Level Fuzzy Sets (domain: 0--10000 mins/week)}
+\label{tab:activity}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{3.5cm}|p{6cm}|}
+\hline
+\textbf{Fitness Level} & \textbf{Membership Function} & \textbf{Justification} \\
+\hline
+Low & Left-sided trapezoidal \newline (flat top: 0--3, slope: 3--4) & The membership peaks at the lowest level of fitness activity \\
+\hline
+Medium & Triangle \newline (peak: 5, width: 2) & The membership peaks in the middle and then decreases on both sides \\
+\hline
+High & Right-sided trapezoidal \newline (slope: 6--7, flat top: 7--10) & The membership increases as the fitness level increases, but no longer increases afterwards. \\
+\hline
+\end{tabular}
+\caption{Fitness Level Fuzzy Sets (domain: 0--10)}
+\label{tab:fitness_membership}
+\end{table}
+
+\subsection{Implementation}
+    
+To support this feature, we added new facts for the exercise types mapping (connecting exercises that use weight to their types) (see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/facts/exercises-type.clp}{\texttt{/system/facts/exercises-type.clp}}),  exercise modifiers (indicating the percentage of recommended weight based on exercise type and gender) (see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/facts/exercises-modifier.clp}{\texttt{system/facts/exercises-modifier.clp}}), and user inputs (height, weight to calculate BMI, and activity level) (see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/input.clp#L15-L20}{\texttt{/system/input.clp}}). 
+
+The added rules are in \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/fitness-level.clp}{\texttt{/system/rules/fitness-level.clp}} and \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/weight-recommendation.clp}{\texttt{/system/rules/weight-recommendation.clp}}.
+
+
+\section{Quality Attribute (TODO4)}
+    For our system, we provide support for 4 quality attributes: \textbf{Modularity}, \textbf{Reusability}, \textbf{Testability}, and \textbf{Explainability}.
+
+\subsection{Modularity}
+
+\subsubsection{Implementation}
+
+To modularize rules, they are grouped into different modules based on their responsibility. See Table \ref{tab:modules} for more details.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|p{5cm}|l|}
+\hline
+\textbf{Module} & \textbf{File} & \textbf{Responsibility} & \textbf{Notes} \\
+\hline
+\texttt{ROUTINE-GENERATOR} & \texttt{workout-split.clp} & Generate an exercise routine based on user input. Uses the \texttt{FULL-BODY}, \texttt{UPPER-LOWER}, and \texttt{PUSH-PULL-LEG} modules. & D1 \\
+\hline
+\texttt{FULL-BODY} & \texttt{full-body.clp} & Specific logic for a full body routine. & D1 \\
+\hline
+\texttt{UPPER-LOWER} & \texttt{upper-lower.clp} & Specific logic for a upper-lower routine. & D1 \\
+\hline
+\texttt{PUSH-PULL-LEG} & \texttt{push-pull-leg.clp} & Specific logic for a push-pull-leg routine & D1 \\
+\hline
+\texttt{INJURY-PREDICTION} & \texttt{injury-prediction.clp} & Evaluates injury risk from user input. & D2 TODO2 \\
+\hline
+\texttt{FITNESS-LEVEL} & \texttt{fitness-level.clp} & Compute fitness level based on BMI and activity level. & D2 TODO3 \\
+\hline
+\texttt{WEIGHT-RECOMMENDATION} & \texttt{weight-recommendation.clp} & Calculates the recommended weight for squat, bench press and deadlift exercises. Uses \texttt{FITNESS-LEVEL} & D2 TODO3 \\
+\hline
+\end{tabular}
+\caption{Modules defined in \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/tree/main/system/rules}{\texttt{system/rules}}}
+\label{tab:modules}
+\end{table}
+
+
+\subsubsection{Effect}
+
+The modularization of the rules ensures that code grouped together serves the same goal. First, improves the understandability of the rules since they share the same context and facilitates the development of different modules in parallel. Secondly, modules can be loaded on demand. For example, if the user input wants to exercise 4 days a week, only the Upper-Lower module, which is a 4-day routine, are loaded. This helps limit the number of rules that will be activated during execution. This also makes debugging easier. So modularity also impacts modifiability and testability. Negatively, modularization requires additional boilerplate code and testing to ensure that modules are loaded correctly. 
+
+\subsection{Reusability}
+
+\subsubsection{Implementation}
+
+To support reusability, we \textbf{extract common rules into a module/function}. For example, the \texttt{ROUTINE-GENERATOR} (see Table \ref{tab:modules}) contains the common rules to generate an exercise routine. The \texttt{FITNESS-LEVEL} module can be reused by future modules should the need arise. This is re-use for all exercise splits. For tests in \texttt{system/tests} (Table \ref{tab:tests}), the test case logic for each feature is extracted into its own functions and reused for different combinations of test inputs.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|p{5cm}|}
+\hline
+\textbf{File} & \textbf{Test Function} & \textbf{Responsibility} \\
+\hline
+\texttt{injury-prediction.clp} & \texttt{run-test-case-injury-prediction} & Test for proper consultations on injury prevention \\
+\hline
+\texttt{weight-recommendation.clp} & \texttt{run-test-case-weight-recommendation} & Test that a recommended weight is properly calculated \\
+\hline
+\texttt{routine-generator.clp} & \texttt{run-test-case-routine-generator} & Test for proper exercise assignment \\
+\hline
+\end{tabular}
+\caption{Test files, their test case functions, and responsibilities in \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/tree/main/system/tests}{\texttt{system/tests}}}
+\label{tab:tests}
+\end{table}
+
+
+\subsubsection{Effect}
+
+Implementing reusable code/rules helped us reduce development and debugging time. If we modify a rule, we are sure that the change is applied everywhere. This reduces the number of test cases. In addition, we can add new test cases easily to cover more inputs. So reusability also improves the system testability.
+
+\subsection{ Testability}
+    
+\subsubsection{Implementation}
+
+To support testability, related inference tasks are split into separate modules, each focused on a distinct feature. Each module defines clear test criteria by specifying the expected inputs and outputs, allowing unit tests to verify whether those criteria are met across all scenarios. Global variables are avoided entirely, further improving modularity and reducing unintended dependencies between components.
+Since rules are organized by their functional focus, each module can be tested independently of the others. See Table \ref{tab:tests} for an overview of the test functions and their responsibilities.
+
+\subsubsection{Effect}
+The modularization of the system enables each module to be tested in isolation, without triggering the rules of other modules. This makes it easier to pinpoint the source of any issues encountered during testing. Furthermore, each module can be tested with inputs tailored specifically to its own use cases. Rather than providing a generalized input that covers every possible parameter across the entire system, modularization allows each module to be tested with only the inputs it actually requires. For example, in \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/weight-recommendation.clp}{\texttt{/system/rules/weight-recommendation.clp}}, we only need to input BMI and activity level, instead of every single user input, to test that module. 
+\subsection{Explainability}
+
+\subsubsection{Implementation}
+For explainability, we focus on the sub-category \textbf{Justifiability}. To support this quality, the system provides explanations of how it arrives at its recommendations for physician consultation and working weights for squats, bench press, and deadlifts.
+For injury assessment (see \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/injury-prediction.clp#L9-L83}{\texttt{/system/rules/injury-prediction.clp}}), each piece of evidence is accompanied by an explanation of whether it meets a CF value threshold. These explanations are accumulated and included in the final output presented to the user, detailing the specific factors that contribute significantly to injury risk. For exercise weight recommendations, the fuzzy categories are presented as justification for why a particular working weight is suggested. See section \textbf{1.2 Sample Output} for more details.
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|}\hline
+\textbf{File}& \textbf{Responsibility}\\\hline
+\href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/injury-prediction.clp#L110-L115}{\texttt{injury-prediction.clp}}& Add explanations to injury predictions, also make use of the explanation facts\\ \hline
+\href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/output.clp}{\texttt{output.clp}}& Display explanation to end user\\
+\hline
+Files in \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/tree/main/system/tests}{\texttt{system/tests}}&Output debugging to show wanted value vs actual value\\ \hline
+\end{tabular}
+\caption{Files implementing explanation}
+\label{tab:placeholder}
+\end{table}
+\subsubsection{Effect}
+As a result, the system is able to provide users with a transparent explanation for each recommendation it produces, rather than presenting a conclusion without context. This improves user trust in the system, as users can understand and verify that the recommendations are grounded in reasoning rather than just a black box.
+\section{Verification and Validation}
+
+\subsection{Automated tests}
+
+Code testing is automated through function calls and debug logging. All testing files are contained in \texttt{\href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/tree/main/system/tests}{system/tests}} folder with each file focusing on different functionality of the system. \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/tests/injury-prediction.clp}{\texttt{injury-prediction.clp}} test if recommendation are generated for different input if needed. \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/tests/routine-generator.clp}{\texttt{routine-generator.clp}} test if exercises are correctly assigned according to the design. \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/tests/weight-recommendation.clp}{\texttt{weight-recommendation.clp}} test if recommended weight is properly calculated for various input. 
+
+These tests will be run with their corresponding function (ex: test-routine-generator) with the preset test cases. Each test case output the expected value with an "OK" prefix if the result is correct, and "ERROR" prefix if an unexpected value is encounter. This allow us to check for possible defects and confirm if the system is working as intended.
+
+\subsection{Peer reviews}
+
+For verification, pull requests are reviewed before merging. See \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/pulls?q=is%3Apr+is%3Aclosed}{Pull Requests}.
+
+\subsection{System testing}
+
+For validation, the entire system is manually tested after each merge to the main branch.
+
+\section{AI usage}
+
+There are some AI usage in the project as indicated below in Table \ref{tab:AI-references}:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{2cm}|p{8cm}|p{2cm}|p{2cm}|}
+\hline
+\textbf{Date} & \textbf{Prompt} & \textbf{Agent} & \textbf{Location} \\
+\hline
+3/4/2026 & Generate a function that prints out the recommendations generated by the injury-prediction module &  Claude & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/output.clp#L164-L183}{Location} \\
+\hline
+8/4/2026 & Generate unit tests and test cases for the injury-prediction module based on exisiting unit tests &  Claude & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/tests/injury-prediction.clp}{Location} \\
+\hline
+7/4/2026 & How should I calculate percentage based on fitness score in CLIPS? & ChatGPT & \href{https://github.com/joshpham97/COMP474Project_OptionB_PhamTran_ExerciseRecommender/blob/main/system/rules/fitness-level.clp#L61-L77}{Location}\\
+\hline
+\end{tabular}
+\caption{AI references}
+\label{tab:AI-references}
+\end{table}
+
+    
+\bibliography{ref}  % name of your .bib file (without .bib extension)
+
+\end{document}
